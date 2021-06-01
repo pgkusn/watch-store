@@ -1,0 +1,45 @@
+$screen-2xl: 1536 !default;
+$screen-xl: 1280 !default;
+$screen-lg: 1024 !default;
+$screen-md: 768 !default;
+$screen-sm: 640 !default;
+$config: (
+    home-products: (
+        1: (
+            width: 345,
+            height: 350,
+            md-width: 555,
+            md-height: 555,
+            url: 'https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index2.jpg',
+            pos-x: 50%,
+            pos-y: 20%
+        ),
+        2: (
+            width: 345,
+            height: 350,
+            md-width: 555,
+            md-height: 555,
+            url: 'https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index3.png',
+            pos-x: 50%,
+            pos-y: 50%
+        ),
+        3: (
+            width: 345,
+            height: 350,
+            md-width: 555,
+            md-height: 555,
+            url: 'https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index4.jpg',
+            pos-x: 20%,
+            pos-y: 50%
+        ),
+        4: (
+            width: 345,
+            height: 680,
+            md-width: 555,
+            md-height: 1080,
+            url: 'https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index5.jpg',
+            pos-x: 50%,
+            pos-y: 50%
+        ),
+    )
+);
