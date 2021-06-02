@@ -8,7 +8,9 @@
                 <p class="text-xl md:text-2xl">
                     A perfume is like a piece of clothing, a message, a way of presenting oneself a costume that according to the person who wears it.
                 </p>
-                <a href="" class="btn text-[28px] border-white mt-4">Shop now</a>
+                <router-link :to="{ name: 'Product' }" class="btn text-[28px] border-white mt-4">
+                    Shop now
+                </router-link>
             </div>
         </div>
     </div>
@@ -87,9 +89,9 @@
     <div class="bg-gray py-8 md:py-10">
         <div class="container flex flex-col md:flex-row items-center md:items-start">
             <div class="relative md:flex-grow w-[345px] md:w-0">
-                <div>
+                <a href="" class="block">
                     <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index6.jpg)" />
-                </div>
+                </a>
                 <div>
                     <p class="text-2xl leading-9">
                         Poppy & Barley
@@ -102,12 +104,11 @@
                         </li>
                     </ul>
                 </div>
-                <a href="" class="absolute inset-0" />
             </div>
             <div class="relative md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]">
-                <div>
+                <a href="" class="block">
                     <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index7.jpg)" />
-                </div>
+                </a>
                 <div>
                     <p class="text-2xl leading-9">
                         Body Wash
@@ -117,15 +118,14 @@
                         <li>NT$1,580</li>
                     </ul>
                 </div>
-                <a href="" class="absolute inset-0" />
             </div>
-            <div class="relative md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]">
-                <div class="relative">
+            <div class="md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]">
+                <a href="" class="relative block">
                     <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index8.jpg)" />
                     <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-2xl">
                         Sold out
                     </div>
-                </div>
+                </a>
                 <div>
                     <p class="text-2xl leading-9">
                         Apple Cider Vinegar Capsule
@@ -135,7 +135,6 @@
                         <li>NT$1,580</li>
                     </ul>
                 </div>
-                <a href="" class="absolute inset-0" />
             </div>
         </div>
     </div>
@@ -158,24 +157,17 @@
         </div>
     </section>
 
-    <div class="bg-cover bg-left" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index10.jpg)">
-        <div class="container h-[600px] pt-[312px]">
-            <form class="max-w-[350px] mx-auto md:ml-0">
-                <p class="text-dark-gray text-[32px]">
-                    記得<br>訂閱以獲取更多資訊！
-                </p>
-                <div class="flex mt-5">
-                    <input type="email" placeholder="Your email address" class="flex-grow w-0 h-[60px] pl-[14.5px] rounded-l border-2 border-dark-golden placeholder-dark-gray outline-none">
-                    <input type="submit" value="Subscribe" class="w-[129px] h-[60px] text-white rounded-r bg-dark-golden">
-                </div>
-            </form>
-        </div>
-    </div>
+    <Subscribe />
 </template>
 
 <script>
+import Subscribe from '@/components/Subscribe.vue';
+
 export default {
     name: 'Home',
+    components: {
+        Subscribe
+    },
     setup () {
 
     }

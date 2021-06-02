@@ -1,6 +1,8 @@
 <template>
     <HeaderBlock />
-    <router-view />
+    <main class="flex-grow">
+        <router-view />
+    </main>
     <FooterBlock />
 </template>
 
@@ -37,5 +39,10 @@ body {
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 </style>

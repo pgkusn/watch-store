@@ -14,10 +14,10 @@
         </label>
         <input id="nav" class="hidden" type="checkbox">
         <nav class="absolute md:static md:ml-auto top-full inset-x-0 flex flex-col md:flex-row text-center text-white md:text-dark-gray bg-dark-gray md:bg-transparent opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto transition-opacity duration-300">
-            <a href="" class="text-xl leading-[56px]">
+            <router-link :to="{ name: 'Product' }" class="text-xl leading-[56px]">
                 <span class="material-icons align-middle hidden md:inline-block">store</span>
                 Product
-            </a>
+            </router-link>
             <a href="" class="text-xl leading-[56px] order-1 md:order-none">
                 <span class="material-icons align-middle hidden md:inline-block">person</span>
                 Log in
