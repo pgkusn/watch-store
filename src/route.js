@@ -11,10 +11,13 @@ export default createRouter({
             component: Home
         },
         {
-            path: '/product/:page?',
+            path: '/product/:brand?/:page?',
             name: 'Product',
             component: Product,
-            props: route => ({ page: route.params.page || '1' })
+            props: route => ({
+                brand: route.params.brand || 'jo',
+                page: route.params.page || '1'
+            })
         }
     ],
     scrollBehavior: () => ({ top: 0 })

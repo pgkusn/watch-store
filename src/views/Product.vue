@@ -1,30 +1,32 @@
 <template>
-    <div class="bg-dark-golden hidden md:block">
-        <div class="container">
-            <button class="text-xl text-white h-[52px]">
+    <div class="bg-dark-golden overflow-auto">
+        <div class="container flex items-center h-[52px] whitespace-nowrap">
+            <span class="text-xl text-white mr-[14px] select-none hidden md:inline">
                 CHANEL
-            </button>
-            <button class="text-xl text-white h-[52px] ml-7">
-                Jo Malone
-            </button>
-            <button class="text-xl text-white h-[52px] ml-7">
-                Curology
-            </button>
+            </span>
+            <router-link
+                v-for="(value, key) in brands"
+                :key="value"
+                :to="{ name: 'Product', params: { brand: key } }"
+                :class="['text-xl leading-[52px] px-[14px] text-white', { 'bg-golden': props.brand === key }]"
+            >
+                {{ value }}
+            </router-link>
         </div>
     </div>
 
     <div class="container py-10 md:py-[60px]">
         <div class="grid auto-rows-auto grid-cols-2 md:grid-cols-4 gap-y-7 md:gap-y-14 gap-x-[15px] md:gap-x-[30px]">
-            <div v-for="n in 12" :key="n">
-                <a href="" class="block pt-[100%] bg-cover bg-center" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product1.jpg)" />
+            <div v-for="product in showProducts[props.page - 1]" :key="product.id">
+                <a href="" class="block pt-[100%] bg-cover bg-center" :style="{ 'background-image': `url(${product.url})` }" />
                 <h2 class="text-xl md:text-2xl">
-                    Poppy & Barley
+                    {{ product.name }}
                 </h2>
-                <p>Jo Malone</p>
+                <p>{{ brands[product.brand] }}</p>
                 <ul class="flex">
-                    <li>NT$1,380</li>
-                    <li class="ml-[6px] text-dark-gray line-through">
-                        NT$1,580
+                    <li>{{ showPrice(product.price) }}</li>
+                    <li v-if="product.discount" class="ml-[6px] text-dark-gray line-through">
+                        {{ showPrice(Math.floor(product.price * product.discount)) }}
                     </li>
                 </ul>
                 <div>
@@ -37,11 +39,11 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-center mt-[46px] md:mt-[78px] text-xl leading-6">
+        <div v-if="showProducts.length > 1" class="flex justify-center mt-[46px] md:mt-[78px] text-xl leading-6">
             <router-link
-                v-for="n in 3"
+                v-for="n in showProducts.length"
                 :key="n"
-                :to="{ name: 'Product', params: { page: n } }"
+                :to="{ name: 'Product', params: { brand: props.brand, page: n } }"
                 :class="pageClass(n)"
             >
                 {{ n }}
@@ -53,7 +55,10 @@
 </template>
 
 <script>
+import { computed, onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
 import Subscribe from '@/components/Subscribe.vue';
+import useShowList from '@/composition/showList.js';
 
 export default {
     name: 'Product',
@@ -61,25 +66,54 @@ export default {
         Subscribe
     },
     props: {
+        brand: {
+            type: String,
+            default: 'jo'
+        },
         page: {
             type: String,
             default: '1'
         }
     },
     setup (props) {
+        const store = useStore();
+
         const pageClass = page => {
-            page = String(page);
+            const currentPage = Number(props.page);
             let classes = ['block', 'w-5', 'text-center'];
-            if (props.page === page) {
-                classes = classes.concat(['text-golden', 'border-golden', 'border-b-2']);
+            if (currentPage === page) {
+                classes = [...classes, 'text-golden', 'border-golden', 'border-b-2'];
             }
             if (page > 1) {
-                classes.push('ml-5');
+                classes = [...classes, 'ml-5'];
             }
             return classes;
         };
+
+        // 商品資料
+        const brands = {
+            jo: 'Jo Malone',
+            curology: 'Curology',
+            dior: 'Dior',
+            chloe: 'Chloe',
+            zara: 'ZARA'
+        };
+        const productData = ref([]);
+        const singleBrandProduct = computed(() => productData.value.filter(item => item.brand === props.brand));
+        const showProducts = useShowList(singleBrandProduct);
+
+        const showPrice = num => 'NT$' + num.toLocaleString();
+
+        onMounted(async () => {
+            productData.value = await store.dispatch('product/getProduct') || [];
+        });
+
         return {
-            pageClass
+            props,
+            pageClass,
+            showProducts,
+            showPrice,
+            brands
         };
     }
 };
