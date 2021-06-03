@@ -5,10 +5,10 @@
                 <img src="@/assets/images/logo.png" :srcset="`${logo2x} 2x`" alt="d’Perfume">
             </h1>
         </router-link>
-        <a href="" class="relative ml-auto mr-4 md:hidden">
+        <router-link :to="{ name: 'Cart' }" class="relative ml-auto mr-4 md:hidden">
             <span class="material-icons text-dark-gray">shopping_cart</span>
             <span class="absolute -top-1 -right-1 text-xs text-white bg-dark-golden rounded-lg px-1">3</span>
-        </a>
+        </router-link>
         <label for="nav" class="cursor-pointer md:hidden">
             <span class="material-icons text-dark-gray text-4xl">menu</span>
         </label>
@@ -22,26 +22,35 @@
                 <span class="material-icons align-middle hidden md:inline-block">person</span>
                 Log in
             </a>
-            <a href="" class="text-xl leading-[56px]">
+            <router-link :to="{ name: 'Wishlist' }" class="text-xl leading-[56px]">
                 <span class="material-icons align-middle hidden md:inline-block">favorite</span>
                 Wishlist
-            </a>
-            <a href="" class="text-xl leading-[56px] hidden md:block">
+            </router-link>
+            <router-link :to="{ name: 'Cart' }" class="text-xl leading-[56px] hidden md:block">
                 <span class="material-icons align-middle hidden md:inline-block">shopping_cart</span>
-                Cart(3)
-            </a>
+                Cart{{ cartTotal }}
+            </router-link>
         </nav>
     </div>
 </template>
 
 <script>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import logo2x from '@/assets/images/logo@2x.png';
 
 export default {
     name: 'HeaderBlock',
     setup () {
+        const store = useStore();
+
+        const cart = computed(() => store.state.product.cart);
+        const cartTotal = computed(() => cart.value.length > 0 ? `(${cart.value.length})` : '');
+
         return {
-            logo2x
+            logo2x,
+            cart,
+            cartTotal
         };
     }
 };

@@ -167,9 +167,6 @@ export default {
     name: 'Home',
     components: {
         Subscribe
-    },
-    setup () {
-
     }
 };
 </script>

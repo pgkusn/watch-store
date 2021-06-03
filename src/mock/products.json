@@ -4,6 +4,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product1.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380,
         "discount": 0.8
     },
@@ -12,6 +13,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product2.jpg",
         "name": "Poppy & Barley",
         "brand": "curology",
+        "fullBrand": "Curology",
         "price": 1380
     },
     {
@@ -19,6 +21,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product3.jpg",
         "name": "Poppy & Barley",
         "brand": "dior",
+        "fullBrand": "Dior",
         "price": 1380,
         "discount": 0.8
     },
@@ -27,6 +30,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products4.jpg",
         "name": "Poppy & Barley",
         "brand": "chloe",
+        "fullBrand": "Chloe",
         "price": 1380
     },
     {
@@ -34,6 +38,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products5.jpg",
         "name": "Poppy & Barley",
         "brand": "zara",
+        "fullBrand": "ZARA",
         "price": 1380,
         "discount": 0.8
     },
@@ -42,6 +47,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product3.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380
     },
     {
@@ -49,6 +55,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products7.jpg",
         "name": "Poppy & Barley",
         "brand": "curology",
+        "fullBrand": "Curology",
         "price": 1380,
         "discount": 0.8
     },
@@ -57,6 +64,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products8.jpg",
         "name": "Poppy & Barley",
         "brand": "dior",
+        "fullBrand": "Dior",
         "price": 1380
     },
     {
@@ -64,6 +72,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products10.jpg",
         "name": "Poppy & Barley",
         "brand": "chloe",
+        "fullBrand": "Chloe",
         "price": 1380,
         "discount": 0.8
     },
@@ -72,6 +81,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products11.jpg",
         "name": "Poppy & Barley",
         "brand": "zara",
+        "fullBrand": "ZARA",
         "price": 1380
     },
     {
@@ -79,6 +89,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products12.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380,
         "discount": 0.8
     },
@@ -87,6 +98,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product3.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380
     },
     {
@@ -94,6 +106,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product1.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380,
         "discount": 0.8
     },
@@ -102,6 +115,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product2.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380
     },
     {
@@ -109,6 +123,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product3.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380,
         "discount": 0.8
     },
@@ -117,6 +132,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products4.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380
     },
     {
@@ -124,6 +140,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products5.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380,
         "discount": 0.8
     },
@@ -132,6 +149,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product3.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380
     },
     {
@@ -139,6 +157,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products7.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380,
         "discount": 0.8
     },
@@ -147,6 +166,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products8.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380
     },
     {
@@ -154,6 +174,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products10.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380,
         "discount": 0.8
     },
@@ -162,6 +183,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products11.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380
     },
     {
@@ -169,6 +191,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/products12.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380,
         "discount": 0.8
     },
@@ -177,6 +200,7 @@
         "url": "https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product3.jpg",
         "name": "Poppy & Barley",
         "brand": "jo",
+        "fullBrand": "Jo Malone",
         "price": 1380
     }
 ]

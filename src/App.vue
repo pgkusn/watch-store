@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
+import { useStore } from 'vuex';
 import HeaderBlock from '@/components/HeaderBlock.vue';
 import FooterBlock from '@/components/FooterBlock.vue';
 
@@ -14,6 +16,12 @@ export default {
     components: {
         HeaderBlock,
         FooterBlock
+    },
+    setup () {
+        const store = useStore();
+        onMounted(() => {
+            store.dispatch('product/readLS', 'cart');
+        });
     }
 };
 </script>
