@@ -20,6 +20,7 @@ export default {
     setup () {
         const store = useStore();
         onMounted(() => {
+            store.dispatch('product/readLS', 'favorite');
             store.dispatch('product/readLS', 'cart');
         });
     }

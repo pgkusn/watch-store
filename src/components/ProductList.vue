@@ -1,15 +1,19 @@
 <template>
     <div class="grid auto-rows-auto grid-cols-2 md:grid-cols-4 gap-y-7 md:gap-y-14 gap-x-[15px] md:gap-x-[30px]">
         <div v-for="product in products" :key="product.id" class="relative group">
-            <a href="" class="block pt-[100%] bg-cover bg-center" :style="{ 'background-image': `url(${product.url})` }" />
+            <router-link :to="{ name: 'ProductDetail', params: { id: product.id } }" class="block relative pt-[100%] bg-cover bg-center" :style="{ 'background-image': `url(${product.url})` }">
+                <div v-if="product.amount > 1" class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-3xl">
+                    x {{ product.amount }}
+                </div>
+            </router-link>
             <h2 class="text-xl md:text-2xl">
                 {{ product.name }}
             </h2>
             <p>{{ product.fullBrand }}</p>
             <ul class="flex">
-                <li>{{ showPrice(product.price) }}</li>
+                <li>{{ formatPrice(product.price) }}</li>
                 <li v-if="product.discount" class="ml-[6px] text-dark-gray line-through">
-                    {{ showPrice(Math.floor(product.price * product.discount)) }}
+                    {{ formatPrice(Math.floor(product.price * product.discount)) }}
                 </li>
             </ul>
             <div v-if="$props.tool">
@@ -30,6 +34,7 @@
 <script>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import formatPrice from '@/composition/formatPrice.js';
 
 export default {
     name: 'ProductList',
@@ -59,14 +64,15 @@ export default {
         const cart = computed(() => store.state.product.cart);
         const inCart = id => cart.value.find(item => item.id === id);
 
-        const updateLS = async (name, value) => {
+        const updateLS = (name, value) => {
+            if (name === 'cart') {
+                value.amount = 1;
+            }
             store.dispatch('product/updateLS', { name, value });
         };
 
-        const showPrice = num => 'NT$' + num.toLocaleString();
-
         return {
-            showPrice,
+            formatPrice,
             inFavorite,
             inCart,
             updateLS

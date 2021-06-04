@@ -12,8 +12,13 @@
         <label for="nav" class="cursor-pointer md:hidden">
             <span class="material-icons text-dark-gray text-4xl">menu</span>
         </label>
-        <input id="nav" class="hidden" type="checkbox">
-        <nav class="absolute md:static md:ml-auto top-full inset-x-0 flex flex-col md:flex-row text-center text-white md:text-dark-gray bg-dark-gray md:bg-transparent opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto transition-opacity duration-300">
+        <input
+            id="nav"
+            v-model="showNav"
+            class="hidden"
+            type="checkbox"
+        >
+        <nav class="absolute z-10 md:static md:ml-auto top-full inset-x-0 flex flex-col md:flex-row text-center text-white md:text-dark-gray bg-dark-gray md:bg-transparent opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto transition-opacity duration-300" @click="showNav = false">
             <router-link :to="{ name: 'Product' }" class="text-xl leading-[56px]">
                 <span class="material-icons align-middle hidden md:inline-block">store</span>
                 Product
@@ -35,7 +40,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import logo2x from '@/assets/images/logo@2x.png';
 
@@ -46,11 +51,13 @@ export default {
 
         const cart = computed(() => store.state.product.cart);
         const cartTotal = computed(() => cart.value.length > 0 ? `(${cart.value.length})` : '');
+        const showNav = ref(false);
 
         return {
             logo2x,
             cart,
-            cartTotal
+            cartTotal,
+            showNav
         };
     }
 };

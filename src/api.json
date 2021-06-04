@@ -2,5 +2,9 @@
     "product": {
         "method": "get",
         "url": "/product"
+    },
+    "productDetail": {
+        "method": "get",
+        "url": "/productDetail/:id"
     }
 }

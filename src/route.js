@@ -3,6 +3,7 @@ import Home from '@/views/Home.vue';
 import Product from '@/views/Product.vue';
 import Wishlist from '@/views/Wishlist.vue';
 import Cart from '@/views/Cart.vue';
+import ProductDetail from '@/views/ProductDetail.vue';
 
 export default createRouter({
     history: createWebHashHistory(),
@@ -36,6 +37,16 @@ export default createRouter({
             props: route => ({
                 page: route.params.page || '1'
             })
+        },
+        {
+            path: '/productDetail/:id',
+            name: 'ProductDetail',
+            component: ProductDetail,
+            props: true
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            redirect: Home
         }
     ],
     scrollBehavior: () => ({ top: 0 })

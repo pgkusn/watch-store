@@ -28,4 +28,22 @@ app.get(API.product.url, upload.array(), async (req, res) => {
     res.json(require('./products.json'));
 });
 
+app.get(API.productDetail.url, upload.array(), async (req, res) => {
+    console.log(req.params.id);
+    await sleep(500);
+    res.status(200);
+    res.json({
+        id: Number(req.params.id),
+        name: 'CHANEL N°5',
+        description: 'N°5，女性魅力的極致精髓。散發柔美澄透的乙醛花束香氣。經典傳奇香氛，蘊藏於極簡設計的獨特瓶身。',
+        price: 4980,
+        imageUrl: [
+            'https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product1.jpg',
+            'https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product2.jpg',
+            'https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product3.jpg',
+            'https://hexschool.github.io/webLayoutTraining1st/perfume-week6/product1.jpg'
+        ]
+    });
+});
+
 app.listen(port, () => console.log(`mock server listening at http://localhost:${port}`));
