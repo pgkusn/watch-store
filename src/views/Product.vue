@@ -1,12 +1,14 @@
 <template>
-    <ChanelBar :products="productData" :brand="$props.brand" />
+    <div>
+        <ChanelBar :products="productData" :brand="$props.brand" />
 
-    <div class="container py-10 md:py-[60px]">
-        <ProductList :products="showProducts" />
-        <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Product', params: { brand: $props.brand } }" />
+        <div class="container py-10 md:py-[60px]">
+            <ProductList :products="showProducts" />
+            <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Product', params: { brand: $props.brand } }" />
+        </div>
+
+        <Subscribe />
     </div>
-
-    <Subscribe />
 </template>
 
 <script>

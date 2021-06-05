@@ -20,6 +20,11 @@ export default {
             commit('setState', { name, value: products });
             return products;
         },
+        removeLS ({ commit }, name) {
+            LS.remove(name);
+            commit('setState', { name, value: [] });
+            return [];
+        },
         updateLS ({ commit }, { name, value }) {
             const products = LS.get(name);
             const index = products.findIndex(item => item.id === value.id);

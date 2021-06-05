@@ -6,5 +6,13 @@
     "productDetail": {
         "method": "get",
         "url": "/productDetail/:id"
+    },
+    "userLogin":{
+        "method":"post",
+        "url":"/accounts:signInWithPassword"
+    },
+    "userSignUp":{
+        "method":"post",
+        "url":"/accounts:signUp"
     }
 }

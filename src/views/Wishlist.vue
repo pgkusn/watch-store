@@ -1,12 +1,17 @@
 <template>
-    <div class="container py-10 md:py-[60px]">
-        <ProductList
-            :products="showProducts"
-            :tool="false"
-            :trash="true"
-            @removeProduct="removeProduct"
-        />
-        <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Wishlist', params: {} }" />
+    <div>
+        <div class="container py-10 md:py-[60px]">
+            <ProductList
+                :products="showProducts"
+                :tool="false"
+                :trash="true"
+                @removeProduct="removeProduct"
+            />
+            <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Wishlist', params: {} }" />
+        </div>
+        <div v-if="!products.length" class="text-2xl text-dark-golden absolute inset-0 m-auto flex justify-center items-center">
+            無商品
+        </div>
     </div>
 </template>
 

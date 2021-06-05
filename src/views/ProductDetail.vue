@@ -1,57 +1,60 @@
 <template>
-    <ChanelBar :products="productData" :brand="brand" />
-    <div v-if="product" class="container py-[40px] md:py-[60px] grid grid-rows-[repeat(5,auto)] md:grid-rows-[repeat(3,auto)] md:grid-cols-3 gap-[30px]">
-        <div class="item md:row-start-1 md:row-span-1 md:col-start-1 md:col-span-2">
-            <div class="pt-[63%] bg-center bg-cover" :style="{ 'background-image': `url(${product.imageUrl[0]})` }" />
-        </div>
-        <div class="item md:row-start-1 md:row-span-full md:col-start-3 md:col-span-1">
-            <section class="max-w-[350px] mx-auto">
-                <h1 class="text-[32px]">
-                    {{ product.name }}
-                </h1>
-                <p class="text-xl">
-                    {{ product.description }}
-                </p>
-                <p class="text-xl mt-8">
-                    {{ formatPrice(product.price) }}
-                </p>
-                <form class="flex h-[50px] mt-3" @submit.prevent="updateLS('cart')">
-                    <div class="w-[45%] relative">
-                        <select v-model="amount" class="w-full h-full border border-dark-golden rounded-l pl-4 appearance-none focus:outline-none">
-                            <option v-for="n in 10" :key="n" :value="n">
-                                {{ n }}
-                            </option>
-                        </select>
-                        <div class="triangle absolute top-1/2 right-3 transform -translate-y-1/2" />
-                    </div>
-                    <input type="submit" :value="inCart ? '已加入購物車' : '加入購物車'" class="w-[55%] bg-dark-golden text-white rounded-r">
-                </form>
-                <button class="mt-3 focus:outline-none" @click="updateLS('favorite')">
-                    <span class="material-icons align-middle text-dark-golden" :class="{ 'opacity-50': !inFavorite }">favorite</span>
-                    <span class="ml-0.5">{{ inFavorite ? '已收藏' : '加入我的收藏' }}</span>
-                </button>
-                <h2 class="mt-10 md:mt-20 font-bold">
-                    商品購買須知
-                </h2>
-                <p class="mt-2">
-                    產品因拍攝關係顏色可能略有差異，實際以廠商出貨為主。 商品情境照為示意用，僅商品主體不包含其他配件，請以規格內容物為主。 D’Perfume 盡可能確保所列商品備貨充足，但偶爾仍會有產品售罄的情況。如您所訂購的商品庫存不足，我們將盡快以電子郵件通知您。任何訂單變動均會在訂單總額與出貨訊息內更新。
-                </p>
-                <h2 class="mt-5 font-bold">
-                    退換貨須知
-                </h2>
-                <p class="mt-2">
-                    依《消費者保護法》的規定，於全站購物皆享有商品到貨【七日猶豫期】（含例假日）之權益。若收到的商品有任何問題，可於猶豫期內申請退貨。
-                </p>
-            </section>
-        </div>
-        <div class="item md:row-start-2 md:row-span-1 md:col-start-1 md:col-span-1">
-            <div class="pt-[185%] bg-center bg-cover" :style="{ 'background-image': `url(${product.imageUrl[1]})` }" />
-        </div>
-        <div class="item md:row-start-2 md:row-span-1 md:col-start-2 md:col-span-1">
-            <div class="pt-[185%] bg-center bg-cover" :style="{ 'background-image': `url(${product.imageUrl[2]})` }" />
-        </div>
-        <div class="item md:row-start-3 md:row-span-1 md:col-start-1 md:col-span-2">
-            <div class="pt-[133%] md:pt-[63%] bg-center bg-cover" :style="{ 'background-image': `url(${product.imageUrl[3]})` }" />
+    <div>
+        <ChanelBar :products="productData" :brand="brand" />
+
+        <div v-if="product" class="container py-[40px] md:py-[60px] grid grid-rows-[repeat(5,auto)] md:grid-rows-[repeat(3,auto)] md:grid-cols-3 gap-[30px]">
+            <div class="item md:row-start-1 md:row-span-1 md:col-start-1 md:col-span-2">
+                <div class="pt-[63%] bg-center bg-cover" :style="{ 'background-image': `url(${product.imageUrl[0]})` }" />
+            </div>
+            <div class="item md:row-start-1 md:row-span-full md:col-start-3 md:col-span-1">
+                <section class="max-w-[350px] mx-auto">
+                    <h1 class="text-[32px]">
+                        {{ product.name }}
+                    </h1>
+                    <p class="text-xl">
+                        {{ product.description }}
+                    </p>
+                    <p class="text-xl mt-8">
+                        {{ formatPrice(product.price) }}
+                    </p>
+                    <form class="flex h-[50px] mt-3" @submit.prevent="updateLS('cart')">
+                        <div class="w-[45%] relative">
+                            <select v-model="amount" class="w-full h-full border border-dark-golden rounded-l pl-4 appearance-none focus:outline-none cursor-pointer">
+                                <option v-for="n in 10" :key="n" :value="n">
+                                    {{ n }}
+                                </option>
+                            </select>
+                            <div class="triangle absolute top-1/2 right-3 transform -translate-y-1/2" />
+                        </div>
+                        <input type="submit" :value="inCart ? '已加入購物車' : '加入購物車'" class="w-[55%] bg-dark-golden text-white rounded-r cursor-pointer">
+                    </form>
+                    <button class="mt-3 focus:outline-none" @click="updateLS('favorite')">
+                        <span class="material-icons align-middle text-dark-golden" :class="{ 'opacity-50': !inFavorite }">favorite</span>
+                        <span class="ml-0.5">{{ inFavorite ? '已收藏' : '加入我的收藏' }}</span>
+                    </button>
+                    <h2 class="mt-10 md:mt-20 font-bold">
+                        商品購買須知
+                    </h2>
+                    <p class="mt-2">
+                        產品因拍攝關係顏色可能略有差異，實際以廠商出貨為主。 商品情境照為示意用，僅商品主體不包含其他配件，請以規格內容物為主。 D’Perfume 盡可能確保所列商品備貨充足，但偶爾仍會有產品售罄的情況。如您所訂購的商品庫存不足，我們將盡快以電子郵件通知您。任何訂單變動均會在訂單總額與出貨訊息內更新。
+                    </p>
+                    <h2 class="mt-5 font-bold">
+                        退換貨須知
+                    </h2>
+                    <p class="mt-2">
+                        依《消費者保護法》的規定，於全站購物皆享有商品到貨【七日猶豫期】（含例假日）之權益。若收到的商品有任何問題，可於猶豫期內申請退貨。
+                    </p>
+                </section>
+            </div>
+            <div class="item md:row-start-2 md:row-span-1 md:col-start-1 md:col-span-1">
+                <div class="pt-[185%] bg-center bg-cover" :style="{ 'background-image': `url(${product.imageUrl[1]})` }" />
+            </div>
+            <div class="item md:row-start-2 md:row-span-1 md:col-start-2 md:col-span-1">
+                <div class="pt-[185%] bg-center bg-cover" :style="{ 'background-image': `url(${product.imageUrl[2]})` }" />
+            </div>
+            <div class="item md:row-start-3 md:row-span-1 md:col-start-1 md:col-span-2">
+                <div class="pt-[133%] md:pt-[63%] bg-center bg-cover" :style="{ 'background-image': `url(${product.imageUrl[3]})` }" />
+            </div>
         </div>
     </div>
 </template>

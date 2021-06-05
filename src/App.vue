@@ -1,28 +1,48 @@
 <template>
     <HeaderBlock />
-    <main class="flex-grow">
-        <router-view />
+
+    <main class="flex-grow relative">
+        <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+                <component :is="Component" />
+            </transition>
+        </router-view>
     </main>
+
     <FooterBlock />
+
+    <transition name="fade">
+        <Alert v-if="alertMsg" :msg="alertMsg" />
+    </transition>
 </template>
 
 <script>
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import HeaderBlock from '@/components/HeaderBlock.vue';
 import FooterBlock from '@/components/FooterBlock.vue';
+import Alert from '@/components/Alert.vue';
 
 export default {
     components: {
         HeaderBlock,
-        FooterBlock
+        FooterBlock,
+        Alert
     },
     setup () {
         const store = useStore();
+
+        const alertMsg = computed(() => store.state.alertMsg);
+
         onMounted(() => {
+            store.dispatch('login/readLS');
             store.dispatch('product/readLS', 'favorite');
             store.dispatch('product/readLS', 'cart');
         });
+
+        return {
+            alertMsg
+        };
     }
 };
 </script>
