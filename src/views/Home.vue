@@ -2,7 +2,7 @@
     <div>
         <div class="hero bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index1.jpg)">
             <div class="container h-[480px] md:h-[870px] flex items-center">
-                <div class="text-white max-w-[350px] md:max-w-[445px] mx-auto md:mr-0 md:ml-auto">
+                <div class="text-white max-w-[350px] md:max-w-[445px] mx-auto md:mr-0 md:ml-auto" data-aos="fade-left">
                     <h2 class="text-[32px] md:text-[40px]">
                         Perfume your day
                     </h2>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="container products my-[40px] md:my-[60px]">
-            <section class="flex flex-col items-center md:flex-row">
+            <section class="flex flex-col items-center md:flex-row" data-aos="fade-right">
                 <div class="w-[382px] md:w-0 md:flex-grow md:order-1" />
                 <div class="md:w-0 md:flex-grow flex justify-center items-center">
                     <div class="max-w-[382px] p-4">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </section>
-            <section class="flex flex-col items-center md:flex-row">
+            <section class="flex flex-col items-center md:flex-row" data-aos="fade-left">
                 <div class="w-[382px] md:w-0 md:flex-grow" />
                 <div class="md:w-0 md:flex-grow flex justify-center items-center">
                     <div class="max-w-[382px] p-4">
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </section>
-            <section class="flex flex-col items-center md:flex-row">
+            <section class="flex flex-col items-center md:flex-row" data-aos="fade-right">
                 <div class="w-[382px] md:w-0 md:flex-grow md:order-1" />
                 <div class="md:w-0 md:flex-grow flex justify-center items-center">
                     <div class="max-w-[382px] p-4">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </section>
-            <section class="flex flex-col items-center md:flex-row">
+            <section class="flex flex-col items-center md:flex-row" data-aos="fade-left">
                 <div class="w-[382px] md:w-0 md:flex-grow" />
                 <div class="md:w-0 md:flex-grow flex justify-center items-center">
                     <div class="max-w-[382px] p-4">
@@ -94,7 +94,7 @@
         </div>
 
         <div class="bg-gray py-8 md:py-10">
-            <div class="container flex flex-col md:flex-row items-center md:items-start">
+            <div class="container flex flex-col md:flex-row items-center md:items-start" data-aos="fade-up">
                 <div class="relative md:flex-grow w-[345px] md:w-0">
                     <router-link :to="{ name: 'ProductDetail', params: { id: 4 } }" class="block">
                         <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index6.jpg)" />
@@ -112,7 +112,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="relative md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]">
+                <div class="relative md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]" data-aos="fade-up" data-aos-delay="50">
                     <router-link :to="{ name: 'ProductDetail', params: { id: 5 } }" class="block">
                         <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index7.jpg)" />
                     </router-link>
@@ -126,7 +126,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]">
+                <div class="md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]" data-aos="fade-up" data-aos-delay="100">
                     <router-link :to="{ name: 'ProductDetail', params: { id: 6 } }" class="block relative">
                         <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index8.jpg)" />
                         <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-2xl">
@@ -146,7 +146,7 @@
             </div>
         </div>
 
-        <section class="container py-10 md:py-[60px] flex flex-col md:flex-row items-center">
+        <section class="container py-10 md:py-[60px] flex flex-col md:flex-row items-center" data-aos="zoom-in">
             <div class="w-[345px] md:w-0 md:flex-grow-[5] lg:flex-grow-[7]">
                 <div class="pt-[150%] md:pt-[70%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index9.jpg)" />
             </div>
@@ -171,12 +171,20 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Subscribe from '@/components/Subscribe.vue';
 
 export default {
     name: 'Home',
     components: {
         Subscribe
+    },
+    setup () {
+        onMounted(() => {
+            AOS.init();
+        });
     }
 };
 </script>
