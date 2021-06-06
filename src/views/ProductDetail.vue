@@ -19,14 +19,14 @@
                     </p>
                     <form class="flex h-[50px] mt-3" @submit.prevent="updateLS('cart')">
                         <div class="w-[45%] relative">
-                            <select v-model="amount" class="w-full h-full border border-dark-golden rounded-l pl-4 appearance-none focus:outline-none cursor-pointer">
+                            <select v-model="amount" class="w-full h-full border border-dark-golden rounded-l rounded-r-none pl-4 appearance-none focus:outline-none cursor-pointer">
                                 <option v-for="n in 10" :key="n" :value="n">
                                     {{ n }}
                                 </option>
                             </select>
                             <div class="triangle absolute top-1/2 right-3 transform -translate-y-1/2" />
                         </div>
-                        <input type="submit" :value="inCart ? '已加入購物車' : '加入購物車'" class="w-[55%] bg-dark-golden text-white rounded-r cursor-pointer">
+                        <input type="submit" :value="inCart ? '已加入購物車' : '加入購物車'" class="w-[55%] bg-dark-golden text-white rounded-r rounded-l-none cursor-pointer">
                     </form>
                     <button class="mt-3 focus:outline-none" @click="updateLS('favorite')">
                         <span class="material-icons align-middle text-dark-golden" :class="{ 'opacity-50': !inFavorite }">favorite</span>

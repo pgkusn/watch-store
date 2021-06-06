@@ -18,10 +18,10 @@
                 </li>
             </ul>
             <div v-if="$props.tool">
-                <button class="material-icons align-middle text-dark-golden focus:outline-none hover:opacity-100" :class="{ 'opacity-50': !inFavorite(product.id) }" @click="updateLS('favorite', product)">
+                <button class="material-icons align-middle text-dark-golden focus:outline-none" :class="{ 'opacity-50': !inFavorite(product.id) }" @click="updateLS('favorite', product)">
                     favorite
                 </button>
-                <button class="material-icons align-middle text-dark-golden ml-[10px] focus:outline-none hover:opacity-100" :class="{ 'opacity-50': !inCart(product.id) }" @click="updateLS('cart', product)">
+                <button class="material-icons align-middle text-dark-golden ml-[10px] focus:outline-none" :class="{ 'opacity-50': !inCart(product.id) }" @click="updateLS('cart', product)">
                     shopping_cart
                 </button>
             </div>

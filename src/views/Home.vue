@@ -94,8 +94,8 @@
         </div>
 
         <div class="bg-gray py-8 md:py-10">
-            <div class="container flex flex-col md:flex-row items-center md:items-start" data-aos="fade-up">
-                <div class="relative md:flex-grow w-[345px] md:w-0">
+            <div class="container flex flex-col md:flex-row items-center md:items-start">
+                <div class="relative md:flex-grow w-[345px] md:w-0" data-aos="fade-up">
                     <router-link :to="{ name: 'ProductDetail', params: { id: 4 } }" class="block">
                         <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index6.jpg)" />
                     </router-link>
@@ -112,7 +112,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="relative md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]" data-aos="fade-up" data-aos-delay="50">
+                <div class="relative md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]" data-aos="fade-up" :data-aos-delay="screens.md ? 50 : 0">
                     <router-link :to="{ name: 'ProductDetail', params: { id: 5 } }" class="block">
                         <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index7.jpg)" />
                     </router-link>
@@ -126,7 +126,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]" data-aos="fade-up" data-aos-delay="100">
+                <div class="md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]" data-aos="fade-up" :data-aos-delay="screens.md ? 100 : 0">
                     <router-link :to="{ name: 'ProductDetail', params: { id: 6 } }" class="block relative">
                         <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index8.jpg)" />
                         <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-2xl">
@@ -175,6 +175,7 @@ import { onMounted } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Subscribe from '@/components/Subscribe.vue';
+import { screens, useMediaSensor } from '@/composition/mediaSensor.js';
 
 export default {
     name: 'Home',
@@ -182,9 +183,15 @@ export default {
         Subscribe
     },
     setup () {
+        useMediaSensor();
+
         onMounted(() => {
             AOS.init();
         });
+
+        return {
+            screens
+        };
     }
 };
 </script>
