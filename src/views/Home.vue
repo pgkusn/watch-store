@@ -127,12 +127,12 @@
                     </div>
                 </div>
                 <div class="md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]" data-aos="fade-up" :data-aos-delay="screens.md ? 100 : 0">
-                    <router-link :to="{ name: 'ProductDetail', params: { id: 6 } }" class="block relative">
+                    <div class="relative">
                         <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index8.jpg)" />
                         <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-2xl">
                             Sold out
                         </div>
-                    </router-link>
+                    </div>
                     <div>
                         <p class="text-2xl leading-9">
                             Apple Cider Vinegar Capsule
