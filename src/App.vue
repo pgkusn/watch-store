@@ -1,7 +1,7 @@
 <template>
     <HeaderBlock />
 
-    <main class="flex-grow relative">
+    <main class="flex-grow relative overflow-hidden">
         <router-view v-slot="{ Component }">
             <transition name="fade" mode="out-in">
                 <component :is="Component" />

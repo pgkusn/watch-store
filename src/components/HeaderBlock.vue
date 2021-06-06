@@ -19,19 +19,19 @@
             type="checkbox"
         >
         <nav class="absolute z-10 md:static md:ml-auto top-full inset-x-0 flex flex-col md:flex-row text-center text-white md:text-dark-gray bg-dark-gray md:bg-transparent opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto transition-opacity duration-300">
-            <router-link :to="{ name: 'Product' }" class="text-xl leading-[56px]">
+            <router-link :to="{ name: 'Product' }" class="text-xl leading-[56px] hover:text-[#333]">
                 <span class="material-icons align-middle hidden md:inline-block">store</span>
                 Product
             </router-link>
-            <router-link :to="{ name: 'Wishlist' }" class="text-xl leading-[56px]">
+            <router-link :to="{ name: 'Wishlist' }" class="text-xl leading-[56px] hover:text-[#333]">
                 <span class="material-icons align-middle hidden md:inline-block">favorite</span>
                 Wishlist
             </router-link>
-            <router-link :to="{ name: 'Cart' }" class="text-xl leading-[56px] hidden md:block">
+            <router-link :to="{ name: 'Cart' }" class="text-xl leading-[56px] hidden md:block hover:text-[#333]">
                 <span class="material-icons align-middle hidden md:inline-block">shopping_cart</span>
                 Cart<span v-if="cart.length">({{ cart.length }})</span>
             </router-link>
-            <a href class="text-xl leading-[56px] order-1 md:order-none" @click.prevent="login">
+            <a href class="text-xl leading-[56px] order-1 md:order-none hover:text-[#333]" @click.prevent="login">
                 <span class="material-icons align-middle hidden md:inline-block">person</span>
                 {{ loginInfo.length ? 'Log out' : 'Log in' }}
             </a>

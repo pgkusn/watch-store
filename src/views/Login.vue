@@ -26,12 +26,12 @@
                 required
             >
             <div class="flex items-center mt-9">
-                <button type="submit" class="w-[65px] leading-[36px] text-center rounded border border-dark-golden text-dark-golden focus:outline-none" @click="submitAction = 'userSignUp'">
-                    註冊
-                </button>
-                <span class="mx-2">or</span>
                 <button type="submit" class="w-[65px] h-[38px] rounded bg-dark-golden text-white focus:outline-none" @click="submitAction = 'userLogin'">
                     登入
+                </button>
+                <span class="mx-2">or</span>
+                <button type="submit" class="w-[65px] leading-[36px] text-center rounded border border-dark-golden text-dark-golden focus:outline-none" @click="submitAction = 'userSignUp'">
+                    註冊
                 </button>
             </div>
         </form>

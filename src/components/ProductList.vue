@@ -1,7 +1,8 @@
 <template>
     <div class="grid auto-rows-auto grid-cols-2 md:grid-cols-4 gap-y-7 md:gap-y-14 gap-x-[15px] md:gap-x-[30px]">
         <div v-for="product in products" :key="product.id" class="relative group">
-            <router-link :to="{ name: 'ProductDetail', params: { id: product.id } }" class="block relative pt-[100%] bg-cover bg-center" :style="{ 'background-image': `url(${product.url})` }">
+            <router-link :to="{ name: 'ProductDetail', params: { id: product.id } }" class="product-link block relative pt-[100%] bg-80% bg-center bg-white bg-no-repeat">
+                <div class="absolute inset-0 bg-cover bg-center" :style="{ 'background-image': `url(${product.url})` }" />
                 <div v-if="$props.amount && product.amount > 1" class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-3xl">
                     x {{ product.amount }}
                 </div>
@@ -17,10 +18,10 @@
                 </li>
             </ul>
             <div v-if="$props.tool">
-                <button class="material-icons align-middle text-dark-golden focus:outline-none" :class="{ 'opacity-50': !inFavorite(product.id) }" @click="updateLS('favorite', product)">
+                <button class="material-icons align-middle text-dark-golden focus:outline-none hover:opacity-100" :class="{ 'opacity-50': !inFavorite(product.id) }" @click="updateLS('favorite', product)">
                     favorite
                 </button>
-                <button class="material-icons align-middle text-dark-golden ml-[10px] focus:outline-none" :class="{ 'opacity-50': !inCart(product.id) }" @click="updateLS('cart', product)">
+                <button class="material-icons align-middle text-dark-golden ml-[10px] focus:outline-none hover:opacity-100" :class="{ 'opacity-50': !inCart(product.id) }" @click="updateLS('cart', product)">
                     shopping_cart
                 </button>
             </div>
@@ -84,3 +85,9 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.product-link {
+    background-image: url('@/assets/images/logo@2x.png');
+}
+</style>
