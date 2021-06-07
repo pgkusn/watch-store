@@ -9,7 +9,7 @@
                     <p class="text-xl md:text-2xl">
                         A perfume is like a piece of clothing, a message, a way of presenting oneself a costume that according to the person who wears it.
                     </p>
-                    <router-link :to="{ name: 'Product' }" class="btn-home text-[28px] border-white mt-4">
+                    <router-link :to="{ name: 'Product' }" class="home-btn text-[28px] border-white mt-4">
                         Shop now
                     </router-link>
                 </div>
@@ -27,7 +27,7 @@
                         <p class="text-xl mt-2">
                             全新嗅覺體驗，花香四溢、明亮馥郁。結合茉莉、依蘭依蘭、橙花和最迷人的格拉斯晚香玉之花香，呈現出夢幻花香氣息。 極具女性特質的香奈兒嘉柏麗香水，專為光芒四射的她而生。
                         </p>
-                        <router-link :to="{ name: 'ProductDetail', params: { id: 1 } }" class="block text-golden mt-2 md:mt-4">
+                        <router-link :to="{ name: 'ProductDetail', params: { id: 1 } }" class="block text-golden font-bold mt-2 md:mt-4">
                             查看更多
                         </router-link>
                     </div>
@@ -43,7 +43,7 @@
                         <p class="text-xl mt-2">
                             生薑與溫醇的肉桂香、紅糖的香甜摻和成一氣，溫暖微辛的氣息反倒形成一股輕煙氤氳開來，還帶點微微煙醺感漫溢在整個鼻息之間，細聞之下,又還有溫溫淡淡的木香，溫和而暖心。
                         </p>
-                        <router-link :to="{ name: 'ProductDetail', params: { id: 2 } }" class="block text-golden mt-2 md:mt-4">
+                        <router-link :to="{ name: 'ProductDetail', params: { id: 2 } }" class="block text-golden font-bold mt-2 md:mt-4">
                             查看更多
                         </router-link>
                     </div>
@@ -59,7 +59,7 @@
                         <p class="text-xl mt-2">
                             N°5，女性魅力的極致精髓。散發柔美澄透的乙醛花束香氣。經典傳奇香氛，蘊藏於極簡設計的獨特瓶身。
                         </p>
-                        <router-link :to="{ name: 'ProductDetail', params: { id: 3 } }" class="block text-golden mt-2 md:mt-4">
+                        <router-link :to="{ name: 'ProductDetail', params: { id: 3 } }" class="block text-golden font-bold mt-2 md:mt-4">
                             查看更多
                         </router-link>
                     </div>
@@ -87,7 +87,7 @@
                         <p class="mt-2">
                             Calculating the critical percentage of planned maintenance will help you prioritize the most important operations that should be performed immediately.
                         </p>
-                        <a href="javascript:;" class="btn-home text-xl mt-5 lg:mt-[60px]">Plan a free online training</a>
+                        <a href="javascript:;" class="home-btn text-xl mt-5 lg:mt-[60px]">Plan a free online training</a>
                     </div>
                 </div>
             </section>
@@ -160,7 +160,7 @@
                 <p class="mt-2">
                     For the past 10 years, we have collected over 800,000 bottles through Empty Bottle Recycling Campaign and planted more than 860 pine trees for a better environment.For the past 10 years, we have collected over 800,000 bottles through Empty Bottle Recycling Campaign and planted more than 860 pine trees for a better environment.
                 </p>
-                <router-link :to="{ name: 'ProductDetail', params: { id: 7 } }" class="block text-golden mt-2">
+                <router-link :to="{ name: 'ProductDetail', params: { id: 7 } }" class="block text-golden font-bold mt-2">
                     查看更多
                 </router-link>
             </div>

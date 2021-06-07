@@ -1,5 +1,5 @@
 import axios from 'axios';
-import API from '@/api.json';
+import API from '@/assets/data/api.json';
 import LS from '@/composition/localStorage.js';
 
 // doc：https://firebase.google.com/docs/reference/rest/auth
@@ -13,7 +13,7 @@ const firebaseApi = axios.create({
 export default {
     namespaced: true,
     state: {
-        loginInfo: ''
+        loginInfo: null
     },
     mutations: {
         setLoginInfo (state, info) {
@@ -36,8 +36,8 @@ export default {
                         returnSecureToken: true
                     }
                 });
-                commit('setLoginInfo', data.email);
-                LS.set('loginInfo', data.email);
+                commit('setLoginInfo', data);
+                LS.set('loginInfo', data);
 
                 return {
                     success: true,

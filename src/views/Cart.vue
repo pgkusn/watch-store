@@ -14,7 +14,7 @@
             </button>
         </div>
         <div v-if="!products.length" class="text-2xl text-dark-golden absolute inset-0 m-auto flex justify-center items-center">
-            {{ orderSuccess ? '訂單已送出' : '無商品' }}
+            {{ orderSuccess ? '訂單已送出' : '購物車內無商品' }}
         </div>
     </div>
 </template>
@@ -55,7 +55,7 @@ export default {
 
         const orderSuccess = ref(false);
         const order = () => {
-            if (loginInfo.value.length) {
+            if (loginInfo.value) {
                 store.dispatch('product/removeLS', 'cart');
                 orderSuccess.value = true;
             }
@@ -68,7 +68,7 @@ export default {
         const loginInfo = computed(() => store.state.login.loginInfo);
 
         onMounted(() => {
-            if (loginInfo.value.length && sessionStorage.getItem('beforeLogin')) {
+            if (loginInfo.value && sessionStorage.getItem('beforeLogin')) {
                 sessionStorage.removeItem('beforeLogin');
                 order();
             }

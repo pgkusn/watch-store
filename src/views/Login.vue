@@ -13,7 +13,7 @@
                 v-model="info.email"
                 type="email"
                 placeholder="email@example.com"
-                class="mt-1 input-text rounded"
+                class="mt-1 text-input"
                 required
             >
             <label for="password" class="mt-5">密碼</label>
@@ -22,7 +22,7 @@
                 v-model="info.password"
                 type="password"
                 placeholder="Password"
-                class="mt-1 input-text rounded"
+                class="mt-1 text-input"
                 required
             >
             <div class="flex items-center mt-9">
@@ -30,9 +30,9 @@
                     登入
                 </button>
                 <span class="mx-2">or</span>
-                <button type="submit" class="w-[65px] leading-[36px] text-center rounded border border-dark-golden text-dark-golden focus:outline-none" @click="submitAction = 'userSignUp'">
+                <router-link :to="{ name: 'SignUp' }" class="w-[65px] leading-[36px] text-center rounded border border-dark-golden text-dark-golden focus:outline-none" @click="submitAction = 'userSignUp'">
                     註冊
-                </button>
+                </router-link>
             </div>
         </form>
     </div>
@@ -71,7 +71,7 @@ export default {
         };
 
         onMounted(async () => {
-            if (loginInfo.value.length) {
+            if (loginInfo.value) {
                 router.replace({ name: 'Home' });
             }
         });

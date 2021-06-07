@@ -5,6 +5,7 @@ import Wishlist from '@/views/Wishlist.vue';
 import Cart from '@/views/Cart.vue';
 import ProductDetail from '@/views/ProductDetail.vue';
 import Login from '@/views/Login.vue';
+import SignUp from '@/views/SignUp.vue';
 
 export default createRouter({
     history: createWebHashHistory(),
@@ -49,6 +50,11 @@ export default createRouter({
             path: '/login',
             name: 'Login',
             component: Login
+        },
+        {
+            path: '/signUp',
+            name: 'SignUp',
+            component: SignUp
         },
         {
             path: '/:pathMatch(.*)*',

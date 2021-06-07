@@ -1,5 +1,5 @@
 import axios from 'axios';
-import API from '@/api.json';
+import API from '@/assets/data/api.json';
 import LS from '@/composition/localStorage.js';
 
 export default {
@@ -16,7 +16,7 @@ export default {
     },
     actions: {
         readLS ({ commit }, name) {
-            const products = LS.get(name);
+            const products = LS.get(name) || [];
             commit('setState', { name, value: products });
             return products;
         },
@@ -26,7 +26,7 @@ export default {
             return [];
         },
         updateLS ({ commit }, { name, value }) {
-            const products = LS.get(name);
+            const products = LS.get(name) || [];
             const index = products.findIndex(item => item.id === value.id);
             if (index === -1) {
                 products.push(value);

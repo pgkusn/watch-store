@@ -9,11 +9,6 @@
             <p class="text-sm">
                 © 2020. All Rights Reserved.
             </p>
-            <!-- <div class="hidden md:flex ml-auto text-white text-xl">
-                <a href="">Product</a>
-                <a href="" class="ml-9">Blog</a>
-                <a href="" class="ml-9">Contact</a>
-            </div> -->
         </div>
     </footer>
 </template>
@@ -30,7 +25,3 @@ export default {
     }
 };
 </script>
-
-<style>
-
-</style>

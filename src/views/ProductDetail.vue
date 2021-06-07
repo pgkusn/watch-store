@@ -19,7 +19,7 @@
                     </p>
                     <form class="flex h-[50px] mt-3" @submit.prevent="updateLS('cart')">
                         <div class="w-[45%] relative">
-                            <select v-model="amount" class="w-full h-full border border-dark-golden rounded-l rounded-r-none pl-4 appearance-none focus:outline-none cursor-pointer">
+                            <select v-model="amount" class="w-full h-full border border-dark-golden rounded-l rounded-r-none pl-4 appearance-none focus:outline-none">
                                 <option v-for="n in 10" :key="n" :value="n">
                                     {{ n }}
                                 </option>

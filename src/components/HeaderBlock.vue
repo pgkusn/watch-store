@@ -33,7 +33,7 @@
             </router-link>
             <a href class="text-xl leading-[56px] order-1 md:order-none hover:text-[#333]" @click.prevent="login">
                 <span class="material-icons align-middle hidden md:inline-block">person</span>
-                {{ loginInfo.length ? 'Log out' : 'Log in' }}
+                {{ loginInfo ? 'Log out' : 'Log in' }}
             </a>
         </nav>
     </div>
@@ -55,7 +55,7 @@ export default {
 
         const loginInfo = computed(() => store.state.login.loginInfo);
         const login = () => {
-            if (!loginInfo.value.length) {
+            if (!loginInfo.value) {
                 router.push({ name: 'Login' });
                 return;
             }
