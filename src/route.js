@@ -6,6 +6,9 @@ import Cart from '@/views/Cart.vue';
 import ProductDetail from '@/views/ProductDetail.vue';
 import Login from '@/views/Login.vue';
 import SignUp from '@/views/SignUp.vue';
+import CreateAccount from '@/views/CreateAccount.vue';
+import CreateProfile from '@/views/CreateProfile.vue';
+import Member from '@/views/Member.vue';
 
 export default createRouter({
     history: createWebHashHistory(),
@@ -54,7 +57,32 @@ export default createRouter({
         {
             path: '/signUp',
             name: 'SignUp',
-            component: SignUp
+            component: SignUp,
+            children: [
+                {
+                    path: '',
+                    name: 'CreateAccount',
+                    component: CreateAccount
+                },
+                {
+                    path: 'createProfile',
+                    name: 'CreateProfile',
+                    component: CreateProfile,
+                    beforeEnter (to, from, next) {
+                        if (from.name !== 'CreateAccount') {
+                            next({ name: 'CreateAccount' });
+                        }
+                        else {
+                            next();
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            path: '/member',
+            name: 'Member',
+            component: Member
         },
         {
             path: '/:pathMatch(.*)*',

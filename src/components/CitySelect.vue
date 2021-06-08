@@ -1,6 +1,6 @@
 <template>
     <div class="select mt-2">
-        <select v-model="citySelect" required @change="changeCity">
+        <select v-model="citySelectComputed" :required="required" @change="changeCity">
             <option value="" selected disabled>
                 請選擇
             </option>
@@ -10,7 +10,7 @@
         </select>
     </div>
     <div class="select ml-[10px]">
-        <select v-model="areaSelect" required @change="changeCity">
+        <select v-model="areaSelect" :required="required" @change="changeCity">
             <option value="" selected disabled>
                 請選擇
             </option>
@@ -22,21 +22,32 @@
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import cityData from '@/assets/data/city.json';
 
 export default {
-    name: 'Address',
+    name: 'CitySelect',
+    props: {
+        required: {
+            type: Boolean,
+            default: false
+        }
+    },
     emits: ['changeCity'],
     setup (props, { emit }) {
         const cities = cityData.map(city => city.CityName);
         const citySelect = ref('');
+        const citySelectComputed = computed({
+            get () {
+                return citySelect.value;
+            },
+            set (value) {
+                citySelect.value = value;
+                areaSelect.value = '';
+            }
+        });
         const areas = computed(() => cityData.find(city => city.CityName === citySelect.value)?.AreaList.map(item => item.AreaName));
         const areaSelect = ref('');
-
-        watch(citySelect, () => {
-            areaSelect.value = '';
-        });
 
         const changeCity = () => {
             emit('changeCity', {
@@ -48,6 +59,7 @@ export default {
         return {
             cities,
             citySelect,
+            citySelectComputed,
             areas,
             areaSelect,
             changeCity

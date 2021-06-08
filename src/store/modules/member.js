@@ -13,11 +13,15 @@ const firebaseApi = axios.create({
 export default {
     namespaced: true,
     state: {
-        loginInfo: null
+        loginInfo: null,
+        signUpInfo: null
     },
     mutations: {
         setLoginInfo (state, info) {
             state.loginInfo = info;
+        },
+        setSignUpInfo (state, info) {
+            state.signUpInfo = info;
         }
     },
     actions: {
@@ -26,13 +30,13 @@ export default {
             commit('setLoginInfo', info);
             return info;
         },
-        async userLogin ({ commit }, payload) {
+        async userLogin ({ commit }, loginData) {
             try {
                 const { data } = await firebaseApi({
                     method: API.userLogin.method,
                     url: API.userLogin.url,
                     data: {
-                        ...payload,
+                        ...loginData,
                         returnSecureToken: true
                     }
                 });
@@ -63,18 +67,18 @@ export default {
                 };
             }
         },
-        async userSignUp ({ commit }, payload) {
+        async userSignUp ({ commit }, { email, password }) {
             try {
                 const { data } = await firebaseApi({
                     method: API.userLogin.method,
                     url: API.userSignUp.url,
                     data: {
-                        ...payload,
+                        email,
+                        password,
                         returnSecureToken: true
                     }
                 });
-                commit('setLoginInfo', data.email);
-                LS.set('loginInfo', data.email);
+                commit('setSignUpInfo', data);
 
                 return {
                     success: true,
@@ -99,6 +103,27 @@ export default {
                     message
                 };
             }
+        },
+        async createProfile ({ state, commit }, profile) {
+            try {
+                const { data } = await axios({
+                    method: API.createProfile.method,
+                    url: API.createProfile.url,
+                    data: {
+                        uid: state.signUpInfo.localId,
+                        profile
+                    }
+                });
+                commit('setLoginInfo', state.signUpInfo);
+                LS.set('loginInfo', state.signUpInfo);
+                return data;
+            }
+            catch (error) {
+                console.error(error.message);
+            }
+        },
+        async updateProfile () {
+
         },
         userLogout ({ commit }) {
             commit('setLoginInfo', '');

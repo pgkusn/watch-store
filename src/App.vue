@@ -35,7 +35,7 @@ export default {
         const alertMsg = computed(() => store.state.alertMsg);
 
         onMounted(() => {
-            store.dispatch('login/readLS');
+            store.dispatch('member/readLS');
             store.dispatch('product/readLS', 'favorite');
             store.dispatch('product/readLS', 'cart');
         });

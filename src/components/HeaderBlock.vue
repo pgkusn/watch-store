@@ -23,6 +23,10 @@
                 <span class="material-icons align-middle hidden md:inline-block">store</span>
                 Product
             </router-link>
+            <router-link :to="{ name: loginInfo ? 'Member' : 'Login' }" class="text-xl leading-[56px] order-1 md:order-none hover:text-[#333]">
+                <span class="material-icons align-middle hidden md:inline-block">person</span>
+                {{ loginInfo ? 'Mypage' : 'Log in' }}
+            </router-link>
             <router-link :to="{ name: 'Wishlist' }" class="text-xl leading-[56px] hover:text-[#333]">
                 <span class="material-icons align-middle hidden md:inline-block">favorite</span>
                 Wishlist
@@ -31,10 +35,6 @@
                 <span class="material-icons align-middle hidden md:inline-block">shopping_cart</span>
                 Cart<span v-if="cart.length">({{ cart.length }})</span>
             </router-link>
-            <a href class="text-xl leading-[56px] order-1 md:order-none hover:text-[#333]" @click.prevent="login">
-                <span class="material-icons align-middle hidden md:inline-block">person</span>
-                {{ loginInfo ? 'Log out' : 'Log in' }}
-            </a>
         </nav>
     </div>
 </template>
@@ -42,27 +42,16 @@
 <script>
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
 import logo2x from '@/assets/images/logo@2x.png';
 
 export default {
     name: 'HeaderBlock',
     setup () {
         const store = useStore();
-        const router = useRouter();
 
         const cart = computed(() => store.state.product.cart);
 
-        const loginInfo = computed(() => store.state.login.loginInfo);
-        const login = () => {
-            if (!loginInfo.value) {
-                router.push({ name: 'Login' });
-                return;
-            }
-            if (confirm('確定登出?')) {
-                store.dispatch('login/userLogout');
-            }
-        };
+        const loginInfo = computed(() => store.state.member.loginInfo);
 
         // toggle nav
         const showNav = ref(false);
@@ -84,8 +73,7 @@ export default {
             cart,
             showNav,
             stopPropagation,
-            loginInfo,
-            login
+            loginInfo
         };
     }
 };

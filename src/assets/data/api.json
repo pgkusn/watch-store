@@ -14,5 +14,9 @@
     "userSignUp":{
         "method":"post",
         "url":"/accounts:signUp"
+    },
+    "createProfile":{
+        "method":"post",
+        "url":"/createProfile"
     }
 }

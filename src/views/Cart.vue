@@ -65,7 +65,7 @@ export default {
             }
         };
 
-        const loginInfo = computed(() => store.state.login.loginInfo);
+        const loginInfo = computed(() => store.state.member.loginInfo);
 
         onMounted(() => {
             if (loginInfo.value && sessionStorage.getItem('beforeLogin')) {

@@ -10,7 +10,7 @@
             <label for="email" class="mt-3">帳號</label>
             <input
                 id="email"
-                v-model="info.email"
+                v-model="loginData.email"
                 type="email"
                 placeholder="email@example.com"
                 class="mt-1 text-input"
@@ -19,18 +19,18 @@
             <label for="password" class="mt-5">密碼</label>
             <input
                 id="password"
-                v-model="info.password"
+                v-model="loginData.password"
                 type="password"
                 placeholder="Password"
                 class="mt-1 text-input"
                 required
             >
             <div class="flex items-center mt-9">
-                <button type="submit" class="w-[65px] h-[38px] rounded bg-dark-golden text-white focus:outline-none" @click="submitAction = 'userLogin'">
+                <button type="submit" class="w-[65px] h-[38px] rounded bg-dark-golden text-white focus:outline-none">
                     登入
                 </button>
                 <span class="mx-2">or</span>
-                <router-link :to="{ name: 'SignUp' }" class="w-[65px] leading-[36px] text-center rounded border border-dark-golden text-dark-golden focus:outline-none" @click="submitAction = 'userSignUp'">
+                <router-link :to="{ name: 'CreateAccount' }" class="w-[65px] leading-[36px] text-center rounded border border-dark-golden text-dark-golden focus:outline-none">
                     註冊
                 </router-link>
             </div>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
@@ -49,19 +49,17 @@ export default {
         const store = useStore();
         const router = useRouter();
 
-        const loginInfo = computed(() => store.state.login.loginInfo);
-        const info = reactive({
+        const loginInfo = computed(() => store.state.member.loginInfo);
+        const loginData = reactive({
             email: '',
             password: ''
         });
-        const submitAction = ref('');
         const submitHandler = async () => {
-            const result = await store.dispatch(`login/${submitAction.value}`, info);
+            const result = await store.dispatch('member/userLogin', loginData);
             if (result.success) {
                 const beforeLogin = sessionStorage.getItem('beforeLogin');
                 if (!beforeLogin) {
-                    const msg = submitAction.value === 'userLogin' ? '登入成功' : '註冊成功';
-                    await store.dispatch('setAlertMsgHandler', msg);
+                    await store.dispatch('setAlertMsgHandler', '登入成功');
                 }
                 router.replace({ name: beforeLogin || 'Home' });
             }
@@ -77,9 +75,8 @@ export default {
         });
 
         return {
-            info,
-            submitHandler,
-            submitAction
+            loginData,
+            submitHandler
         };
     }
 };
