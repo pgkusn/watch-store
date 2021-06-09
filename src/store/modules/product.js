@@ -15,17 +15,27 @@ export default {
         }
     },
     actions: {
+        createLS ({ commit }, { name, value }) {
+            LS.set(name, value);
+            commit('setState', { name, value });
+            return value;
+        },
         readLS ({ commit }, name) {
             const products = LS.get(name) || [];
             commit('setState', { name, value: products });
             return products;
         },
-        removeLS ({ commit }, name) {
+        removeLS ({ commit, dispatch, rootState }, name) {
             LS.remove(name);
             commit('setState', { name, value: [] });
+
+            if (rootState.member.loginInfo) {
+                dispatch('member/createPreferences', null, { root: true });
+            }
+
             return [];
         },
-        updateLS ({ commit }, { name, value }) {
+        updateLS ({ commit, dispatch, rootState }, { name, value }) {
             const products = LS.get(name) || [];
             const index = products.findIndex(item => item.id === value.id);
             if (index === -1) {
@@ -36,6 +46,11 @@ export default {
             }
             LS.set(name, products);
             commit('setState', { name, value: products });
+
+            if (rootState.member.loginInfo) {
+                dispatch('member/createPreferences', null, { root: true });
+            }
+
             return products;
         },
         async getProduct ({ commit }) {

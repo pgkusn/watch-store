@@ -113,13 +113,18 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import CitySelect from '@/components/CitySelect.vue';
 
+let profileCreated = false;
+
 export default {
     name: 'CreateProfile',
     components: {
         CitySelect
     },
     beforeRouteLeave (to, from, next) {
-        if (confirm('確定要離開嗎？您的資料將無法保留。')) {
+        if (profileCreated) {
+            next();
+        }
+        else if (confirm('確定要離開嗎？資料將無法保留。')) {
             next();
         }
     },
@@ -157,6 +162,7 @@ export default {
             const result = await store.dispatch('member/createProfile', memberData);
             if (result) {
                 await store.dispatch('setAlertMsgHandler', '註冊成功');
+                profileCreated = true;
                 router.replace({ name: 'Home' });
             }
         };

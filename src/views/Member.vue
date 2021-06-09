@@ -30,7 +30,7 @@
                     會員編號
                 </li>
                 <li class="text-xl ml-[5px]">
-                    T00020080615
+                    {{ memberID }}
                 </li>
             </ul>
             <table>
@@ -39,7 +39,7 @@
                         購物車
                     </td>
                     <td class="pt-4">
-                        56
+                        {{ cart.length }}
                     </td>
                 </tr>
                 <tr>
@@ -47,7 +47,7 @@
                         我的收藏
                     </td>
                     <td class="pt-4">
-                        23
+                        {{ favorite.length }}
                     </td>
                 </tr>
                 <tr>
@@ -55,7 +55,7 @@
                         完成訂單
                     </td>
                     <td class="pt-4">
-                        8
+                        待實作
                     </td>
                 </tr>
             </table>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import MemberUpdate from '@/components/MemberUpdate.vue';
@@ -81,6 +81,7 @@ export default {
         const router = useRouter();
 
         const componentId = ref('MemberUpdate');
+
         const logout = async () => {
             if (confirm('確定登出？')) {
                 await store.dispatch('member/userLogout');
@@ -88,9 +89,16 @@ export default {
             }
         };
 
+        const memberID = computed(() => store.state.member.loginInfo?.localId.slice(0, 13));
+        const cart = computed(() => store.state.product.cart);
+        const favorite = computed(() => store.state.product.favorite);
+
         return {
             componentId,
-            logout
+            logout,
+            memberID,
+            cart,
+            favorite
         };
     }
 };

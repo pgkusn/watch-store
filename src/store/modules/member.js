@@ -1,7 +1,6 @@
 import axios from 'axios';
 import API from '@/assets/data/api.json';
 import LS from '@/composition/localStorage.js';
-import store from '..';
 
 // reference：https://firebase.google.com/docs/reference/rest/auth
 const authAPI = axios.create({
@@ -40,7 +39,7 @@ export default {
             commit('setLoginInfo', info);
             return info;
         },
-        async userLogin ({ commit }, { email, password, checkPassword }) {
+        async userLogin ({ commit, dispatch }, { email, password, checkPassword }) {
             try {
                 const { data } = await authAPI({
                     method: API.userLogin.method,
@@ -55,6 +54,16 @@ export default {
                 if (!checkPassword) {
                     commit('setLoginInfo', data);
                     LS.set('loginInfo', data);
+
+                    // 如 DB 有資料時寫入 client 端，否則 client 端寫入 DB
+                    const preferences = await dispatch('readPreferences');
+                    if (preferences.cart?.length || preferences.favorite?.length) {
+                        dispatch('product/createLS', { name: 'cart', value: preferences.cart }, { root: true });
+                        dispatch('product/createLS', { name: 'favorite', value: preferences.favorite }, { root: true });
+                    }
+                    else {
+                        await dispatch('createPreferences');
+                    }
                 }
 
                 return {
@@ -81,9 +90,12 @@ export default {
                 };
             }
         },
-        userLogout ({ commit }) {
-            commit('setLoginInfo', '');
+        userLogout ({ commit, dispatch }) {
             LS.remove('loginInfo');
+            commit('setLoginInfo', null);
+            commit('setProfile', null);
+            dispatch('product/removeLS', 'cart', { root: true });
+            dispatch('product/removeLS', 'favorite', { root: true });
         },
         async userSignUp ({ commit }, { email, password }) {
             try {
@@ -122,7 +134,7 @@ export default {
                 };
             }
         },
-        async createProfile ({ state, commit }, memberData) {
+        async createProfile ({ state, commit, dispatch }, memberData) {
             try {
                 const { data } = await axios({
                     method: API.createProfile.method,
@@ -132,8 +144,11 @@ export default {
                         profile: memberData
                     }
                 });
+
                 LS.set('loginInfo', state.signUpInfo);
                 commit('setLoginInfo', state.signUpInfo);
+
+                await dispatch('createPreferences');
 
                 return data;
             }
@@ -208,6 +223,37 @@ export default {
                     success: false,
                     message: error.response.data.error.message
                 };
+            }
+        },
+        async createPreferences ({ state, rootState }) {
+            const { localId, idToken } = state.loginInfo;
+            try {
+                await dbAPI({
+                    method: API.createPreferences.method,
+                    url: API.createPreferences.url.replace(':uid', localId),
+                    params: { auth: idToken },
+                    data: {
+                        cart: rootState.product.cart,
+                        favorite: rootState.product.favorite
+                    }
+                });
+            }
+            catch (error) {
+                console.error(error.message);
+            }
+        },
+        async readPreferences ({ state, dispatch }) {
+            const { localId, idToken } = state.loginInfo;
+            try {
+                const { data } = await dbAPI({
+                    method: API.readPreferences.method,
+                    url: API.readPreferences.url.replace(':uid', localId),
+                    params: { auth: idToken }
+                });
+                return data;
+            }
+            catch (error) {
+                console.error(error.message);
             }
         }
     }

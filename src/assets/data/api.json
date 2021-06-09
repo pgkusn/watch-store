@@ -30,5 +30,13 @@
     "changePassword":{
         "method": "post",
         "url": "/accounts:update"
+    },
+    "createPreferences":{
+        "method": "patch",
+        "url": "/member/:uid.json"
+    },
+    "readPreferences":{
+        "method": "get",
+        "url": "/member/:uid.json"
     }
 }
