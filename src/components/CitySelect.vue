@@ -10,7 +10,7 @@
         </select>
     </div>
     <div class="select ml-[10px]">
-        <select v-model="areaSelect" :required="required" @change="changeCity">
+        <select v-model="areaSelectComputed" :required="required" @change="changeCity">
             <option value="" selected disabled>
                 請選擇
             </option>
@@ -31,6 +31,10 @@ export default {
         required: {
             type: Boolean,
             default: false
+        },
+        address: {
+            type: Object,
+            default: () => {}
         }
     },
     emits: ['changeCity'],
@@ -39,15 +43,23 @@ export default {
         const citySelect = ref('');
         const citySelectComputed = computed({
             get () {
-                return citySelect.value;
+                return props.address?.city || citySelect.value;
             },
             set (value) {
                 citySelect.value = value;
                 areaSelect.value = '';
             }
         });
-        const areas = computed(() => cityData.find(city => city.CityName === citySelect.value)?.AreaList.map(item => item.AreaName));
+        const areas = computed(() => cityData.find(city => city.CityName === citySelectComputed.value)?.AreaList.map(item => item.AreaName));
         const areaSelect = ref('');
+        const areaSelectComputed = computed({
+            get () {
+                return props.address?.area || areaSelect.value;
+            },
+            set (value) {
+                areaSelect.value = value;
+            }
+        });
 
         const changeCity = () => {
             emit('changeCity', {
@@ -58,10 +70,9 @@ export default {
 
         return {
             cities,
-            citySelect,
             citySelectComputed,
             areas,
-            areaSelect,
+            areaSelectComputed,
             changeCity
         };
     }

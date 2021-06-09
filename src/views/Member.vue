@@ -11,6 +11,9 @@
                 <li class="ml-10 md:ml-0 md:mt-6 cursor-pointer" :class="componentId === 'OrderHistory' ? 'border-b-2 border-dark-golden' : ''" @click="componentId = 'OrderHistory'">
                     訂單查詢
                 </li>
+                <li class="ml-10 md:ml-0 md:mt-6 cursor-pointer" @click="logout">
+                    登出
+                </li>
             </ul>
         </div>
 
@@ -63,6 +66,7 @@
 <script>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import MemberUpdate from '@/components/MemberUpdate.vue';
 import OrderHistory from '@/components/OrderHistory.vue';
 
@@ -74,11 +78,19 @@ export default {
     },
     setup () {
         const store = useStore();
+        const router = useRouter();
 
         const componentId = ref('MemberUpdate');
+        const logout = async () => {
+            if (confirm('確定登出？')) {
+                await store.dispatch('member/userLogout');
+                router.push({ name: 'Home' });
+            }
+        };
 
         return {
-            componentId
+            componentId,
+            logout
         };
     }
 };

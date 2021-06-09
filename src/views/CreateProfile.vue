@@ -118,6 +118,11 @@ export default {
     components: {
         CitySelect
     },
+    beforeRouteLeave (to, from, next) {
+        if (confirm('確定要離開嗎？您的資料將無法保留。')) {
+            next();
+        }
+    },
     setup () {
         const store = useStore();
         const router = useRouter();

@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import store from '@/store';
 import Home from '@/views/Home.vue';
 import Product from '@/views/Product.vue';
 import Wishlist from '@/views/Wishlist.vue';
@@ -52,7 +53,15 @@ export default createRouter({
         {
             path: '/login',
             name: 'Login',
-            component: Login
+            component: Login,
+            beforeEnter (to, from, next) {
+                if (store.state.member.loginInfo) {
+                    next({ name: 'Home' });
+                }
+                else {
+                    next();
+                }
+            }
         },
         {
             path: '/signUp',
@@ -82,7 +91,16 @@ export default createRouter({
         {
             path: '/member',
             name: 'Member',
-            component: Member
+            component: Member,
+            beforeEnter (to, from, next) {
+                if (!store.state.member.loginInfo) {
+                    sessionStorage.setItem('beforeLogin', 'Member');
+                    next({ name: 'Login' });
+                }
+                else {
+                    next();
+                }
+            }
         },
         {
             path: '/:pathMatch(.*)*',

@@ -8,15 +8,27 @@
         "url": "/productDetail/:id"
     },
     "userLogin":{
-        "method":"post",
-        "url":"/accounts:signInWithPassword"
+        "method": "post",
+        "url": "/accounts:signInWithPassword"
     },
     "userSignUp":{
-        "method":"post",
-        "url":"/accounts:signUp"
+        "method": "post",
+        "url": "/accounts:signUp"
     },
     "createProfile":{
-        "method":"post",
-        "url":"/createProfile"
+        "method": "post",
+        "url": "/createProfile"
+    },
+    "readProfile":{
+        "method": "get",
+        "url": "/member/:uid/profile.json"
+    },
+    "updateProfile":{
+        "method": "patch",
+        "url": "/member/:uid/profile.json"
+    },
+    "changePassword":{
+        "method": "post",
+        "url": "/accounts:update"
     }
 }

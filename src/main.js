@@ -4,4 +4,12 @@ import route from './route';
 import store from './store';
 import './index.scss';
 
-createApp(App).use(route).use(store).mount('#app');
+const app = createApp(App);
+
+app.directive('focus', {
+    mounted (el) {
+        el.focus();
+    }
+});
+
+app.use(route).use(store).mount('#app');

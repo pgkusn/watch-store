@@ -2,7 +2,7 @@
     <form @submit.prevent="updateProfile">
         <table class="w-full">
             <caption class="text-left font-medium pb-2 border-b border-[#818A91]">
-                個人資料修改
+                修改個人資料
             </caption>
             <tbody class="text-[#818A91]">
                 <tr>
@@ -71,7 +71,7 @@
                             </select>
                         </div>
                         <br>
-                        <CitySelect @changeCity="value => changeCity('contact', value)" />
+                        <CitySelect :address="memberData.address.contact" @changeCity="value => changeCity('contact', value)" />
                         <input
                             v-model="memberData.address.contact.other"
                             type="text"
@@ -99,7 +99,7 @@
                             </select>
                         </div>
                         <br>
-                        <CitySelect :required="true" @changeCity="value => changeCity('delivery', value)" />
+                        <CitySelect :address="memberData.address.delivery" :required="true" @changeCity="value => changeCity('delivery', value)" />
                         <input
                             v-model="memberData.address.delivery.other"
                             type="text"
@@ -114,7 +114,7 @@
         </table>
     </form>
 
-    <form class="mt-12" @submit.prevent="updateProfile">
+    <form class="mt-12" @submit.prevent="updatePassword">
         <table class="w-full">
             <caption class="text-left font-medium pb-2 border-b border-[#818A91]">
                 修改密碼
@@ -126,7 +126,8 @@
                     </td>
                     <td class="pt-5">
                         <input
-                            v-model="password.old"
+                            ref="focusEl"
+                            v-model="password.oldPassword"
                             type="password"
                             class="text-input"
                             required
@@ -139,7 +140,7 @@
                     </td>
                     <td class="pt-5">
                         <input
-                            v-model="password.new"
+                            v-model="password.newPassword"
                             type="password"
                             class="text-input"
                             required
@@ -154,7 +155,7 @@
                     </td>
                     <td class="pt-5">
                         <input
-                            v-model="password.confirm"
+                            v-model="password.confirmPassword"
                             type="password"
                             class="text-input"
                             required
@@ -168,18 +169,21 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import CitySelect from '@/components/CitySelect.vue';
 
 export default {
-    name: 'Member',
+    name: 'MemberUpdate',
     components: {
         CitySelect
     },
     setup () {
         const store = useStore();
+        const router = useRouter();
 
+        // 修改個人資料
         const memberData = reactive({
             email: '',
             name: '',
@@ -201,35 +205,68 @@ export default {
                 }
             }
         });
-
         const changeCity = (type, { city, area }) => {
             memberData.address[type].city = city;
             memberData.address[type].area = area;
         };
-
+        const readProfile = async () => {
+            const profile = store.state.member.profile || await store.dispatch('member/readProfile');
+            if (profile) {
+                for (const value of Object.keys(memberData)) {
+                    memberData[value] = profile[value];
+                }
+            }
+        };
         const updateProfile = async () => {
             const result = await store.dispatch('member/updateProfile', memberData);
             if (result) {
-                store.dispatch('setAlertMsgHandler', '修改成功');
+                store.dispatch('setAlertMsgHandler', '個人資料修改成功');
             }
         };
 
-        const password = {
-            old: '',
-            new: '',
-            confirm: ''
+        // 修改密碼
+        const password = reactive({
+            oldPassword: '',
+            newPassword: '',
+            confirmPassword: ''
+        });
+        const updatePassword = async () => {
+            if (password.newPassword !== password.confirmPassword) {
+                await store.dispatch('setAlertMsgHandler', '密碼不一致');
+                resetPasswordInput();
+                return;
+            }
+
+            const result = await store.dispatch('member/updatePassword', password);
+            if (!result.success) {
+                await store.dispatch('setAlertMsgHandler', result.message);
+                resetPasswordInput();
+                return;
+            }
+
+            await store.dispatch('setAlertMsgHandler', '密碼修改成功，請重新登入。');
+            store.dispatch('member/userLogout');
+            router.push({ name: 'Login' });
+        };
+        const focusEl = ref(null);
+        const resetPasswordInput = () => {
+            for (const value of Object.keys(password)) {
+                password[value] = '';
+            }
+            focusEl.value.focus();
         };
 
-        const updatePassword = () => {
-
-        };
+        onMounted(() => {
+            readProfile();
+        });
 
         return {
             memberData,
             changeCity,
             updateProfile,
             password,
-            updatePassword
+            updatePassword,
+            focusEl
         };
     }
 };

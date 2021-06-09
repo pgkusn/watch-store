@@ -11,6 +11,7 @@
             <input
                 id="email"
                 v-model="loginData.email"
+                v-focus
                 type="email"
                 placeholder="email@example.com"
                 class="mt-1 text-input"
@@ -39,7 +40,7 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive } from 'vue';
+import { reactive } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
@@ -49,7 +50,6 @@ export default {
         const store = useStore();
         const router = useRouter();
 
-        const loginInfo = computed(() => store.state.member.loginInfo);
         const loginData = reactive({
             email: '',
             password: ''
@@ -58,6 +58,7 @@ export default {
             const result = await store.dispatch('member/userLogin', loginData);
             if (result.success) {
                 const beforeLogin = sessionStorage.getItem('beforeLogin');
+                sessionStorage.removeItem('beforeLogin');
                 if (!beforeLogin) {
                     await store.dispatch('setAlertMsgHandler', '登入成功');
                 }
@@ -67,12 +68,6 @@ export default {
                 await store.dispatch('setAlertMsgHandler', result.message);
             }
         };
-
-        onMounted(async () => {
-            if (loginInfo.value) {
-                router.replace({ name: 'Home' });
-            }
-        });
 
         return {
             loginData,
