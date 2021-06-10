@@ -1,7 +1,7 @@
 <template>
     <div class="container flex flex-col md:flex-row py-10 md:py-[60px]">
-        <div class="text-dark-gray">
-            <p class="hidden md:block mb-7">
+        <div class="text-dark-gray flex-shrink-0">
+            <p class="hidden md:block mb-7 text-black">
                 會員中心
             </p>
             <ul class="flex items-start md:flex-col">
@@ -17,54 +17,12 @@
             </ul>
         </div>
 
-        <div class="order-1 md:order-none md:flex-grow md:pl-[8.6%] md:pr-[30px] mt-10 md:mt-0">
-            <component :is="componentId" />
-        </div>
-
-        <div class="text-[#818A91] mt-10 md:mt-0">
-            <ul class="flex items-center">
-                <li class="material-icons text-black">
-                    person
-                </li>
-                <li class="ml-[5px]">
-                    會員編號
-                </li>
-                <li class="text-xl ml-[5px]">
-                    {{ memberID }}
-                </li>
-            </ul>
-            <table>
-                <tr>
-                    <td class="w-[95px] pt-4">
-                        購物車
-                    </td>
-                    <td class="pt-4">
-                        {{ cart.length }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="pt-4">
-                        我的收藏
-                    </td>
-                    <td class="pt-4">
-                        {{ favorite.length }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="pt-4">
-                        完成訂單
-                    </td>
-                    <td class="pt-4">
-                        待實作
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <component :is="componentId" />
     </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import MemberUpdate from '@/components/MemberUpdate.vue';
@@ -89,16 +47,9 @@ export default {
             }
         };
 
-        const memberID = computed(() => store.state.member.loginInfo?.localId.slice(0, 13));
-        const cart = computed(() => store.state.product.cart);
-        const favorite = computed(() => store.state.product.favorite);
-
         return {
             componentId,
-            logout,
-            memberID,
-            cart,
-            favorite
+            logout
         };
     }
 };

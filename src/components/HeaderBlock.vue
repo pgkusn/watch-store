@@ -19,19 +19,19 @@
             type="checkbox"
         >
         <nav class="absolute z-10 md:static md:ml-auto top-full inset-x-0 flex flex-col md:flex-row text-center text-white md:text-dark-gray bg-dark-gray md:bg-transparent opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto transition-opacity duration-300">
-            <router-link :to="{ name: 'Product' }" class="text-xl leading-[56px] hover:text-[#333]">
+            <router-link :to="{ name: 'Product' }" class="text-xl leading-[56px] md:hover:text-dark-golden">
                 <span class="material-icons align-middle hidden md:inline-block">store</span>
                 Product
             </router-link>
-            <router-link :to="{ name: loginInfo ? 'Member' : 'Login' }" class="text-xl leading-[56px] order-1 md:order-none hover:text-[#333]">
+            <router-link :to="{ name: loginInfo ? 'Member' : 'Login' }" class="text-xl leading-[56px] order-1 md:order-none md:hover:text-dark-golden">
                 <span class="material-icons align-middle hidden md:inline-block">person</span>
                 {{ loginInfo ? 'Mypage' : 'Log in' }}
             </router-link>
-            <router-link :to="{ name: 'Wishlist' }" class="text-xl leading-[56px] hover:text-[#333]">
+            <router-link :to="{ name: 'Wishlist' }" class="text-xl leading-[56px] md:hover:text-dark-golden">
                 <span class="material-icons align-middle hidden md:inline-block">favorite</span>
                 Wishlist
             </router-link>
-            <router-link :to="{ name: 'Cart' }" class="text-xl leading-[56px] hidden md:block hover:text-[#333]">
+            <router-link :to="{ name: 'Cart' }" class="text-xl leading-[56px] hidden md:block md:hover:text-dark-golden">
                 <span class="material-icons align-middle hidden md:inline-block">shopping_cart</span>
                 Cart<span v-if="cart.length">({{ cart.length }})</span>
             </router-link>
@@ -92,7 +92,11 @@ nav > a + a {
         border-top: none;
     }
 }
-.router-link-active {
-    color: #333;
+nav > .router-link-active {
+    background-color: #666;
+    @media (min-width: #{$screen-md}px) {
+        background-color: transparent;
+        color: #916000;
+    }
 }
 </style>

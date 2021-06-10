@@ -25,7 +25,7 @@
                     shopping_cart
                 </button>
             </div>
-            <button v-if="$props.trash" class="material-icons absolute top-2 right-2 hidden group-hover:block focus:outline-none text-dark-golden" @click="$emit('removeProduct', product)">
+            <button v-if="$props.trash" class="material-icons absolute top-2 right-2 md:hidden md:group-hover:block focus:outline-none text-dark-golden" @click="$emit('removeProduct', product)">
                 close
             </button>
         </div>

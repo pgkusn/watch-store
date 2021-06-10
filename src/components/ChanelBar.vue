@@ -8,7 +8,7 @@
                 v-for="item in brands"
                 :key="item.brand"
                 :to="{ name: 'Product', params: { brand: item.brand } }"
-                :class="['text-xl leading-[52px] px-[14px] text-white hover:bg-golden', { 'bg-golden': $props.brand === item.brand }]"
+                :class="['text-xl leading-[52px] px-[14px] text-white md:hover:bg-golden', { 'bg-golden': $props.brand === item.brand }]"
             >
                 {{ item.fullBrand }}
             </router-link>
