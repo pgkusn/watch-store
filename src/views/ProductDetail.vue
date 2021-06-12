@@ -19,7 +19,7 @@
                     </p>
                     <form class="flex h-[50px] mt-3" @submit.prevent="updateLS('cart')">
                         <div class="w-[45%] relative">
-                            <select v-model="amount" class="w-full h-full border border-dark-golden rounded-l rounded-r-none pl-4 appearance-none focus:outline-none">
+                            <select v-model="amountComputed" class="w-full h-full border border-dark-golden rounded-l rounded-r-none pl-4 appearance-none focus:outline-none" :disabled="inCart">
                                 <option v-for="n in 10" :key="n" :value="n">
                                     {{ n }}
                                 </option>
@@ -83,6 +83,14 @@ export default {
         const brand = computed(() => productData.value.find(item => item.id === Number(props.id))?.brand);
         const product = ref(null);
         const amount = ref(1);
+        const amountComputed = computed({
+            get () {
+                return inCart.value?.amount || amount.value;
+            },
+            set (value) {
+                amount.value = value;
+            }
+        });
         const inFavorite = computed(() => {
             const favorite = store.state.product.favorite;
             return favorite.find(item => item.id === product.value.id);
@@ -112,7 +120,7 @@ export default {
             updateLS,
             inFavorite,
             inCart,
-            amount
+            amountComputed
         };
     }
 };
