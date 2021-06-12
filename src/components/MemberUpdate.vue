@@ -203,7 +203,7 @@
                     完成訂單
                 </td>
                 <td class="pt-4">
-                    待實作
+                    {{ orders.length }}
                 </td>
             </tr>
         </table>
@@ -301,8 +301,9 @@ export default {
         const memberID = computed(() => store.state.member.loginInfo?.localId.slice(0, 13));
         const cart = computed(() => store.state.product.cart);
         const favorite = computed(() => store.state.product.favorite);
+        const orders = computed(() => store.state.member.orders);
 
-        onMounted(() => {
+        onMounted(async () => {
             readProfile();
         });
 
@@ -315,7 +316,8 @@ export default {
             focusEl,
             memberID,
             cart,
-            favorite
+            favorite,
+            orders
         };
     }
 };

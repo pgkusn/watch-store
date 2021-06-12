@@ -9,7 +9,7 @@
                 @removeProduct="removeProduct"
             />
             <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Cart', params: {} }" />
-            <button v-if="products.length" class="block mt-[40px] md:mt-[60px] mx-auto w-[160px] h-[38px] rounded bg-dark-golden text-white focus:outline-none" @click="order">
+            <button v-if="products.length" class="block mt-[40px] md:mt-[60px] mx-auto w-[160px] h-[38px] rounded bg-dark-golden text-white focus:outline-none" @click="postOrder">
                 送出訂單
             </button>
         </div>
@@ -53,19 +53,31 @@ export default {
             }
         };
 
+        const loginInfo = computed(() => store.state.member.loginInfo);
         const orderSuccess = ref(false);
-        const order = () => {
-            if (loginInfo.value) {
+        const postOrder = async () => {
+            if (!loginInfo.value) {
+                sessionStorage.setItem('beforeLogin', 'Cart');
+                router.push({ name: 'Login' });
+                return;
+            }
+            const order = allProducts.value.reduce((previousValue, currentValue) => {
+                previousValue.content.push({ name: currentValue.fullBrand, amount: currentValue.amount });
+                previousValue.total += currentValue.price;
+                previousValue.createTime = new Date().getTime();
+                return previousValue;
+            }, { content: [], total: 0 });
+
+            const result = await store.dispatch('member/createOrder', order);
+            if (result) {
+                await store.dispatch('setAlertMsgHandler', '訂購成功');
                 store.dispatch('product/removeLS', 'cart');
                 orderSuccess.value = true;
             }
             else {
-                sessionStorage.setItem('beforeLogin', 'Cart');
-                router.push({ name: 'Login' });
+                await store.dispatch('setAlertMsgHandler', '訂購失敗，請稍後再試！');
             }
         };
-
-        const loginInfo = computed(() => store.state.member.loginInfo);
 
         onMounted(() => {
             if (loginInfo.value && sessionStorage.getItem('beforeLogin')) {
@@ -77,7 +89,7 @@ export default {
             products,
             removeProduct,
             showProducts,
-            order,
+            postOrder,
             orderSuccess
         };
     }

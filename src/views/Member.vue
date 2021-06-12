@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import MemberUpdate from '@/components/MemberUpdate.vue';
@@ -46,6 +46,10 @@ export default {
                 router.push({ name: 'Home' });
             }
         };
+
+        onMounted(async () => {
+            await store.dispatch('member/readOrders');
+        });
 
         return {
             componentId,

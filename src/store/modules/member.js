@@ -20,7 +20,8 @@ export default {
     state: {
         loginInfo: null,
         signUpInfo: null,
-        profile: null
+        profile: null,
+        orders: []
     },
     mutations: {
         setLoginInfo (state, info) {
@@ -31,6 +32,9 @@ export default {
         },
         setProfile (state, profile) {
             state.profile = profile;
+        },
+        setOrders (state, orders) {
+            state.orders = orders;
         }
     },
     actions: {
@@ -56,13 +60,13 @@ export default {
                     LS.set('loginInfo', data);
 
                     // 如 DB 有資料時寫入 client 端，否則 client 端寫入 DB
-                    const preferences = await dispatch('readPreferences');
-                    if (preferences.cart?.length || preferences.favorite?.length) {
-                        dispatch('product/createLS', { name: 'cart', value: preferences.cart }, { root: true });
-                        dispatch('product/createLS', { name: 'favorite', value: preferences.favorite }, { root: true });
+                    const { cart = [], favorite = [] } = await dispatch('readPreferences');
+                    if (cart.length || favorite.length) {
+                        dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
+                        dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
                     }
                     else {
-                        await dispatch('createPreferences');
+                        await dispatch('updatePreferences');
                     }
                 }
 
@@ -148,7 +152,7 @@ export default {
                 LS.set('loginInfo', state.signUpInfo);
                 commit('setLoginInfo', state.signUpInfo);
 
-                await dispatch('createPreferences');
+                await dispatch('updatePreferences');
 
                 return data;
             }
@@ -225,12 +229,12 @@ export default {
                 };
             }
         },
-        async createPreferences ({ state, rootState }) {
+        async updatePreferences ({ state, rootState }) {
             const { localId, idToken } = state.loginInfo;
             try {
                 await dbAPI({
-                    method: API.createPreferences.method,
-                    url: API.createPreferences.url.replace(':uid', localId),
+                    method: API.updatePreferences.method,
+                    url: API.updatePreferences.url.replace(':uid', localId),
                     params: { auth: idToken },
                     data: {
                         cart: rootState.product.cart,
@@ -251,6 +255,40 @@ export default {
                     params: { auth: idToken }
                 });
                 return data;
+            }
+            catch (error) {
+                console.error(error.message);
+            }
+        },
+        async createOrder ({ state }, order) {
+            const { localId, idToken } = state.loginInfo;
+            try {
+                await dbAPI({
+                    method: API.createOrder.method,
+                    url: API.createOrder.url.replace(':uid', localId),
+                    params: { auth: idToken },
+                    data: order
+                });
+                return order;
+            }
+            catch (error) {
+                console.error(error.message);
+            }
+        },
+        async readOrders ({ state, commit }) {
+            const { localId, idToken } = state.loginInfo;
+            try {
+                const { data } = await dbAPI({
+                    method: API.readOrders.method,
+                    url: API.readOrders.url.replace(':uid', localId),
+                    params: { auth: idToken }
+                });
+                const orders = Object.keys(data).reduce((previousValue, currentValue) => {
+                    previousValue.push({ orderID: currentValue, ...data[currentValue] });
+                    return previousValue;
+                }, []);
+                commit('setOrders', orders);
+                return orders;
             }
             catch (error) {
                 console.error(error.message);

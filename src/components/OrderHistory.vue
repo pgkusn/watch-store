@@ -35,19 +35,22 @@
                         </tr>
                     </thead>
                     <tbody class="text-default-gray-900">
-                        <tr v-for="n in 4" :key="n">
+                        <tr v-for="order in orders" :key="order.orderID">
                             <td class="px-5 py-5 border-b border-default-gray-200 bg-white text-sm">
-                                20210328097348
+                                {{ order.orderID }}
                             </td>
                             <td class="px-5 py-5 border-b border-default-gray-200 bg-white text-sm whitespace-nowrap">
-                                Poppy & Barley x1<br>
-                                Poppy & Barley x2
+                                <ul>
+                                    <li v-for="(item, index) in order.content" :key="index">
+                                        {{ item.name }} x{{ item.amount }}
+                                    </li>
+                                </ul>
                             </td>
                             <td class="px-5 py-5 border-b border-default-gray-200 bg-white text-sm">
-                                $1,488
+                                {{ order.total }}
                             </td>
                             <td class="px-5 py-5 border-b border-default-gray-200 bg-white text-sm">
-                                2021-06-10 09:13:57
+                                {{ order.createTime }}
                             </td>
                         </tr>
                     </tbody>
@@ -98,7 +101,29 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import dayjs from 'dayjs';
+import formatPrice from '@/composition/formatPrice.js';
+
 export default {
-    name: 'OrderHistory'
+    name: 'OrderHistory',
+    setup () {
+        const store = useStore();
+
+        const orders = computed(() => {
+            return store.state.member.orders.map(item => ({
+                content: item.content,
+                createTime: dayjs(item.createTime).format('YYYY-MM-DD hh:mm:ss'),
+                orderID: item.orderID,
+                total: formatPrice(item.total)
+            }));
+        });
+
+        return {
+            orders,
+            formatPrice
+        };
+    }
 };
 </script>

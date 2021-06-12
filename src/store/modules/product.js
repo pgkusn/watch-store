@@ -30,7 +30,7 @@ export default {
             commit('setState', { name, value: [] });
 
             if (rootState.member.loginInfo) {
-                dispatch('member/createPreferences', null, { root: true });
+                dispatch('member/updatePreferences', null, { root: true });
             }
 
             return [];
@@ -48,7 +48,7 @@ export default {
             commit('setState', { name, value: products });
 
             if (rootState.member.loginInfo) {
-                dispatch('member/createPreferences', null, { root: true });
+                dispatch('member/updatePreferences', null, { root: true });
             }
 
             return products;
