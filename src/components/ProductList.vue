@@ -1,7 +1,7 @@
 <template>
     <div class="grid auto-rows-auto grid-cols-2 md:grid-cols-4 gap-y-7 md:gap-y-14 gap-x-[15px] md:gap-x-[30px]">
         <div v-for="product in products" :key="product.id" class="relative group">
-            <router-link :to="{ name: 'ProductDetail', params: { id: product.id } }" class="product-link block relative pt-[100%] bg-80% bg-center bg-white bg-no-repeat">
+            <router-link :to="{ name: 'Product', params: { id: product.id } }" class="product-link block relative pt-[100%] bg-80% bg-center bg-white bg-no-repeat">
                 <div class="absolute inset-0 bg-cover bg-center" :style="{ 'background-image': `url(${product.url})` }" />
                 <div v-if="$props.amount && product.amount > 1" class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-3xl">
                     x {{ product.amount }}

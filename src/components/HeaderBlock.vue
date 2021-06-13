@@ -19,7 +19,7 @@
             type="checkbox"
         >
         <nav class="absolute z-10 md:static md:ml-auto top-full inset-x-0 flex flex-col md:flex-row text-center text-white md:text-dark-gray bg-dark-gray md:bg-transparent opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto transition-opacity duration-300">
-            <router-link :to="{ name: 'Product' }" class="text-xl leading-[56px] md:hover:text-dark-golden">
+            <router-link :to="{ name: 'Products' }" class="text-xl leading-[56px] md:hover:text-dark-golden">
                 <span class="material-icons align-middle hidden md:inline-block">store</span>
                 Product
             </router-link>

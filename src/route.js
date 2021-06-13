@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import store from '@/store';
 import Home from '@/views/Home.vue';
-import Product from '@/views/Product.vue';
+import Products from '@/views/Products.vue';
 import Wishlist from '@/views/Wishlist.vue';
 import Cart from '@/views/Cart.vue';
-import ProductDetail from '@/views/ProductDetail.vue';
+import Product from '@/views/Product.vue';
 import Login from '@/views/Login.vue';
 import SignUp from '@/views/SignUp.vue';
 import CreateAccount from '@/views/CreateAccount.vue';
@@ -20,9 +20,9 @@ export default createRouter({
             component: Home
         },
         {
-            path: '/product/:brand?/:page?',
-            name: 'Product',
-            component: Product,
+            path: '/products/:brand?/:page?',
+            name: 'Products',
+            component: Products,
             props: route => ({
                 brand: route.params.brand || 'jo',
                 page: route.params.page || '1'
@@ -45,9 +45,9 @@ export default createRouter({
             })
         },
         {
-            path: '/productDetail/:id',
-            name: 'ProductDetail',
-            component: ProductDetail,
+            path: '/product/:id',
+            name: 'Product',
+            component: Product,
             props: true
         },
         {

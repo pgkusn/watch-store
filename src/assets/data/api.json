@@ -1,11 +1,11 @@
 {
+    "products": {
+        "method": "get",
+        "url": "/products.json"
+    },
     "product": {
         "method": "get",
-        "url": "/product"
-    },
-    "productDetail": {
-        "method": "get",
-        "url": "/productDetail/:id"
+        "url": "/product/:id.json"
     },
     "userLogin": {
         "method": "post",
@@ -24,8 +24,8 @@
         "url": "/token"
     },
     "createProfile": {
-        "method": "post",
-        "url": "/createProfile"
+        "method": "put",
+        "url": "/member/:uid/profile.json"
     },
     "readProfile": {
         "method": "get",

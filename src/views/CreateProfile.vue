@@ -160,10 +160,13 @@ export default {
 
         const submitHandler = async () => {
             const result = await store.dispatch('member/createProfile', memberData);
-            if (result) {
+            if (result.status === 200) {
                 await store.dispatch('setAlertMsgHandler', '註冊成功');
                 profileCreated = true;
                 router.replace({ name: 'Home' });
+            }
+            else if (result.status === 401) {
+                submitHandler();
             }
         };
 

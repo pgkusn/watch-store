@@ -63,7 +63,7 @@ export default {
                     // 如 DB 有資料時寫入 client 端，否則 client 端寫入 DB
                     const result = await dispatch('readPreferences');
                     if (result.status === 200) {
-                        const { cart = [], favorite = [] } = result;
+                        const { cart = [], favorite = [] } = result.data;
                         if (cart.length || favorite.length) {
                             dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
                             dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
@@ -108,10 +108,11 @@ export default {
                 };
             }
         },
-        userLogout ({ commit, dispatch }) {
+        async userLogout ({ commit, dispatch }) {
             LS.remove('loginInfo');
             commit('setLoginInfo', null);
             commit('setProfile', null);
+            commit('setOrders', []);
             dispatch('product/removeLS', 'cart', { root: true });
             dispatch('product/removeLS', 'favorite', { root: true });
         },
@@ -153,25 +154,37 @@ export default {
             }
         },
         async createProfile ({ state, commit, dispatch }, memberData) {
+            const { localId, refreshToken } = state.signUpInfo;
             try {
-                const { data } = await axios({
+                await dbAPI({
                     method: API.createProfile.method,
-                    url: API.createProfile.url,
-                    data: {
-                        uid: state.signUpInfo.localId,
-                        profile: memberData
-                    }
+                    url: API.createProfile.url.replace(':uid', localId),
+                    data: memberData
                 });
 
                 LS.set('loginInfo', state.signUpInfo);
                 commit('setLoginInfo', state.signUpInfo);
 
-                await dispatch('updatePreferences');
+                const result = await dispatch('updatePreferences');
+                if (result.status === 401) {
+                    return {
+                        status: result.status
+                    };
+                }
 
-                return data;
+                return {
+                    status: 200
+                };
             }
             catch (error) {
-                console.error(error.message);
+                if (error.response?.status === 401) {
+                    const result = await dispatch('refreshToken', refreshToken);
+                    if (result) {
+                        return {
+                            status: error.response.status
+                        };
+                    }
+                }
             }
             finally {
                 commit('setSignUpInfo', '');
@@ -194,7 +207,7 @@ export default {
                 };
             }
             catch (error) {
-                if (error.response.status === 401) {
+                if (error.response?.status === 401) {
                     const result = await dispatch('refreshToken', refreshToken);
                     if (result) {
                         return {
@@ -274,7 +287,7 @@ export default {
                 };
             }
             catch (error) {
-                if (error.response.status === 401) {
+                if (error.response?.status === 401) {
                     const result = await dispatch('refreshToken', refreshToken);
                     if (result) {
                         return {
@@ -301,7 +314,7 @@ export default {
                 };
             }
             catch (error) {
-                if (error.response.status === 401) {
+                if (error.response?.status === 401) {
                     const result = await dispatch('refreshToken', refreshToken);
                     if (result) {
                         return {
@@ -325,7 +338,7 @@ export default {
                 };
             }
             catch (error) {
-                if (error.response.status === 401) {
+                if (error.response?.status === 401) {
                     const result = await dispatch('refreshToken', refreshToken);
                     if (result) {
                         return {
@@ -349,7 +362,7 @@ export default {
                 };
             }
             catch (error) {
-                if (error.response.status === 401) {
+                if (error.response?.status === 401) {
                     const result = await dispatch('refreshToken', refreshToken);
                     if (result) {
                         return {
@@ -367,17 +380,19 @@ export default {
                     url: API.readOrders.url.replace(':uid', localId),
                     params: { auth: idToken }
                 });
-                const orders = Object.keys(data).reduce((previousValue, currentValue) => {
-                    previousValue.push({ orderID: currentValue, ...data[currentValue] });
-                    return previousValue;
-                }, []);
-                commit('setOrders', orders);
+                if (data) {
+                    const orders = Object.keys(data).reduce((previousValue, currentValue) => {
+                        previousValue.push({ orderID: currentValue, ...data[currentValue] });
+                        return previousValue;
+                    }, []);
+                    commit('setOrders', orders);
+                }
                 return {
                     status: 200
                 };
             }
             catch (error) {
-                if (error.response.status === 401) {
+                if (error.response?.status === 401) {
                     const result = await dispatch('refreshToken', refreshToken);
                     if (result) {
                         return {

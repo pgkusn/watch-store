@@ -2,6 +2,11 @@ import axios from 'axios';
 import API from '@/assets/data/api.json';
 import LS from '@/composition/localStorage.js';
 
+// reference: https://firebase.google.com/docs/reference/rest/database
+const dbAPI = axios.create({
+    baseURL: 'https://perfume-8b21d-default-rtdb.firebaseio.com'
+});
+
 export default {
     namespaced: true,
     state: {
@@ -53,11 +58,11 @@ export default {
 
             return products;
         },
-        async getProduct ({ commit }) {
+        async getProducts ({ commit }) {
             try {
-                const { data } = await axios({
-                    method: API.product.method,
-                    url: API.product.url
+                const { data } = await dbAPI({
+                    method: API.products.method,
+                    url: API.products.url
                 });
                 commit('setState', { name: 'products', value: data });
                 return data;
@@ -66,11 +71,11 @@ export default {
                 console.error(error.message);
             }
         },
-        async getProductDetail (context, id) {
+        async getProduct (context, id) {
             try {
-                const { data } = await axios({
-                    method: API.productDetail.method,
-                    url: API.productDetail.url.replace(':id', id)
+                const { data } = await dbAPI({
+                    method: API.product.method,
+                    url: API.product.url.replace(':id', id)
                 });
                 return data;
             }

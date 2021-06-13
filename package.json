@@ -2,10 +2,8 @@
   "name": "perfume",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --mode dev",
-    "sit": "vite --mode sit",
-    "build:sit": "vite build --mode sit",
-    "build:prod": "vite build --mode prod",
+    "dev": "vite",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
