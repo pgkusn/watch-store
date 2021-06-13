@@ -17,7 +17,9 @@
             </ul>
         </div>
 
-        <component :is="componentId" />
+        <keep-alive>
+            <component :is="componentId" />
+        </keep-alive>
     </div>
 </template>
 
@@ -47,8 +49,15 @@ export default {
             }
         };
 
-        onMounted(async () => {
-            await store.dispatch('member/readOrders');
+        const readOrders = async () => {
+            const result = await store.dispatch('member/readOrders');
+            if (result.status === 401) {
+                readOrders();
+            }
+        };
+
+        onMounted(() => {
+            readOrders();
         });
 
         return {

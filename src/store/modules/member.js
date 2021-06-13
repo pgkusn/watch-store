@@ -1,3 +1,4 @@
+import { toRaw } from 'vue';
 import axios from 'axios';
 import API from '@/assets/data/api.json';
 import LS from '@/composition/localStorage.js';
@@ -60,18 +61,31 @@ export default {
                     LS.set('loginInfo', data);
 
                     // 如 DB 有資料時寫入 client 端，否則 client 端寫入 DB
-                    const { cart = [], favorite = [] } = await dispatch('readPreferences');
-                    if (cart.length || favorite.length) {
-                        dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
-                        dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
+                    const result = await dispatch('readPreferences');
+                    if (result.status === 200) {
+                        const { cart = [], favorite = [] } = result;
+                        if (cart.length || favorite.length) {
+                            dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
+                            dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
+                        }
+                        else {
+                            const result = await dispatch('updatePreferences');
+                            if (result.status === 401) {
+                                return {
+                                    status: result.status
+                                };
+                            }
+                        }
                     }
-                    else {
-                        await dispatch('updatePreferences');
+                    else if (result.status === 401) {
+                        return {
+                            status: result.status
+                        };
                     }
                 }
 
                 return {
-                    success: true,
+                    status: 200,
                     ...data
                 };
             }
@@ -89,7 +103,7 @@ export default {
                 }
 
                 return {
-                    success: false,
+                    status: error.response.status,
                     message
                 };
             }
@@ -163,8 +177,8 @@ export default {
                 commit('setSignUpInfo', '');
             }
         },
-        async readProfile ({ state, commit }) {
-            const { localId, idToken, email } = state.loginInfo;
+        async readProfile ({ state, commit, dispatch }) {
+            const { localId, idToken, email, refreshToken } = state.loginInfo;
             try {
                 const { data } = await dbAPI({
                     method: API.readProfile.method,
@@ -174,28 +188,20 @@ export default {
                 const profile = { email, ...data };
                 commit('setProfile', profile);
 
-                return profile;
+                return {
+                    status: 200,
+                    profile
+                };
             }
             catch (error) {
-                console.error(error.message);
-            }
-        },
-        async updateProfile ({ state, commit }, memberData) {
-            const { localId, idToken, email } = state.loginInfo;
-            try {
-                const { data } = await dbAPI({
-                    method: API.updateProfile.method,
-                    url: API.updateProfile.url.replace(':uid', localId),
-                    params: { auth: idToken },
-                    data: memberData
-                });
-                const profile = { email, ...data };
-                commit('setProfile', profile);
-
-                return profile;
-            }
-            catch (error) {
-                console.error(error.message);
+                if (error.response.status === 401) {
+                    const result = await dispatch('refreshToken', refreshToken);
+                    if (result) {
+                        return {
+                            status: error.response.status
+                        };
+                    }
+                }
             }
         },
         async updatePassword ({ state, dispatch }, { oldPassword, newPassword }) {
@@ -229,8 +235,57 @@ export default {
                 };
             }
         },
-        async updatePreferences ({ state, rootState }) {
-            const { localId, idToken } = state.loginInfo;
+        async refreshToken ({ state, commit }, token) {
+            const params = new URLSearchParams();
+            params.append('grant_type', 'refresh_token');
+            params.append('refresh_token', token);
+            try {
+                const { data } = await authAPI({
+                    method: API.refreshToken.method,
+                    url: API.refreshToken.url,
+                    data: params
+                });
+                const loginInfo = toRaw(state.loginInfo);
+                loginInfo.idToken = data.id_token;
+                loginInfo.refreshToken = data.refresh_token;
+                commit('setLoginInfo', loginInfo);
+                LS.set('loginInfo', loginInfo);
+                return data;
+            }
+            catch (error) {
+                console.error(error.message);
+            }
+        },
+        async updateProfile ({ state, commit, dispatch }, memberData) {
+            const { localId, idToken, email, refreshToken } = state.loginInfo;
+            try {
+                const { data } = await dbAPI({
+                    method: API.updateProfile.method,
+                    url: API.updateProfile.url.replace(':uid', localId),
+                    params: { auth: idToken },
+                    data: memberData
+                });
+                const profile = { email, ...data };
+                commit('setProfile', profile);
+
+                return {
+                    status: 200,
+                    profile
+                };
+            }
+            catch (error) {
+                if (error.response.status === 401) {
+                    const result = await dispatch('refreshToken', refreshToken);
+                    if (result) {
+                        return {
+                            status: error.response.status
+                        };
+                    }
+                }
+            }
+        },
+        async updatePreferences ({ state, rootState, dispatch }) {
+            const { localId, idToken, refreshToken } = state.loginInfo;
             try {
                 await dbAPI({
                     method: API.updatePreferences.method,
@@ -241,27 +296,47 @@ export default {
                         favorite: rootState.product.favorite
                     }
                 });
+                return {
+                    status: 200
+                };
             }
             catch (error) {
-                console.error(error.message);
+                if (error.response.status === 401) {
+                    const result = await dispatch('refreshToken', refreshToken);
+                    if (result) {
+                        return {
+                            status: error.response.status
+                        };
+                    }
+                }
             }
         },
         async readPreferences ({ state, dispatch }) {
-            const { localId, idToken } = state.loginInfo;
+            const { localId, idToken, refreshToken } = state.loginInfo;
             try {
                 const { data } = await dbAPI({
                     method: API.readPreferences.method,
                     url: API.readPreferences.url.replace(':uid', localId),
                     params: { auth: idToken }
                 });
-                return data;
+                return {
+                    status: 200,
+                    data
+                };
             }
             catch (error) {
-                console.error(error.message);
+                if (error.response.status === 401) {
+                    const result = await dispatch('refreshToken', refreshToken);
+                    if (result) {
+                        return {
+                            status: error.response.status
+                        };
+                    }
+                }
             }
         },
-        async createOrder ({ state }, order) {
-            const { localId, idToken } = state.loginInfo;
+        async createOrder ({ state, dispatch }, order) {
+            const { localId, idToken, refreshToken } = state.loginInfo;
             try {
                 await dbAPI({
                     method: API.createOrder.method,
@@ -269,14 +344,23 @@ export default {
                     params: { auth: idToken },
                     data: order
                 });
-                return order;
+                return {
+                    status: 200
+                };
             }
             catch (error) {
-                console.error(error.message);
+                if (error.response.status === 401) {
+                    const result = await dispatch('refreshToken', refreshToken);
+                    if (result) {
+                        return {
+                            status: error.response.status
+                        };
+                    }
+                }
             }
         },
-        async readOrders ({ state, commit }) {
-            const { localId, idToken } = state.loginInfo;
+        async readOrders ({ state, commit, dispatch }) {
+            const { localId, idToken, refreshToken } = state.loginInfo;
             try {
                 const { data } = await dbAPI({
                     method: API.readOrders.method,
@@ -288,10 +372,19 @@ export default {
                     return previousValue;
                 }, []);
                 commit('setOrders', orders);
-                return orders;
+                return {
+                    status: 200
+                };
             }
             catch (error) {
-                console.error(error.message);
+                if (error.response.status === 401) {
+                    const result = await dispatch('refreshToken', refreshToken);
+                    if (result) {
+                        return {
+                            status: error.response.status
+                        };
+                    }
+                }
             }
         }
     }

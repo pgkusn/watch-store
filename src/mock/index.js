@@ -29,7 +29,6 @@ app.get(API.product.url, upload.array(), async (req, res) => {
 });
 
 app.get(API.productDetail.url, upload.array(), async (req, res) => {
-    console.log(req.params.id);
     await sleep(500);
     res.status(200);
     res.json({

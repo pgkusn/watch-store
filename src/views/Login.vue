@@ -56,7 +56,7 @@ export default {
         });
         const submitHandler = async () => {
             const result = await store.dispatch('member/userLogin', loginData);
-            if (result.success) {
+            if (result.status === 200) {
                 const beforeLogin = sessionStorage.getItem('beforeLogin');
                 sessionStorage.removeItem('beforeLogin');
                 if (!beforeLogin) {
@@ -64,8 +64,11 @@ export default {
                 }
                 router.replace({ name: beforeLogin || 'Home' });
             }
+            else if (result.status === 401) {
+                submitHandler();
+            }
             else {
-                await store.dispatch('setAlertMsgHandler', result.message);
+                store.dispatch('setAlertMsgHandler', result.message);
             }
         };
 

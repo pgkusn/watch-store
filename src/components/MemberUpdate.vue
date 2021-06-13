@@ -252,17 +252,33 @@ export default {
             memberData.address[type].area = area;
         };
         const readProfile = async () => {
-            const profile = store.state.member.profile || await store.dispatch('member/readProfile');
-            if (profile) {
+            let result = {};
+            if (store.state.member.profile) {
+                result = {
+                    status: 200,
+                    profile: store.state.member.profile
+                };
+            }
+            else {
+                result = await store.dispatch('member/readProfile');
+            }
+
+            if (result.status === 200) {
                 for (const value of Object.keys(memberData)) {
-                    memberData[value] = profile[value];
+                    memberData[value] = result.profile[value];
                 }
+            }
+            else if (result.status === 401) {
+                readProfile();
             }
         };
         const updateProfile = async () => {
             const result = await store.dispatch('member/updateProfile', memberData);
-            if (result) {
+            if (result.status === 200) {
                 store.dispatch('setAlertMsgHandler', '個人資料修改成功');
+            }
+            else if (result.status === 401) {
+                updateProfile();
             }
         };
 
@@ -303,7 +319,7 @@ export default {
         const favorite = computed(() => store.state.product.favorite);
         const orders = computed(() => store.state.member.orders);
 
-        onMounted(async () => {
+        onMounted(() => {
             readProfile();
         });
 
