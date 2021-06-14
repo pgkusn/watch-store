@@ -11,7 +11,7 @@
         @apply h-[38px] mt-4 px-[50px] rounded bg-dark-golden text-white cursor-pointer;
     }
     .text-input {
-        @apply block px-3 w-full max-w-[350px] h-[38px] border rounded border-[#ced4da] placeholder-[#818a91];
+        @apply block px-3 w-full h-[38px] border rounded border-[#ced4da] placeholder-[#818a91];
     }
     .select {
         @apply relative inline-block;
