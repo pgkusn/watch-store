@@ -44,7 +44,7 @@ export default {
             commit('setLoginInfo', info);
             return info;
         },
-        async userLogin ({ commit, dispatch }, { email, password, checkPassword }) {
+        async userLogin ({ commit, dispatch }, { email, password }) {
             try {
                 const { data } = await authAPI({
                     method: API.userLogin.method,
@@ -56,32 +56,30 @@ export default {
                     }
                 });
 
-                if (!checkPassword) {
-                    commit('setLoginInfo', data);
-                    LS.set('loginInfo', data);
+                commit('setLoginInfo', data);
+                LS.set('loginInfo', data);
 
-                    // 如 DB 有資料時寫入 client 端，否則 client 端寫入 DB
-                    const result = await dispatch('readPreferences');
-                    if (result.status === 200) {
-                        const { cart = [], favorite = [] } = result.data;
-                        if (cart.length || favorite.length) {
-                            dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
-                            dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
-                        }
-                        else {
-                            const result = await dispatch('updatePreferences');
-                            if (result.status === 401) {
-                                return {
-                                    status: result.status
-                                };
-                            }
+                // 如 DB 有資料時寫入 client 端，否則 client 端寫入 DB
+                const result = await dispatch('readPreferences');
+                if (result.status === 200) {
+                    const { cart = [], favorite = [] } = result.data;
+                    if (cart.length || favorite.length) {
+                        dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
+                        dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
+                    }
+                    else {
+                        const result = await dispatch('updatePreferences');
+                        if (result.status === 401) {
+                            return {
+                                status: result.status
+                            };
                         }
                     }
-                    else if (result.status === 401) {
-                        return {
-                            status: result.status
-                        };
-                    }
+                }
+                else if (result.status === 401) {
+                    return {
+                        status: result.status
+                    };
                 }
 
                 return {
@@ -130,7 +128,7 @@ export default {
                 commit('setSignUpInfo', data);
 
                 return {
-                    success: true,
+                    status: 200,
                     ...data
                 };
             }
@@ -148,7 +146,7 @@ export default {
                 }
 
                 return {
-                    success: false,
+                    status: error.response.status,
                     message
                 };
             }
@@ -218,15 +216,22 @@ export default {
             }
         },
         async updatePassword ({ state, dispatch }, { oldPassword, newPassword }) {
-            const { idToken, email } = state.loginInfo;
-
             // check old password
             const result = await dispatch('userLogin', {
-                email,
-                password: oldPassword,
-                checkPassword: true
+                email: state.loginInfo.email,
+                password: oldPassword
             });
-            if (!result.success) return result;
+            if (result.status === 401) {
+                const result = await dispatch('refreshToken', refreshToken);
+                if (result) {
+                    return {
+                        status: result.status
+                    };
+                }
+            }
+            else if (result.status !== 200) {
+                return result;
+            }
 
             // update password
             try {
@@ -234,16 +239,16 @@ export default {
                     method: API.changePassword.method,
                     url: API.changePassword.url,
                     data: {
-                        idToken,
+                        idToken: state.loginInfo.idToken,
                         password: newPassword,
                         returnSecureToken: true
                     }
                 });
-                return { success: true };
+                return { status: 200 };
             }
             catch (error) {
                 return {
-                    success: false,
+                    status: error.response.status,
                     message: error.response.data.error.message
                 };
             }

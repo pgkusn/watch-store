@@ -76,7 +76,7 @@ export default {
             }
 
             const result = await store.dispatch('member/userSignUp', memberData);
-            if (!result.success) {
+            if (result.status !== 200) {
                 store.dispatch('setAlertMsgHandler', result.message);
                 return;
             }

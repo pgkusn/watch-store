@@ -296,15 +296,18 @@ export default {
             }
 
             const result = await store.dispatch('member/updatePassword', password);
-            if (!result.success) {
+            if (result.status === 401) {
+                updatePassword();
+            }
+            else if (result.status !== 200) {
                 await store.dispatch('setAlertMsgHandler', result.message);
                 resetPasswordInput();
-                return;
             }
-
-            await store.dispatch('setAlertMsgHandler', '密碼修改成功，請重新登入。');
-            store.dispatch('member/userLogout');
-            router.push({ name: 'Login' });
+            else {
+                await store.dispatch('setAlertMsgHandler', '密碼修改成功，請重新登入。');
+                store.dispatch('member/userLogout');
+                router.push({ name: 'Login' });
+            }
         };
         const focusEl = ref(null);
         const resetPasswordInput = () => {
