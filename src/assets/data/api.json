@@ -19,6 +19,10 @@
         "method": "post",
         "url": "/accounts:update"
     },
+    "resetPassword": {
+        "method": "post",
+        "url": "/accounts:sendOobCode"
+    },
     "refreshToken": {
         "method": "post",
         "url": "/token"

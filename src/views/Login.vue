@@ -27,13 +27,15 @@
                 required
             >
             <div class="flex items-center mt-9">
-                <button type="submit" class="w-[65px] h-[38px] rounded bg-dark-golden text-white focus:outline-none">
-                    登入
-                </button>
-                <span class="mx-2">or</span>
+                <a href class="text-dark-golden mr-auto" @click.prevent="forgotPassword">
+                    忘記密碼
+                </a>
                 <router-link :to="{ name: 'CreateAccount' }" class="w-[65px] leading-[36px] text-center rounded border border-dark-golden text-dark-golden focus:outline-none">
                     註冊
                 </router-link>
+                <button type="submit" class="w-[65px] h-[38px] rounded bg-dark-golden text-white focus:outline-none ml-2">
+                    登入
+                </button>
             </div>
         </form>
     </div>
@@ -43,6 +45,8 @@
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 
 export default {
     name: 'Login',
@@ -72,9 +76,42 @@ export default {
             }
         };
 
+        const forgotPassword = () => {
+            Swal.fire({
+                title: '請輸入註冊的電子信箱',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCloseButton: true,
+                confirmButtonText: '確定',
+                showLoaderOnConfirm: true,
+                preConfirm: email => {
+                    return store.dispatch('member/resetPassword', email)
+                        .then(response => {
+                            if (response.status !== 200) {
+                                throw response.message;
+                            }
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(error);
+                        });
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then(result => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '已將重設密碼連結寄至您的信箱'
+                    });
+                }
+            });
+        };
+
         return {
             loginData,
-            submitHandler
+            submitHandler,
+            forgotPassword
         };
     }
 };

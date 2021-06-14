@@ -1,20 +1,8 @@
 import { toRaw } from 'vue';
-import axios from 'axios';
 import API from '@/assets/data/api.json';
 import LS from '@/composition/localStorage.js';
-
-// reference：https://firebase.google.com/docs/reference/rest/auth
-const authAPI = axios.create({
-    baseURL: 'https://identitytoolkit.googleapis.com/v1',
-    params: {
-        key: import.meta.env.VITE_FIREBASE_API_KEY
-    }
-});
-
-// reference: https://firebase.google.com/docs/reference/rest/database
-const dbAPI = axios.create({
-    baseURL: 'https://perfume-8b21d-default-rtdb.firebaseio.com'
-});
+import { authAPI } from '@/composition/authAPI.js';
+import { dbAPI } from '@/composition/dbAPI.js';
 
 export default {
     namespaced: true,
@@ -250,6 +238,33 @@ export default {
                 return {
                     status: error.response.status,
                     message: error.response.data.error.message
+                };
+            }
+        },
+        async resetPassword (context, email) {
+            try {
+                await authAPI({
+                    method: API.resetPassword.method,
+                    url: API.resetPassword.url,
+                    data: {
+                        requestType: 'PASSWORD_RESET',
+                        email
+                    }
+                });
+                return {
+                    status: 200
+                };
+            }
+            catch (error) {
+                console.error(error.message);
+
+                let message = error.response.data.error.message;
+                if (message === 'INVALID_EMAIL') {
+                    message = '查無此信箱';
+                }
+                return {
+                    status: error.response.status,
+                    message
                 };
             }
         },

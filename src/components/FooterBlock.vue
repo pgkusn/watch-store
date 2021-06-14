@@ -7,7 +7,7 @@
                 </h1>
             </router-link>
             <p class="text-sm">
-                © 2020. All Rights Reserved.
+                © {{ new Date().getFullYear() }}. All Rights Reserved.
             </p>
         </div>
     </footer>

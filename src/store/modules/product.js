@@ -1,11 +1,6 @@
-import axios from 'axios';
 import API from '@/assets/data/api.json';
 import LS from '@/composition/localStorage.js';
-
-// reference: https://firebase.google.com/docs/reference/rest/database
-const dbAPI = axios.create({
-    baseURL: 'https://perfume-8b21d-default-rtdb.firebaseio.com'
-});
+import { dbAPI } from '@/composition/dbAPI.js';
 
 export default {
     namespaced: true,
