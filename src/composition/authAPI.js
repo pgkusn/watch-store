@@ -4,7 +4,7 @@ import 'nprogress/nprogress.css';
 
 // reference：https://firebase.google.com/docs/reference/rest/auth
 export const authAPI = axios.create({
-    baseURL: 'https://identitytoolkit.googleapis.com/v1',
+    baseURL: import.meta.env.VITE_AUTH_API_URL,
     params: {
         key: import.meta.env.VITE_FIREBASE_API_KEY
     }

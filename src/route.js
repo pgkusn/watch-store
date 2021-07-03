@@ -94,7 +94,6 @@ export default createRouter({
             component: Member,
             beforeEnter (to, from, next) {
                 if (!store.state.member.loginInfo) {
-                    sessionStorage.setItem('beforeLogin', 'Member');
                     next({ name: 'Login' });
                 }
                 else {

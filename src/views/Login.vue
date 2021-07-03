@@ -62,7 +62,6 @@ export default {
             const result = await store.dispatch('member/userLogin', loginData);
             if (result.status === 200) {
                 const beforeLogin = sessionStorage.getItem('beforeLogin');
-                sessionStorage.removeItem('beforeLogin');
                 if (!beforeLogin) {
                     await store.dispatch('setAlertMsgHandler', '登入成功');
                 }

@@ -161,9 +161,12 @@ export default {
         const submitHandler = async () => {
             const result = await store.dispatch('member/createProfile', memberData);
             if (result.status === 200) {
-                await store.dispatch('setAlertMsgHandler', '註冊成功');
+                const beforeLogin = sessionStorage.getItem('beforeLogin');
+                if (!beforeLogin) {
+                    await store.dispatch('setAlertMsgHandler', '註冊成功');
+                }
                 profileCreated = true;
-                router.replace({ name: 'Home' });
+                router.replace({ name: beforeLogin || 'Home' });
             }
             else if (result.status === 401) {
                 submitHandler();

@@ -4,7 +4,7 @@ import 'nprogress/nprogress.css';
 
 // reference: https://firebase.google.com/docs/reference/rest/database
 export const dbAPI = axios.create({
-    baseURL: 'https://perfume-8b21d-default-rtdb.firebaseio.com'
+    baseURL: import.meta.env.VITE_DB_API_URL
 });
 
 dbAPI.interceptors.request.use(function (config) {

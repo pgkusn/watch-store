@@ -140,11 +140,12 @@ export default {
             }
         },
         async createProfile ({ state, commit, dispatch }, memberData) {
-            const { localId, refreshToken } = state.signUpInfo;
+            const { localId, idToken, refreshToken } = state.signUpInfo;
             try {
                 await dbAPI({
                     method: API.createProfile.method,
                     url: API.createProfile.url.replace(':uid', localId),
+                    params: { auth: idToken },
                     data: memberData
                 });
 

@@ -84,7 +84,8 @@ export default {
 
         onMounted(() => {
             if (loginInfo.value && sessionStorage.getItem('beforeLogin')) {
-                order();
+                sessionStorage.removeItem('beforeLogin');
+                postOrder();
             }
         });
 
