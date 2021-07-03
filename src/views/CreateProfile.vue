@@ -1,10 +1,10 @@
 <template>
     <form @submit.prevent="submitHandler">
         <table class="w-full">
-            <caption class="text-left font-medium pb-2 border-b border-[#818A91]">
+            <caption class="text-left font-medium pb-2 border-b border-blue-gray">
                 建立個人資料
             </caption>
-            <tbody class="text-[#818A91]">
+            <tbody class="text-blue-gray">
                 <tr>
                     <td class="pt-5 w-[90px]">
                         <div>會員姓名</div>

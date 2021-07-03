@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$props.pages > 1" class="flex justify-center mt-[40px] md:mt-[60px] text-xl leading-6">
+    <div v-if="$props.pages > 1" class="flex justify-center mt-10 md:mt-15 text-xl leading-6">
         <router-link
             v-for="n in pages"
             :key="n"

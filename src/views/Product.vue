@@ -2,7 +2,7 @@
     <div>
         <ChanelBar :products="productData" :brand="brand" />
 
-        <div v-if="product" class="container py-[40px] md:py-[60px] grid grid-rows-[repeat(5,auto)] md:grid-rows-[repeat(3,auto)] md:grid-cols-3 gap-[30px]">
+        <div v-if="product" class="container py-10 md:py-15 grid grid-rows-[repeat(5,auto)] md:grid-rows-[repeat(3,auto)] md:grid-cols-3 gap-[30px]">
             <div class="md:row-start-1 md:row-span-1 md:col-start-1 md:col-span-2">
                 <div class="pt-[63%] bg-center bg-cover" :style="{ 'background-image': `url(${product.imageUrl[0]})` }" />
             </div>

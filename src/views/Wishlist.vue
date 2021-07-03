@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container py-10 md:py-[60px]">
+        <div class="container py-10 md:py-15">
             <ProductList
                 :products="showProducts"
                 :tool="false"

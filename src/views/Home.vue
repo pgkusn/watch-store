@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="container products my-[40px] md:my-[60px]">
+        <div class="container products my-10 md:my-15">
             <section class="flex flex-col items-center md:flex-row" data-aos="fade-right">
                 <div class="w-[382px] md:w-0 md:flex-grow md:order-1" />
                 <div class="md:w-0 md:flex-grow flex justify-center items-center">
@@ -87,7 +87,7 @@
                         <p class="mt-2">
                             Calculating the critical percentage of planned maintenance will help you prioritize the most important operations that should be performed immediately.
                         </p>
-                        <a href="javascript:;" class="home-btn text-xl mt-5 lg:mt-[60px]">Plan a free online training</a>
+                        <a href="javascript:;" class="home-btn text-xl mt-5 lg:mt-15">Plan a free online training</a>
                     </div>
                 </div>
             </section>
@@ -146,7 +146,7 @@
             </div>
         </div>
 
-        <section class="container py-10 md:py-[60px] flex flex-col md:flex-row items-center" data-aos="zoom-in">
+        <section class="container py-10 md:py-15 flex flex-col md:flex-row items-center" data-aos="zoom-in">
             <div class="w-[345px] md:w-0 md:flex-grow-[5] lg:flex-grow-[7]">
                 <div class="pt-[150%] md:pt-[70%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index9.jpg)" />
             </div>

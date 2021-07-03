@@ -1,7 +1,7 @@
 <template>
     <div class="bg-dark-golden overflow-auto">
         <div class="container flex items-center h-[52px] whitespace-nowrap">
-            <span class="text-xl text-white mr-[14px] select-none hidden md:inline">
+            <span class="text-xl text-[burlywood] mr-[14px] select-none hidden md:inline">
                 CHANEL
             </span>
             <router-link

@@ -10,10 +10,10 @@
                         v-model="email"
                         type="email"
                         placeholder="Your email address"
-                        class="flex-grow w-0 h-[60px] pl-[14.5px] rounded-l rounded-r-none border-2 border-dark-golden placeholder-dark-gray outline-none"
+                        class="flex-grow w-0 h-15 pl-[14.5px] rounded-l rounded-r-none border-2 border-dark-golden placeholder-dark-gray outline-none"
                         required
                     >
-                    <input type="submit" value="Subscribe" class="w-[129px] h-[60px] text-white rounded-r rounded-l-none bg-dark-golden cursor-pointer">
+                    <input type="submit" value="Subscribe" class="w-[129px] h-15 text-white rounded-r rounded-l-none bg-dark-golden cursor-pointer">
                 </div>
             </form>
         </div>

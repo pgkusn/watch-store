@@ -2,10 +2,10 @@
     <div class="order-1 md:order-none md:flex-grow md:pl-[8.6%] md:pr-[30px] mt-10 md:mt-0">
         <form @submit.prevent="updateProfile">
             <table class="w-full">
-                <caption class="text-left font-medium pb-2 border-b border-[#818A91]">
+                <caption class="text-left font-medium pb-2 border-b border-blue-gray">
                     修改個人資料
                 </caption>
-                <tbody class="text-[#818A91]">
+                <tbody class="text-blue-gray">
                     <tr>
                         <td class="pt-5 w-[90px]">
                             <div>電子信箱</div>
@@ -117,10 +117,10 @@
 
         <form class="mt-12" @submit.prevent="updatePassword">
             <table class="w-full">
-                <caption class="text-left font-medium pb-2 border-b border-[#818A91]">
+                <caption class="text-left font-medium pb-2 border-b border-blue-gray">
                     修改密碼
                 </caption>
-                <tbody class="text-[#818A91]">
+                <tbody class="text-blue-gray">
                     <tr>
                         <td class="pt-5 w-[90px]">
                             <div>舊密碼</div>
@@ -169,7 +169,7 @@
         </form>
     </div>
 
-    <div class="text-[#818A91] mt-10 md:mt-0">
+    <div class="text-blue-gray mt-10 md:mt-0">
         <ul class="flex items-center">
             <li class="material-icons text-black">
                 person

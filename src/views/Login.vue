@@ -1,5 +1,5 @@
 <template>
-    <div class="container flex flex-col md:flex-row items-center py-10 md:py-[60px]">
+    <div class="container flex flex-col md:flex-row items-center py-10 md:py-15">
         <div class="w-full md:w-0 md:flex-grow-[6.5]">
             <div class="pt-[63%] bg-center bg-cover" style="background-image: url(https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80)" />
         </div>

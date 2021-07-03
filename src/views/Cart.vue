@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container py-10 md:py-[60px]">
+        <div class="container py-10 md:py-15">
             <ProductList
                 :products="showProducts"
                 :tool="false"
@@ -9,7 +9,7 @@
                 @removeProduct="removeProduct"
             />
             <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Cart', params: {} }" />
-            <button v-if="products.length" class="block mt-[40px] md:mt-[60px] mx-auto w-[160px] h-[38px] rounded bg-dark-golden text-white focus:outline-none" @click="postOrder">
+            <button v-if="products.length" class="block mt-10 md:mt-15 mx-auto w-[160px] h-[38px] rounded bg-dark-golden text-white focus:outline-none" @click="postOrder">
                 送出訂單
             </button>
         </div>

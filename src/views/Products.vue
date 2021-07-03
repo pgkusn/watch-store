@@ -2,7 +2,7 @@
     <div>
         <ChanelBar :products="productData" :brand="$props.brand" />
 
-        <div class="container py-10 md:py-[60px]">
+        <div class="container py-10 md:py-15">
             <ProductList :products="showProducts" />
             <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Products', params: { brand: $props.brand } }" />
         </div>

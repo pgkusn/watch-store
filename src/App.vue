@@ -55,7 +55,6 @@ body {
 .container {
     margin: 0 auto;
     padding: 0 15px;
-    max-width: 1110px !important;
     @media (min-width: #{$screen-xl}px) {
         padding-right: 0;
         padding-left: 0;

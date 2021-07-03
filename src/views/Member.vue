@@ -1,5 +1,5 @@
 <template>
-    <div class="container flex flex-col md:flex-row py-10 md:py-[60px]">
+    <div class="container flex flex-col md:flex-row py-10 md:py-15">
         <div class="text-dark-gray flex-shrink-0">
             <p class="hidden md:block mb-7 text-black">
                 會員中心
