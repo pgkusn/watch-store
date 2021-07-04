@@ -268,17 +268,11 @@ export default {
                     memberData[value] = result.profile[value];
                 }
             }
-            else if (result.status === 401) {
-                readProfile();
-            }
         };
         const updateProfile = async () => {
             const result = await store.dispatch('member/updateProfile', memberData);
             if (result.status === 200) {
                 store.dispatch('setAlertMsgHandler', '個人資料修改成功');
-            }
-            else if (result.status === 401) {
-                updateProfile();
             }
         };
 
@@ -296,17 +290,18 @@ export default {
             }
 
             const result = await store.dispatch('member/updatePassword', password);
-            if (result.status === 401) {
-                updatePassword();
-            }
-            else if (result.status !== 200) {
-                await store.dispatch('setAlertMsgHandler', result.message);
-                resetPasswordInput();
-            }
-            else {
+            switch (result.status) {
+            case 200:
                 await store.dispatch('setAlertMsgHandler', '密碼修改成功，請重新登入。');
                 store.dispatch('member/userLogout');
                 router.push({ name: 'Login' });
+                break;
+            case 401:
+                break;
+            default:
+                await store.dispatch('setAlertMsgHandler', result.message);
+                resetPasswordInput();
+                break;
             }
         };
         const focusEl = ref(null);

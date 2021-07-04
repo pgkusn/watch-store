@@ -49,25 +49,14 @@ export default {
 
                 // 如 DB 有資料時寫入 client 端，否則 client 端寫入 DB
                 const result = await dispatch('readPreferences');
-                if (result.status === 200) {
-                    const { cart = [], favorite = [] } = result.data;
-                    if (cart.length || favorite.length) {
-                        dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
-                        dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
-                    }
-                    else {
-                        const result = await dispatch('updatePreferences');
-                        if (result.status === 401) {
-                            return {
-                                status: result.status
-                            };
-                        }
-                    }
+                if (result.status !== 200) return result;
+                const { cart = [], favorite = [] } = result.data || {};
+                if (cart.length || favorite.length) {
+                    dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
+                    dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
                 }
-                else if (result.status === 401) {
-                    return {
-                        status: result.status
-                    };
+                else {
+                    dispatch('updatePreferences');
                 }
 
                 return {
@@ -76,8 +65,6 @@ export default {
                 };
             }
             catch (error) {
-                console.error(error.message);
-
                 let message = error.response.data.error.message;
                 switch (message) {
                 case 'EMAIL_NOT_FOUND':
@@ -97,6 +84,7 @@ export default {
         async userLogout ({ commit, dispatch }) {
             LS.remove('loginInfo');
             commit('setLoginInfo', null);
+            commit('setSignUpInfo', null);
             commit('setProfile', null);
             commit('setOrders', []);
             dispatch('product/removeLS', 'cart', { root: true });
@@ -143,8 +131,8 @@ export default {
             const { localId, idToken, refreshToken } = state.signUpInfo;
             try {
                 await dbAPI({
-                    method: API.createProfile.method,
-                    url: API.createProfile.url.replace(':uid', localId),
+                    method: API.updateProfile.method,
+                    url: API.updateProfile.url.replace(':uid', localId),
                     params: { auth: idToken },
                     data: memberData
                 });
@@ -152,33 +140,23 @@ export default {
                 LS.set('loginInfo', state.signUpInfo);
                 commit('setLoginInfo', state.signUpInfo);
 
-                const result = await dispatch('updatePreferences');
-                if (result.status === 401) {
-                    return {
-                        status: result.status
-                    };
-                }
-
-                return {
-                    status: 200
-                };
+                const { status } = await dispatch('updatePreferences');
+                return { status };
             }
             catch (error) {
-                if (error.response?.status === 401) {
+                const status = error.response.status;
+                if (status === 401) {
                     const result = await dispatch('refreshToken', refreshToken);
-                    if (result) {
-                        return {
-                            status: error.response.status
-                        };
-                    }
+                    const signUpInfo = toRaw(state.signUpInfo);
+                    signUpInfo.idToken = result.id_token;
+                    signUpInfo.refreshToken = result.refresh_token;
+                    commit('setSignUpInfo', signUpInfo);
                 }
-            }
-            finally {
-                commit('setSignUpInfo', '');
+                return { status };
             }
         },
         async readProfile ({ state, commit, dispatch }) {
-            const { localId, idToken, email, refreshToken } = state.loginInfo;
+            const { localId, idToken, email } = state.loginInfo;
             try {
                 const { data } = await dbAPI({
                     method: API.readProfile.method,
@@ -194,14 +172,32 @@ export default {
                 };
             }
             catch (error) {
-                if (error.response?.status === 401) {
-                    const result = await dispatch('refreshToken', refreshToken);
-                    if (result) {
-                        return {
-                            status: error.response.status
-                        };
-                    }
-                }
+                return {
+                    status: error.response.status
+                };
+            }
+        },
+        async updateProfile ({ state, commit }, memberData) {
+            const { localId, idToken, email } = state.loginInfo;
+            try {
+                const { data } = await dbAPI({
+                    method: API.updateProfile.method,
+                    url: API.updateProfile.url.replace(':uid', localId),
+                    params: { auth: idToken },
+                    data: memberData
+                });
+                const profile = { email, ...data };
+                commit('setProfile', profile);
+
+                return {
+                    status: 200,
+                    profile
+                };
+            }
+            catch (error) {
+                return {
+                    status: error.response.status
+                };
             }
         },
         async updatePassword ({ state, dispatch }, { oldPassword, newPassword }) {
@@ -210,17 +206,7 @@ export default {
                 email: state.loginInfo.email,
                 password: oldPassword
             });
-            if (result.status === 401) {
-                const result = await dispatch('refreshToken', refreshToken);
-                if (result) {
-                    return {
-                        status: result.status
-                    };
-                }
-            }
-            else if (result.status !== 200) {
-                return result;
-            }
+            if (result.status !== 200) return result;
 
             // update password
             try {
@@ -269,57 +255,28 @@ export default {
                 };
             }
         },
-        async refreshToken ({ state, commit }, token) {
-            const params = new URLSearchParams();
-            params.append('grant_type', 'refresh_token');
-            params.append('refresh_token', token);
-            try {
-                const { data } = await authAPI({
-                    method: API.refreshToken.method,
-                    url: API.refreshToken.url,
-                    data: params
-                });
-                const loginInfo = toRaw(state.loginInfo);
-                loginInfo.idToken = data.id_token;
-                loginInfo.refreshToken = data.refresh_token;
-                commit('setLoginInfo', loginInfo);
-                LS.set('loginInfo', loginInfo);
-                return data;
-            }
-            catch (error) {
-                console.error(error.message);
-            }
-        },
-        async updateProfile ({ state, commit, dispatch }, memberData) {
-            const { localId, idToken, email, refreshToken } = state.loginInfo;
+        async readPreferences ({ state }) {
+            const { localId, idToken } = state.loginInfo;
             try {
                 const { data } = await dbAPI({
-                    method: API.updateProfile.method,
-                    url: API.updateProfile.url.replace(':uid', localId),
-                    params: { auth: idToken },
-                    data: memberData
+                    method: API.readPreferences.method,
+                    url: API.readPreferences.url.replace(':uid', localId),
+                    params: { auth: idToken }
                 });
-                const profile = { email, ...data };
-                commit('setProfile', profile);
-
                 return {
                     status: 200,
-                    profile
+                    data
                 };
             }
             catch (error) {
-                if (error.response?.status === 401) {
-                    const result = await dispatch('refreshToken', refreshToken);
-                    if (result) {
-                        return {
-                            status: error.response.status
-                        };
-                    }
-                }
+                return {
+                    status: error.response.status,
+                    message: error.message
+                };
             }
         },
         async updatePreferences ({ state, rootState, dispatch }) {
-            const { localId, idToken, refreshToken } = state.loginInfo;
+            const { localId, idToken } = state.loginInfo;
             try {
                 await dbAPI({
                     method: API.updatePreferences.method,
@@ -335,42 +292,13 @@ export default {
                 };
             }
             catch (error) {
-                if (error.response?.status === 401) {
-                    const result = await dispatch('refreshToken', refreshToken);
-                    if (result) {
-                        return {
-                            status: error.response.status
-                        };
-                    }
-                }
-            }
-        },
-        async readPreferences ({ state, dispatch }) {
-            const { localId, idToken, refreshToken } = state.loginInfo;
-            try {
-                const { data } = await dbAPI({
-                    method: API.readPreferences.method,
-                    url: API.readPreferences.url.replace(':uid', localId),
-                    params: { auth: idToken }
-                });
                 return {
-                    status: 200,
-                    data
+                    status: error.response.status
                 };
             }
-            catch (error) {
-                if (error.response?.status === 401) {
-                    const result = await dispatch('refreshToken', refreshToken);
-                    if (result) {
-                        return {
-                            status: error.response.status
-                        };
-                    }
-                }
-            }
         },
-        async createOrder ({ state, dispatch }, order) {
-            const { localId, idToken, refreshToken } = state.loginInfo;
+        async createOrder ({ state }, order) {
+            const { localId, idToken } = state.loginInfo;
             try {
                 await dbAPI({
                     method: API.createOrder.method,
@@ -383,18 +311,13 @@ export default {
                 };
             }
             catch (error) {
-                if (error.response?.status === 401) {
-                    const result = await dispatch('refreshToken', refreshToken);
-                    if (result) {
-                        return {
-                            status: error.response.status
-                        };
-                    }
-                }
+                return {
+                    status: error.response.status
+                };
             }
         },
-        async readOrders ({ state, commit, dispatch }) {
-            const { localId, idToken, refreshToken } = state.loginInfo;
+        async readOrders ({ state, commit }) {
+            const { localId, idToken } = state.loginInfo;
             try {
                 const { data } = await dbAPI({
                     method: API.readOrders.method,
@@ -413,14 +336,25 @@ export default {
                 };
             }
             catch (error) {
-                if (error.response?.status === 401) {
-                    const result = await dispatch('refreshToken', refreshToken);
-                    if (result) {
-                        return {
-                            status: error.response.status
-                        };
-                    }
-                }
+                return {
+                    status: error.response.status
+                };
+            }
+        },
+        async refreshToken (context, token) {
+            const params = new URLSearchParams();
+            params.append('grant_type', 'refresh_token');
+            params.append('refresh_token', token);
+            try {
+                const { data } = await authAPI({
+                    method: API.refreshToken.method,
+                    url: API.refreshToken.url,
+                    data: params
+                });
+                return data;
+            }
+            catch (error) {
+                console.error(error.message);
             }
         }
     }

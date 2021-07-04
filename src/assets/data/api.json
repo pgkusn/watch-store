@@ -27,25 +27,21 @@
         "method": "post",
         "url": "/token"
     },
-    "createProfile": {
-        "method": "put",
-        "url": "/member/:uid/profile.json"
-    },
     "readProfile": {
         "method": "get",
         "url": "/member/:uid/profile.json"
     },
     "updateProfile": {
-        "method": "patch",
+        "method": "put",
         "url": "/member/:uid/profile.json"
     },
     "readPreferences": {
         "method": "get",
-        "url": "/member/:uid.json"
+        "url": "/member/:uid/preferences.json"
     },
     "updatePreferences": {
-        "method": "patch",
-        "url": "/member/:uid.json"
+        "method": "put",
+        "url": "/member/:uid/preferences.json"
     },
     "createOrder": {
         "method": "post",

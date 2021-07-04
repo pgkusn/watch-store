@@ -1,9 +1,7 @@
 <template>
     <div class="container relative flex items-center py-[9px]">
-        <router-link :to="{ name: 'Home' }">
-            <h1 class="w-[128px]">
-                <img src="@/assets/images/logo.png" :srcset="`${logo2x} 2x`" alt="d’Perfume">
-            </h1>
+        <router-link :to="{ name: 'Home' }" class="w-[128px]">
+            <img src="@/assets/images/logo.png" :srcset="`${logo2x} 2x`" alt="d’Perfume">
         </router-link>
         <router-link :to="{ name: 'Cart' }" class="relative ml-auto mr-4 md:hidden">
             <span class="material-icons text-dark-gray">shopping_cart</span>

@@ -49,15 +49,8 @@ export default {
             }
         };
 
-        const readOrders = async () => {
-            const result = await store.dispatch('member/readOrders');
-            if (result.status === 401) {
-                readOrders();
-            }
-        };
-
         onMounted(() => {
-            readOrders();
+            store.dispatch('member/readOrders');
         });
 
         return {

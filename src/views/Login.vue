@@ -60,19 +60,15 @@ export default {
         });
         const submitHandler = async () => {
             const result = await store.dispatch('member/userLogin', loginData);
-            if (result.status === 200) {
-                const beforeLogin = sessionStorage.getItem('beforeLogin');
-                if (!beforeLogin) {
-                    await store.dispatch('setAlertMsgHandler', '登入成功');
-                }
-                router.replace({ name: beforeLogin || 'Home' });
-            }
-            else if (result.status === 401) {
-                submitHandler();
-            }
-            else {
+            if (result.status !== 200) {
                 store.dispatch('setAlertMsgHandler', result.message);
+                return;
             }
+            const beforeLogin = sessionStorage.getItem('beforeLogin');
+            if (!beforeLogin) {
+                await store.dispatch('setAlertMsgHandler', '登入成功');
+            }
+            router.replace({ name: beforeLogin || 'Home' });
         };
 
         const forgotPassword = () => {

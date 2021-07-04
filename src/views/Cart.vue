@@ -69,16 +69,17 @@ export default {
             }, { content: [], total: 0 });
 
             const result = await store.dispatch('member/createOrder', order);
-            if (result.status === 200) {
+            switch (result.status) {
+            case 200:
                 await store.dispatch('setAlertMsgHandler', '訂購成功');
                 store.dispatch('product/removeLS', 'cart');
                 orderSuccess.value = true;
-            }
-            else if (result.status === 401) {
-                postOrder();
-            }
-            else {
-                await store.dispatch('setAlertMsgHandler', '訂購失敗，請稍後再試！');
+                break;
+            case 401:
+                break;
+            default:
+                store.dispatch('setAlertMsgHandler', '訂購失敗，請稍後再試！');
+                break;
             }
         };
 

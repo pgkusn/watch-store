@@ -28,11 +28,9 @@ export default {
         removeLS ({ commit, dispatch, rootState }, name) {
             LS.remove(name);
             commit('setState', { name, value: [] });
-
             if (rootState.member.loginInfo) {
                 dispatch('member/updatePreferences', null, { root: true });
             }
-
             return [];
         },
         updateLS ({ commit, dispatch, rootState }, { name, value }) {

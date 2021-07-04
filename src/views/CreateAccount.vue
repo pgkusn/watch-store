@@ -12,6 +12,7 @@
                     <td class="pt-5">
                         <input
                             v-model="memberData.email"
+                            v-focus
                             type="email"
                             class="text-input"
                             required

@@ -12,6 +12,7 @@
                     <td class="pt-5">
                         <input
                             v-model="memberData.name"
+                            v-focus
                             type="text"
                             class="text-input"
                             required
@@ -113,20 +114,10 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import CitySelect from '@/components/CitySelect.vue';
 
-let profileCreated = false;
-
 export default {
     name: 'CreateProfile',
     components: {
         CitySelect
-    },
-    beforeRouteLeave (to, from, next) {
-        if (profileCreated) {
-            next();
-        }
-        else if (confirm('確定要離開嗎？資料將無法保留。')) {
-            next();
-        }
     },
     setup () {
         const store = useStore();
@@ -159,16 +150,15 @@ export default {
         };
 
         const submitHandler = async () => {
-            const result = await store.dispatch('member/createProfile', memberData);
-            if (result.status === 200) {
+            const { status } = await store.dispatch('member/createProfile', memberData);
+            if (status === 200) {
                 const beforeLogin = sessionStorage.getItem('beforeLogin');
                 if (!beforeLogin) {
                     await store.dispatch('setAlertMsgHandler', '註冊成功');
                 }
-                profileCreated = true;
                 router.replace({ name: beforeLogin || 'Home' });
             }
-            else if (result.status === 401) {
+            else if (status === 401) {
                 submitHandler();
             }
         };
