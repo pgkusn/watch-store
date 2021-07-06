@@ -1,4 +1,3 @@
-import { toRaw } from 'vue';
 import API from '@/assets/data/api.json';
 import LS from '@/composition/localStorage.js';
 import { authAPI } from '@/composition/authAPI.js';
@@ -32,7 +31,7 @@ export default {
             commit('setLoginInfo', info);
             return info;
         },
-        async userLogin ({ commit, dispatch }, { email, password }) {
+        async userLogin ({ commit }, { email, password }) {
             try {
                 const { data } = await authAPI({
                     method: API.userLogin.method,
@@ -46,18 +45,6 @@ export default {
 
                 commit('setLoginInfo', data);
                 LS.set('loginInfo', data);
-
-                // 如 DB 有資料時寫入 client 端，否則 client 端寫入 DB
-                const result = await dispatch('readPreferences');
-                if (result.status !== 200) return result;
-                const { cart = [], favorite = [] } = result.data || {};
-                if (cart.length || favorite.length) {
-                    dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
-                    dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
-                }
-                else {
-                    dispatch('updatePreferences');
-                }
 
                 return {
                     status: 200,
@@ -109,8 +96,6 @@ export default {
                 };
             }
             catch (error) {
-                console.error(error.message);
-
                 let message = error.response.data.error.message;
                 switch (message) {
                 case 'EMAIL_EXISTS':
@@ -128,7 +113,7 @@ export default {
             }
         },
         async createProfile ({ state, commit, dispatch }, memberData) {
-            const { localId, idToken, refreshToken } = state.signUpInfo;
+            const { localId, idToken } = state.signUpInfo;
             try {
                 await dbAPI({
                     method: API.updateProfile.method,
@@ -144,18 +129,12 @@ export default {
                 return { status };
             }
             catch (error) {
-                const status = error.response.status;
-                if (status === 401) {
-                    const result = await dispatch('refreshToken', refreshToken);
-                    const signUpInfo = toRaw(state.signUpInfo);
-                    signUpInfo.idToken = result.id_token;
-                    signUpInfo.refreshToken = result.refresh_token;
-                    commit('setSignUpInfo', signUpInfo);
-                }
-                return { status };
+                return {
+                    status: error.response.status
+                };
             }
         },
-        async readProfile ({ state, commit, dispatch }) {
+        async readProfile ({ state, commit }) {
             const { localId, idToken, email } = state.loginInfo;
             try {
                 const { data } = await dbAPI({
@@ -200,22 +179,14 @@ export default {
                 };
             }
         },
-        async updatePassword ({ state, dispatch }, { oldPassword, newPassword }) {
-            // check old password
-            const result = await dispatch('userLogin', {
-                email: state.loginInfo.email,
-                password: oldPassword
-            });
-            if (result.status !== 200) return result;
-
-            // update password
+        async updatePassword ({ state }, password) {
             try {
                 await authAPI({
                     method: API.changePassword.method,
                     url: API.changePassword.url,
                     data: {
                         idToken: state.loginInfo.idToken,
-                        password: newPassword,
+                        password,
                         returnSecureToken: true
                     }
                 });
@@ -243,8 +214,6 @@ export default {
                 };
             }
             catch (error) {
-                console.error(error.message);
-
                 let message = error.response.data.error.message;
                 if (message === 'INVALID_EMAIL') {
                     message = '查無此信箱';
@@ -275,7 +244,7 @@ export default {
                 };
             }
         },
-        async updatePreferences ({ state, rootState, dispatch }) {
+        async updatePreferences ({ state, rootState }) {
             const { localId, idToken } = state.loginInfo;
             try {
                 await dbAPI({

@@ -283,13 +283,26 @@ export default {
             confirmPassword: ''
         });
         const updatePassword = async () => {
+            // confirm password
             if (password.newPassword !== password.confirmPassword) {
                 await store.dispatch('setAlertMsgHandler', '密碼不一致');
                 resetPasswordInput();
                 return;
             }
 
-            const result = await store.dispatch('member/updatePassword', password);
+            // check old password
+            const loginResult = await dispatch('userLogin', {
+                email: state.loginInfo.email,
+                password: oldPassword
+            });
+            if (loginResult.status !== 200) {
+                await store.dispatch('setAlertMsgHandler', loginResult.message);
+                resetPasswordInput();
+                return;
+            };
+
+            // update password
+            const result = await store.dispatch('member/updatePassword', password.newPassword);
             switch (result.status) {
             case 200:
                 await store.dispatch('setAlertMsgHandler', '密碼修改成功，請重新登入。');

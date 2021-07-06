@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import { reactive, onMounted, onBeforeUnmount } from 'vue';
+import { reactive, onMounted, onBeforeUnmount, toRaw } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import CitySelect from '@/components/CitySelect.vue';
@@ -159,6 +159,11 @@ export default {
                 router.replace({ name: beforeLogin || 'Home' });
             }
             else if (status === 401) {
+                const signUpInfo = toRaw(store.state.member.signUpInfo);
+                const result = await store.dispatch('member/refreshToken', signUpInfo.refreshToken);
+                signUpInfo.idToken = result.id_token;
+                signUpInfo.refreshToken = result.refresh_token;
+                store.commit('member/setSignUpInfo', signUpInfo);
                 submitHandler();
             }
         };

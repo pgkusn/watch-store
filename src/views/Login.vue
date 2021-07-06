@@ -58,17 +58,39 @@ export default {
             email: '',
             password: ''
         });
+
         const submitHandler = async () => {
-            const result = await store.dispatch('member/userLogin', loginData);
-            if (result.status !== 200) {
-                store.dispatch('setAlertMsgHandler', result.message);
+            const loginResult = await store.dispatch('member/userLogin', loginData);
+            if (loginResult.status !== 200) {
+                store.dispatch('setAlertMsgHandler', loginResult.message);
                 return;
             }
+
+            const { status } = await checkPreferences();
+            if (status !== 200) return;
+
             const beforeLogin = sessionStorage.getItem('beforeLogin');
             if (!beforeLogin) {
                 await store.dispatch('setAlertMsgHandler', '登入成功');
             }
             router.replace({ name: beforeLogin || 'Home' });
+        };
+
+        // 如 DB 有資料時寫入 client 端，否則 client 端寫入 DB
+        const checkPreferences = async () => {
+            const result = await store.dispatch('member/readPreferences');
+            if (result.status !== 200) return result;
+
+            const { cart = [], favorite = [] } = result.data || {};
+            if (cart.length || favorite.length) {
+                store.dispatch('product/createLS', { name: 'cart', value: cart }, { root: true });
+                store.dispatch('product/createLS', { name: 'favorite', value: favorite }, { root: true });
+                return { status: 200 };
+            }
+            else {
+                const result = await store.dispatch('member/updatePreferences');
+                return result;
+            }
         };
 
         const forgotPassword = () => {
