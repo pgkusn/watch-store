@@ -24,7 +24,7 @@ export default createRouter({
             name: 'Products',
             component: Products,
             props: route => ({
-                brand: route.params.brand || 'jo',
+                brand: route.params.brand || 'agnes',
                 page: route.params.page || '1'
             })
         },

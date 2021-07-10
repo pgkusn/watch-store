@@ -150,15 +150,18 @@ export default {
         };
 
         const submitHandler = async () => {
-            const { status } = await store.dispatch('member/createProfile', memberData);
-            if (status === 200) {
+            const { status: createStatus } = await store.dispatch('member/createProfile', memberData);
+            if (createStatus !== 200) return;
+
+            const { status: updateStatus } = await store.dispatch('member/updatePreferences');
+            if (updateStatus === 200) {
                 const beforeLogin = sessionStorage.getItem('beforeLogin');
                 if (!beforeLogin) {
                     await store.dispatch('setAlertMsgHandler', '註冊成功');
                 }
                 router.replace({ name: beforeLogin || 'Home' });
             }
-            else if (status === 401) {
+            else if (updateStatus === 401) {
                 const signUpInfo = toRaw(store.state.member.signUpInfo);
                 const result = await store.dispatch('member/refreshToken', signUpInfo.refreshToken);
                 signUpInfo.idToken = result.id_token;

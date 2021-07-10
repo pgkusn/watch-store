@@ -112,7 +112,7 @@ export default {
                 };
             }
         },
-        async createProfile ({ state, commit, dispatch }, memberData) {
+        async createProfile ({ state, commit }, memberData) {
             const { localId, idToken } = state.signUpInfo;
             try {
                 await dbAPI({
@@ -125,8 +125,9 @@ export default {
                 LS.set('loginInfo', state.signUpInfo);
                 commit('setLoginInfo', state.signUpInfo);
 
-                const { status } = await dispatch('updatePreferences');
-                return { status };
+                return {
+                    status: 200
+                };
             }
             catch (error) {
                 return {

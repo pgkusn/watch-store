@@ -1,9 +1,6 @@
 <template>
     <div class="bg-dark-golden overflow-auto">
         <div class="container flex items-center h-[52px] whitespace-nowrap">
-            <span class="text-xl text-[burlywood] mr-[14px] select-none hidden md:inline">
-                CHANEL
-            </span>
             <router-link
                 v-for="item in brands"
                 :key="item.brand"
@@ -20,7 +17,7 @@
 import { computed } from 'vue';
 
 export default {
-    name: 'ChanelBar',
+    name: 'ProductNav',
     props: {
         products: {
             type: Array,

@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-cover bg-left" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index10.jpg)">
+    <div class="bg-cover bg-top-60%" style="background-image: url(images/subscribe.jpg)">
         <div class="container h-[600px] pt-[312px]">
             <form class="max-w-[350px] mx-auto md:ml-0" @submit.prevent="subscribe">
                 <p class="text-dark-gray text-[32px]">

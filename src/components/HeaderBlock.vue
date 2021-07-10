@@ -1,5 +1,5 @@
 <template>
-    <div class="container relative flex items-center py-[9px]">
+    <div class="container flex items-center py-[9px]">
         <router-link :to="{ name: 'Home' }" class="w-[128px]">
             <img src="@/assets/images/logo.png" :srcset="`${logo2x} 2x`" alt="d’Perfume">
         </router-link>
@@ -16,7 +16,7 @@
             class="hidden"
             type="checkbox"
         >
-        <nav class="absolute md:static top-full inset-x-0 z-10 flex flex-col md:flex-row md:ml-auto text-center text-white md:text-dark-gray bg-dark-gray md:bg-transparent opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto transition-opacity duration-300">
+        <nav class="absolute md:static top-[62px] inset-x-0 z-10 flex flex-col md:flex-row md:ml-auto text-center text-white md:text-dark-gray bg-dark-gray md:bg-transparent opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto transition-opacity duration-300">
             <router-link :to="{ name: 'Products' }" class="text-xl leading-[56px] md:hover:text-dark-golden">
                 <span class="material-icons align-middle hidden md:inline-block">store</span>
                 Product

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ChanelBar :products="productData" :brand="$props.brand" />
+        <ProductNav :products="productData" :brand="$props.brand" />
 
         <div class="container py-10 md:py-15">
             <ProductList :products="showProducts" />
@@ -17,7 +17,7 @@ import { useStore } from 'vuex';
 import Subscribe from '@/components/Subscribe.vue';
 import ProductList from '@/components/ProductList.vue';
 import Pagination from '@/components/Pagination.vue';
-import ChanelBar from '@/components/ChanelBar.vue';
+import ProductNav from '@/components/ProductNav.vue';
 import useShowList from '@/composition/showList.js';
 
 export default {
@@ -26,7 +26,7 @@ export default {
         Subscribe,
         ProductList,
         Pagination,
-        ChanelBar
+        ProductNav
     },
     props: {
         brand: {

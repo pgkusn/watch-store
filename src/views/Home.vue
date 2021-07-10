@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="hero bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index1.jpg)">
+        <div class="hero bg-cover" style="background-image: url(images/hero.jpg)">
             <div class="container h-[480px] md:h-[870px] flex items-center">
                 <div class="text-white max-w-[350px] md:max-w-[445px] mx-auto md:mr-0 md:ml-auto" data-aos="fade-left">
                     <h2 class="text-[32px] md:text-[40px]">
-                        Perfume your day
+                        Watch your day
                     </h2>
                     <p class="text-xl md:text-2xl">
-                        A perfume is like a piece of clothing, a message, a way of presenting oneself a costume that according to the person who wears it.
+                        A watch is like a piece of clothing, a message, a way of presenting oneself a costume that according to the person who wears it.
                     </p>
                     <router-link :to="{ name: 'Products' }" class="home-btn text-[28px] border-white mt-4">
                         Shop now
@@ -22,10 +22,10 @@
                 <div class="md:w-0 md:flex-grow flex justify-center items-center">
                     <div class="max-w-[382px] p-4">
                         <h1 class="text-[32px]">
-                            Gabrielle CHANEL
+                            法式優雅手寫體時標時尚腕錶
                         </h1>
                         <p class="text-xl mt-2">
-                            全新嗅覺體驗，花香四溢、明亮馥郁。結合茉莉、依蘭依蘭、橙花和最迷人的格拉斯晚香玉之花香，呈現出夢幻花香氣息。 極具女性特質的香奈兒嘉柏麗香水，專為光芒四射的她而生。
+                            法國知名品牌agnes b.以獨特的風格設計風靡全球，品牌風格結合藝術與文化上的陶冶，加大霧銀色面綴以品牌創辦人Agnes Trouble 手寫體時標，搭配咖啡色皮質錶帶，體現品牌的法式優雅
                         </p>
                         <router-link :to="{ name: 'Product', params: { id: 1 } }" class="inline-block text-golden font-bold mt-2 md:mt-4">
                             查看更多
@@ -38,12 +38,12 @@
                 <div class="md:w-0 md:flex-grow flex justify-center items-center">
                     <div class="max-w-[382px] p-4">
                         <h1 class="text-[32px]">
-                            Five O’clock Au Gingembre
+                            CK經典線條簡約腕錶
                         </h1>
                         <p class="text-xl mt-2">
-                            生薑與溫醇的肉桂香、紅糖的香甜摻和成一氣，溫暖微辛的氣息反倒形成一股輕煙氤氳開來，還帶點微微煙醺感漫溢在整個鼻息之間，細聞之下,又還有溫溫淡淡的木香，溫和而暖心。
+                            源自美國的品牌<br>強調純粹簡單，輕鬆優雅的設計款式<br>是重視極簡迷人魅力的你不可錯過的一款錶
                         </p>
-                        <router-link :to="{ name: 'Product', params: { id: 2 } }" class="inline-block text-golden font-bold mt-2 md:mt-4">
+                        <router-link :to="{ name: 'Product', params: { id: 12 } }" class="inline-block text-golden font-bold mt-2 md:mt-4">
                             查看更多
                         </router-link>
                     </div>
@@ -54,12 +54,12 @@
                 <div class="md:w-0 md:flex-grow flex justify-center items-center">
                     <div class="max-w-[382px] p-4">
                         <h1 class="text-[32px]">
-                            CHANEL N°5
+                            耀眼迷人時尚晶鑽腕錶
                         </h1>
                         <p class="text-xl mt-2">
-                            N°5，女性魅力的極致精髓。散發柔美澄透的乙醛花束香氣。經典傳奇香氛，蘊藏於極簡設計的獨特瓶身。
+                            經典Logo面盤，時尚品牌，致力於經典與流行之間，並展現品牌企圖心，用以結合時尚與現代美感，簡約時尚設計，流露出優雅大方的亮采風情，搭配心情或場所，怡然呈現！
                         </p>
-                        <router-link :to="{ name: 'Product', params: { id: 3 } }" class="inline-block text-golden font-bold mt-2 md:mt-4">
+                        <router-link :to="{ name: 'Product', params: { id: 13 } }" class="inline-block text-golden font-bold mt-2 md:mt-4">
                             查看更多
                         </router-link>
                     </div>
@@ -70,24 +70,24 @@
                 <div class="md:w-0 md:flex-grow flex justify-center items-center">
                     <div class="max-w-[382px] p-4">
                         <h2 class="text-2xl">
-                            1. Levels of Preventive Maintenance Compliance
+                            1. Move. Exercise. Stand. Track all the ways you're active.
                         </h2>
                         <p class="mt-2">
-                            The core idea of preventative maintenance is the performance of proactive actions against unscheduled downtime in order to identify potential defects before they evolve into something more severe.
+                            Activity rings show your daily activity. Make it your goal to close them every day. To keep you motivated there are awards, personalized coaching, and Activity competitions.
                         </p>
                         <h2 class="text-2xl mt-5 lg:mt-[52px]">
-                            2. Percentage of Planned Maintenance
+                            2. A healthy number of workouts.
                         </h2>
                         <p class="mt-2">
-                            The planned maintenance percentage is the total planned maintenance time in your CMMS software over a date range over the total number of hours of a service performed by the technicians.
+                            From running to cycling to high intensity interval training, Apple Watch tracks all your favorite ways to work out, with the metrics you most want to see.
                         </p>
                         <h2 class="text-2xl mt-5 lg:mt-[52px]">
-                            3. Critical percentage of planned maintenance
+                            3. Make a splash with your watch.
                         </h2>
                         <p class="mt-2">
-                            Calculating the critical percentage of planned maintenance will help you prioritize the most important operations that should be performed immediately.
+                            Apple Watch is water resistant 50 meters.1 Perfect for swimming, surfing, or water balloon fights. Quick, duck!
                         </p>
-                        <a href="javascript:;" class="home-btn text-xl mt-5 lg:mt-15">Plan a free online training</a>
+                        <a href="https://support.apple.com" target="_blank" class="home-btn text-xl mt-5 lg:mt-15">Get help buying</a>
                     </div>
                 </div>
             </section>
@@ -96,50 +96,50 @@
         <div class="bg-gray py-8 md:py-10">
             <div class="container flex flex-col md:flex-row items-center md:items-start">
                 <div class="relative md:flex-grow w-[345px] md:w-0" data-aos="fade-up">
-                    <router-link :to="{ name: 'Product', params: { id: 4 } }" class="block">
-                        <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index6.jpg)" />
+                    <router-link :to="{ name: 'Product', params: { id: 1 } }" class="block">
+                        <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://images.unsplash.com/photo-1617265859824-46910d1ad447?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxODYyNXwwfDF8c2VhcmNofDJ8fHdyaXN0d2F0Y2h8ZW58MHwyfHx8MTYyNTgxNjg5Mw&ixlib=rb-1.2.1&q=80&w=1080)" />
                     </router-link>
                     <div>
-                        <p class="text-2xl leading-9">
-                            Poppy & Barley
+                        <p class="text-2xl leading-9 mt-1">
+                            法式藝術風情時尚腕錶
                         </p>
-                        <p>Jo Malone</p>
+                        <p>agnes b.</p>
                         <ul class="flex">
-                            <li>NT$1,380</li>
+                            <li>NT$5,760</li>
                             <li class="ml-[6px] text-dark-gray line-through">
-                                NT$1,580
+                                NT$7,200
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="relative md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]" data-aos="fade-up" :data-aos-delay="screens.md ? 50 : 0">
-                    <router-link :to="{ name: 'Product', params: { id: 5 } }" class="block">
-                        <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index7.jpg)" />
+                    <router-link :to="{ name: 'Product', params: { id: 15 } }" class="block">
+                        <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://images.unsplash.com/photo-1590087023009-2ec09f26a9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxODYyNXwwfDF8c2VhcmNofDE1fHx3cmlzdHdhdGNofGVufDB8Mnx8fDE2MjU4MTY4OTM&ixlib=rb-1.2.1&q=80&w=1080)" />
                     </router-link>
                     <div>
-                        <p class="text-2xl leading-9">
-                            Body Wash
+                        <p class="text-2xl leading-9 mt-1">
+                            Chronos 奢華時尚真皮日期腕錶
                         </p>
-                        <p>Curology</p>
+                        <p>Folli Follie</p>
                         <ul class="flex">
-                            <li>NT$1,580</li>
+                            <li>NT$7,490</li>
                         </ul>
                     </div>
                 </div>
                 <div class="md:flex-grow w-[345px] md:w-0 mt-8 md:mt-0 md:ml-[30px]" data-aos="fade-up" :data-aos-delay="screens.md ? 100 : 0">
                     <div class="relative">
-                        <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index8.jpg)" />
-                        <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-2xl">
+                        <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://images.unsplash.com/photo-1562157646-4303261af91e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxODYyNXwwfDF8c2VhcmNofDMxMHx8d3Jpc3R3YXRjaHxlbnwwfDJ8fHwxNjI1ODE3MTk5&ixlib=rb-1.2.1&q=80&w=1080)" />
+                        <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 text-white text-2xl">
                             Sold out
                         </div>
                     </div>
                     <div>
-                        <p class="text-2xl leading-9">
-                            Apple Cider Vinegar Capsule
+                        <p class="text-2xl leading-9 mt-1">
+                            GUESS 現代摩登時尚晶鑽腕錶
                         </p>
                         <p>Tonik</p>
                         <ul class="flex">
-                            <li>NT$1,580</li>
+                            <li>NT$5,850</li>
                         </ul>
                     </div>
                 </div>
@@ -148,21 +148,18 @@
 
         <section class="container py-10 md:py-15 flex flex-col md:flex-row items-center" data-aos="zoom-in">
             <div class="w-[345px] md:w-0 md:flex-grow-[5] lg:flex-grow-[7]">
-                <div class="pt-[150%] md:pt-[70%] bg-center bg-cover" style="background-image: url(https://hexschool.github.io/webLayoutTraining1st/perfume-week6/index9.jpg)" />
+                <div class="pt-[150%] md:pt-[70%] bg-center bg-cover" style="background-image: url(images/index-illust2.jpg)" />
             </div>
             <div class="w-[345px] md:w-0 md:flex-grow-[5] lg:flex-grow-[3] md:pl-[30px]">
                 <h1 class="text-[32px]">
-                    Bottle-Recycling
+                    It goes on to help the planet.
                 </h1>
-                <p class="text-xl">
-                    Recycle your used empty bottles and be rewarded!
-                </p>
                 <p class="mt-2">
-                    For the past 10 years, we have collected over 800,000 bottles through Empty Bottle Recycling Campaign and planted more than 860 pine trees for a better environment.For the past 10 years, we have collected over 800,000 bottles through Empty Bottle Recycling Campaign and planted more than 860 pine trees for a better environment.
+                    You may be done with your device, but chances are it still has more to give. If it’s in good shape, we’ll help it go to a new owner, diverting electronic waste from landfills. If not, we’ll send it to our recycling partner, so we can save more precious materials and take less from the earth.
                 </p>
-                <router-link :to="{ name: 'Product', params: { id: 7 } }" class="inline-block text-golden font-bold mt-2">
+                <a href="https://www.apple.com/environment/" target="_blank" class="inline-block text-golden font-bold mt-2">
                     查看更多
-                </router-link>
+                </a>
             </div>
         </section>
 

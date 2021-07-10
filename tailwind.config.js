@@ -7,7 +7,7 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         screens: {
-            // sm: '640px',
+            sm: '640px',
             md: '768px',
             lg: '1024px',
             xl: '1280px',
@@ -109,7 +109,8 @@ module.exports = {
             right: 'right',
             'right-bottom': 'right bottom',
             'right-top': 'right top',
-            top: 'top'
+            top: 'top',
+            'top-60%': 'center top 60%'
         },
         backgroundSize: {
             auto: 'auto',

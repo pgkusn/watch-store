@@ -1,20 +1,22 @@
 <template>
     <div class="grid auto-rows-auto grid-cols-2 md:grid-cols-4 gap-y-7 md:gap-y-14 gap-x-[15px] md:gap-x-[30px]">
-        <div v-for="product in products" :key="product.id" class="relative group">
+        <div v-for="product in products" :key="product.id" class="relative group flex flex-col">
             <router-link :to="{ name: 'Product', params: { id: product.id } }" class="product-link block relative pt-[100%] bg-80% bg-center bg-white bg-no-repeat">
                 <div class="absolute inset-0 bg-cover bg-center" :style="{ 'background-image': `url(${product.url})` }" />
                 <div v-if="$props.amount && product.amount > 1" class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-3xl">
                     x {{ product.amount }}
                 </div>
             </router-link>
-            <h2 class="text-xl md:text-2xl">
+            <h2 class="text-xl lg:text-2xl mt-1 flex-grow">
                 {{ product.name }}
             </h2>
             <p>{{ product.fullBrand }}</p>
             <ul class="flex">
-                <li>{{ formatPrice(product.price) }}</li>
+                <li>
+                    {{ product.discount ? formatPrice(Math.floor(product.price * product.discount)) : formatPrice(product.price) }}
+                </li>
                 <li v-if="product.discount" class="ml-[6px] text-dark-gray line-through">
-                    {{ formatPrice(Math.floor(product.price * product.discount)) }}
+                    {{ formatPrice(product.price) }}
                 </li>
             </ul>
             <div v-if="$props.tool">

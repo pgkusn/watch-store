@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ChanelBar :products="productData" :brand="brand" />
+        <ProductNav :products="productData" :brand="brand" />
 
         <div v-if="product" class="container py-10 md:py-15 grid grid-rows-[repeat(5,auto)] md:grid-rows-[repeat(3,auto)] md:grid-cols-3 gap-[30px]">
             <div class="md:row-start-1 md:row-span-1 md:col-start-1 md:col-span-2">
@@ -11,7 +11,7 @@
                     <h1 class="text-[32px]">
                         {{ product.name }}
                     </h1>
-                    <p class="text-xl">
+                    <p class="text-xl whitespace-pre-line mt-1">
                         {{ product.description }}
                     </p>
                     <p class="text-xl mt-8">
@@ -62,13 +62,13 @@
 <script>
 import { onMounted, computed, ref } from 'vue';
 import { useStore } from 'vuex';
-import ChanelBar from '@/components/ChanelBar.vue';
+import ProductNav from '@/components/ProductNav.vue';
 import formatPrice from '@/composition/formatPrice.js';
 
 export default {
     name: 'Product',
     components: {
-        ChanelBar
+        ProductNav
     },
     props: {
         id: {

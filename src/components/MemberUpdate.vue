@@ -291,7 +291,7 @@ export default {
             }
 
             // check old password
-            const loginResult = await dispatch('userLogin', {
+            const loginResult = await store.dispatch('member/userLogin', {
                 email: state.loginInfo.email,
                 password: oldPassword
             });
