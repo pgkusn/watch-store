@@ -19,17 +19,17 @@
                     </p>
                     <form class="flex h-[50px] mt-3" @submit.prevent="updateLS('cart')">
                         <div class="w-[45%] relative">
-                            <select v-model="amountComputed" class="w-full h-full border border-dark-golden rounded-l rounded-r-none pl-4 appearance-none focus:outline-none" :disabled="inCart">
+                            <select v-model="amountComputed" class="w-full h-full border border-raisin-black rounded-l rounded-r-none pl-4 appearance-none focus:outline-none" :disabled="inCart">
                                 <option v-for="n in 10" :key="n" :value="n">
                                     {{ n }}
                                 </option>
                             </select>
                             <div class="triangle absolute top-1/2 right-3 transform -translate-y-1/2" />
                         </div>
-                        <input type="submit" :value="inCart ? '已加入購物車' : '加入購物車'" class="w-[55%] bg-dark-golden text-white rounded-r rounded-l-none cursor-pointer">
+                        <input type="submit" :value="inCart ? '已加入購物車' : '加入購物車'" class="w-[55%] bg-raisin-black text-white rounded-r rounded-l-none cursor-pointer">
                     </form>
                     <button class="mt-3 focus:outline-none" @click="updateLS('favorite')">
-                        <span class="material-icons align-middle text-dark-golden" :class="{ 'opacity-50': !inFavorite }">favorite</span>
+                        <span class="material-icons align-middle text-raisin-black" :class="{ 'opacity-50': !inFavorite }">favorite</span>
                         <span class="ml-0.5">{{ inFavorite ? '已收藏' : '加入我的收藏' }}</span>
                     </button>
                     <h2 class="mt-10 md:mt-20 font-bold">

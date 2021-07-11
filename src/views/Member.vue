@@ -5,10 +5,10 @@
                 會員中心
             </p>
             <ul class="flex items-start md:flex-col">
-                <li class="cursor-pointer" :class="componentId === 'MemberUpdate' ? 'border-b-2 border-dark-golden' : ''" @click="componentId = 'MemberUpdate'">
+                <li class="cursor-pointer" :class="componentId === 'MemberUpdate' ? 'border-b-2 border-raisin-black' : ''" @click="componentId = 'MemberUpdate'">
                     會員資料修改
                 </li>
-                <li class="ml-10 md:ml-0 md:mt-6 cursor-pointer" :class="componentId === 'OrderHistory' ? 'border-b-2 border-dark-golden' : ''" @click="componentId = 'OrderHistory'">
+                <li class="ml-10 md:ml-0 md:mt-6 cursor-pointer" :class="componentId === 'OrderHistory' ? 'border-b-2 border-raisin-black' : ''" @click="componentId = 'OrderHistory'">
                     訂單查詢
                 </li>
                 <li class="ml-10 md:ml-0 md:mt-6 cursor-pointer" @click="logout">

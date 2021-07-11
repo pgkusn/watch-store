@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$props.pages > 1" class="flex justify-center mt-10 md:mt-15 text-xl leading-6">
+    <div v-if="$props.pages > 1" class="flex justify-center mt-10 md:mt-15 text-xl leading-6 text-coral-black">
         <router-link
             v-for="n in pages"
             :key="n"
@@ -33,7 +33,7 @@ export default {
             const currentPage = Number(props.page);
             const classes = ['block', 'w-5', 'text-center'];
             if (currentPage === page) {
-                classes.push('text-golden', 'border-golden', 'border-b-2');
+                classes.push('text-raisin-black', 'border-raisin-black', 'border-b-2');
             }
             if (page > 1) {
                 classes.push('ml-5');

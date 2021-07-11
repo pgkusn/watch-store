@@ -27,13 +27,13 @@
                 required
             >
             <div class="flex items-center mt-9">
-                <a href class="text-dark-golden mr-auto" @click.prevent="forgotPassword">
+                <a href class="text-raisin-black mr-auto" @click.prevent="forgotPassword">
                     忘記密碼
                 </a>
-                <router-link :to="{ name: 'CreateAccount' }" class="w-[65px] leading-[36px] text-center rounded border border-dark-golden text-dark-golden focus:outline-none">
+                <router-link :to="{ name: 'CreateAccount' }" class="w-[65px] leading-[36px] text-center rounded border border-raisin-black text-raisin-black focus:outline-none">
                     註冊
                 </router-link>
-                <button type="submit" class="w-[65px] h-[38px] rounded bg-dark-golden text-white focus:outline-none ml-2">
+                <button type="submit" class="w-[65px] h-[38px] rounded bg-raisin-black text-white focus:outline-none ml-2">
                     登入
                 </button>
             </div>

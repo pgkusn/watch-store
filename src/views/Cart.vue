@@ -9,11 +9,11 @@
                 @removeProduct="removeProduct"
             />
             <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Cart', params: {} }" />
-            <button v-if="products.length" class="block mt-10 md:mt-15 mx-auto w-[160px] h-[38px] rounded bg-dark-golden text-white focus:outline-none" @click="postOrder">
+            <button v-if="products.length" class="block mt-10 md:mt-15 mx-auto w-[160px] h-[38px] rounded bg-raisin-black text-white focus:outline-none" @click="postOrder">
                 送出訂單
             </button>
         </div>
-        <div v-if="!products.length" class="text-2xl text-dark-golden absolute inset-0 m-auto flex justify-center items-center">
+        <div v-if="!products.length" class="text-2xl text-raisin-black absolute inset-0 m-auto flex justify-center items-center">
             {{ orderSuccess ? '訂單已送出' : '購物車內無商品' }}
         </div>
     </div>

@@ -9,7 +9,7 @@
             />
             <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Wishlist', params: {} }" />
         </div>
-        <div v-if="!products.length" class="text-2xl text-dark-golden absolute inset-0 m-auto flex justify-center items-center">
+        <div v-if="!products.length" class="text-2xl text-raisin-black absolute inset-0 m-auto flex justify-center items-center">
             無收藏的商品
         </div>
     </div>

@@ -4,7 +4,7 @@
             <input
                 v-model="searchOrderIDComputed"
                 type="text"
-                class="rounded-lg border-transparent flex-1 appearance-none border border-default-gray-300 w-full py-2 px-4 bg-white text-default-gray-700 placeholder-default-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-dark-golden focus:border-transparent"
+                class="rounded-lg border-transparent flex-1 appearance-none border border-default-gray-300 w-full py-2 px-4 bg-white text-default-gray-700 placeholder-default-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-raisin-black focus:border-transparent"
                 placeholder="訂單編號"
             >
         </div>
@@ -73,8 +73,8 @@
                     v-for="n in showOrders.length"
                     :key="n"
                     type="button"
-                    class="w-full px-4 py-2 border-t border-b border-[#e5e7eb] text-base text-dark-golden bg-white hover:bg-default-gray-100 focus:outline-none"
-                    :class="n === currentPage ? 'text-dark-golden' : 'text-default-gray-600'"
+                    class="w-full px-4 py-2 border-t border-b border-[#e5e7eb] text-base text-raisin-black bg-white hover:bg-default-gray-100 focus:outline-none"
+                    :class="n === currentPage ? 'text-raisin-black' : 'text-default-gray-600'"
                     @click="currentPage = n"
                 >
                     {{ n }}

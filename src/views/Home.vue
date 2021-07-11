@@ -27,7 +27,7 @@
                         <p class="text-xl mt-2">
                             法國知名品牌agnes b.以獨特的風格設計風靡全球，品牌風格結合藝術與文化上的陶冶，加大霧銀色面綴以品牌創辦人Agnes Trouble 手寫體時標，搭配咖啡色皮質錶帶，體現品牌的法式優雅
                         </p>
-                        <router-link :to="{ name: 'Product', params: { id: 1 } }" class="inline-block text-golden font-bold mt-2 md:mt-4">
+                        <router-link :to="{ name: 'Product', params: { id: 1 } }" class="inline-block text-coral-black font-bold mt-2 md:mt-4">
                             查看更多
                         </router-link>
                     </div>
@@ -43,7 +43,7 @@
                         <p class="text-xl mt-2">
                             源自美國的品牌<br>強調純粹簡單，輕鬆優雅的設計款式<br>是重視極簡迷人魅力的你不可錯過的一款錶
                         </p>
-                        <router-link :to="{ name: 'Product', params: { id: 12 } }" class="inline-block text-golden font-bold mt-2 md:mt-4">
+                        <router-link :to="{ name: 'Product', params: { id: 12 } }" class="inline-block text-coral-black font-bold mt-2 md:mt-4">
                             查看更多
                         </router-link>
                     </div>
@@ -59,7 +59,7 @@
                         <p class="text-xl mt-2">
                             經典Logo面盤，時尚品牌，致力於經典與流行之間，並展現品牌企圖心，用以結合時尚與現代美感，簡約時尚設計，流露出優雅大方的亮采風情，搭配心情或場所，怡然呈現！
                         </p>
-                        <router-link :to="{ name: 'Product', params: { id: 13 } }" class="inline-block text-golden font-bold mt-2 md:mt-4">
+                        <router-link :to="{ name: 'Product', params: { id: 13 } }" class="inline-block text-coral-black font-bold mt-2 md:mt-4">
                             查看更多
                         </router-link>
                     </div>
@@ -157,7 +157,7 @@
                 <p class="mt-2">
                     You may be done with your device, but chances are it still has more to give. If it’s in good shape, we’ll help it go to a new owner, diverting electronic waste from landfills. If not, we’ll send it to our recycling partner, so we can save more precious materials and take less from the earth.
                 </p>
-                <a href="https://www.apple.com/environment/" target="_blank" class="inline-block text-golden font-bold mt-2">
+                <a href="https://www.apple.com/environment/" target="_blank" class="inline-block text-coral-black font-bold mt-2">
                     查看更多
                 </a>
             </div>
@@ -213,7 +213,7 @@ export default {
             margin-top: 0;
         }
     }
-    @each $name, $value in map-get($config, home-products) {
+    @each $name, $value in $home-illust {
         &:nth-child(#{$name}) > div:first-child:before {
             display: block;
             padding-top: percentage(math.div(map-get($value, height), map-get($value, width)));

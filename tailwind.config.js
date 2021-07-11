@@ -19,10 +19,6 @@ module.exports = {
 
             black: colors.black,
             white: colors.white,
-            'default-gray': colors.coolGray,
-            gray: '#E0E0E0',
-            'dark-gray': '#8D8D8D',
-            'blue-gray': '#818A91',
             red: colors.red,
             yellow: colors.amber,
             green: colors.emerald,
@@ -30,8 +26,13 @@ module.exports = {
             indigo: colors.indigo,
             purple: colors.violet,
             pink: colors.pink,
-            golden: '#AC8A46',
-            'dark-golden': '#916000'
+            gray: '#E0E0E0',
+            'default-gray': colors.coolGray,
+            'dark-gray': '#8D8D8D',
+            'blue-gray': '#818A91',
+            'coral-black': '#59656F',
+            'raisin-black': '#1D1E2C',
+            'border-color': '#CED4DA'
         },
         spacing: {
             px: '1px',
@@ -116,7 +117,7 @@ module.exports = {
             auto: 'auto',
             cover: 'cover',
             contain: 'contain',
-            '80%': '80%'
+            '50%': '50%'
         },
         blur: {
             0: '0',

@@ -80,7 +80,7 @@
                                 placeholder="請輸入地址"
                             >
                             <label class="flex items-center mt-3">
-                                <input v-model="memberData.edm" type="checkbox" class="checkbox appearance-none w-[15px] h-[15px] rounded-[3px] mr-1 border border-[#CED4DA] checked:border-none checked:bg-dark-golden">
+                                <input v-model="memberData.edm" type="checkbox" class="checkbox appearance-none w-[15px] h-[15px] rounded-[3px] mr-1 border border-border-color checked:border-none checked:bg-raisin-black">
                                 我願意收到最新優惠情報
                             </label>
                         </td>

@@ -1,11 +1,11 @@
 <template>
-    <div class="bg-dark-golden overflow-auto">
+    <div class="bg-raisin-black overflow-auto">
         <div class="container flex items-center h-[52px] whitespace-nowrap">
             <router-link
                 v-for="item in brands"
                 :key="item.brand"
                 :to="{ name: 'Products', params: { brand: item.brand } }"
-                :class="['text-xl leading-[52px] px-[14px] text-white md:hover:bg-golden', { 'bg-golden': $props.brand === item.brand }]"
+                :class="['text-xl leading-[52px] px-[14px] text-white md:hover:bg-coral-black', { 'bg-coral-black': $props.brand === item.brand }]"
             >
                 {{ item.fullBrand }}
             </router-link>
