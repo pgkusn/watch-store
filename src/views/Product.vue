@@ -109,7 +109,7 @@ export default {
             if (!productData.value.length) {
                 await store.dispatch('product/getProducts');
             }
-            product.value = await store.dispatch('product/getProduct', props.id);
+            product.value = await store.dispatch('product/getProduct', props.id - 1);
         });
 
         return {

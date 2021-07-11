@@ -96,7 +96,7 @@
         <div class="bg-gray py-8 md:py-10">
             <div class="container flex flex-col md:flex-row items-center md:items-start">
                 <div class="relative md:flex-grow w-[345px] md:w-0" data-aos="fade-up">
-                    <router-link :to="{ name: 'Product', params: { id: 1 } }" class="block">
+                    <router-link :to="{ name: 'Product', params: { id: 2 } }" class="block">
                         <div class="pt-[101%] md:pt-[150%] bg-center bg-cover" style="background-image: url(https://images.unsplash.com/photo-1617265859824-46910d1ad447?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxODYyNXwwfDF8c2VhcmNofDJ8fHdyaXN0d2F0Y2h8ZW58MHwyfHx8MTYyNTgxNjg5Mw&ixlib=rb-1.2.1&q=80&w=1080)" />
                     </router-link>
                     <div>
@@ -148,7 +148,7 @@
 
         <section class="container py-10 md:py-15 flex flex-col md:flex-row items-center" data-aos="zoom-in">
             <div class="w-[345px] md:w-0 md:flex-grow-[5] lg:flex-grow-[7]">
-                <div class="pt-[150%] md:pt-[70%] bg-center bg-cover" style="background-image: url(images/index-illust2.jpg)" />
+                <div class="pt-[150%] md:pt-[70%] bg-center bg-cover" style="background-image: url(https://images.unsplash.com/photo-1568010213205-81f253b9a040?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80)" />
             </div>
             <div class="w-[345px] md:w-0 md:flex-grow-[5] lg:flex-grow-[3] md:pl-[30px]">
                 <h1 class="text-[32px]">
