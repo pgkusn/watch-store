@@ -1,6 +1,6 @@
 # Watch Store
 
-購物車電商網站，使用 Vue3 串接 Firebase Database、Auth
+購物車電商網站，使用 Vue3 串接 Firebase Database、Auth REST API
 
 ## Skill
 Vue3、Vite、Vue Router、Vuex、Tailwind CSS、Firebase
