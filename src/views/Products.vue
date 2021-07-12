@@ -12,8 +12,9 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import Subscribe from '@/components/Subscribe.vue';
 import ProductList from '@/components/ProductList.vue';
 import Pagination from '@/components/Pagination.vue';
@@ -40,11 +41,18 @@ export default {
     },
     setup (props) {
         const store = useStore();
+        const router = useRouter();
 
         const productData = computed(() => store.state.product.products);
         const singleBrandProduct = computed(() => productData.value.filter(item => item.brand === props.brand));
         const products = useShowList(singleBrandProduct);
         const showProducts = computed(() => products.value[props.page - 1]);
+
+        watch(showProducts, value => {
+            if (!value) {
+                router.replace({ name: 'Error', query: { status: 404 } });
+            }
+        });
 
         onMounted(async () => {
             if (!productData.value.length) {

@@ -4,16 +4,27 @@
             <router-link :to="{ name: 'Home' }" class="w-12">
                 <img src="@/assets/images/logo-white.svg" alt="Watch Store">
             </router-link>
-            <p class="text-sm">
-                <a href="https://www.freepik.com/vectors/logo" target="_blank">Logo vector created by eightonesix - www.freepik.com</a>
-            </p>
+            <a href="https://www.freepik.com/vectors/logo" target="_blank" class="text-sm">
+                <template v-if="screens.sm">
+                    Logo vector created by eightonesix - www.freepik.com
+                </template>
+                <template v-else>
+                    Logo vector created by eightonesix<br>www.freepik.com
+                </template>
+            </a>
         </div>
     </footer>
 </template>
 
 <script>
+import { screens } from '@/composition/mediaSensor.js';
 
 export default {
-    name: 'FooterBlock'
+    name: 'FooterBlock',
+    setup () {
+        return {
+            screens
+        };
+    }
 };
 </script>

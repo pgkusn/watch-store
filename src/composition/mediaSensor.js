@@ -14,5 +14,6 @@ export const useMediaSensor = () => {
         screenTest(mqList);
     };
 
+    mediaSensor({ width: 640, size: 'sm' });
     mediaSensor({ width: 768, size: 'md' });
 };

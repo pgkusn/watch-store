@@ -3,12 +3,15 @@ import App from './App.vue';
 import route from './route';
 import store from './store';
 import './index.scss';
+import device from 'current-device';
 
 const app = createApp(App);
 
 app.directive('focus', {
     mounted (el) {
-        el.focus();
+        if (device.desktop()) {
+            el.focus();
+        }
     }
 });
 

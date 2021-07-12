@@ -27,5 +27,8 @@ dbAPI.interceptors.response.use(function (response) {
         store.dispatch('member/userLogout');
         router.push({ name: 'Login' });
     }
+    else {
+        router.replace({ name: 'Error', query: { status: error.response.status } });
+    }
     return Promise.reject(error);
 });

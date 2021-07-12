@@ -10,6 +10,7 @@ import SignUp from '@/views/SignUp.vue';
 import CreateAccount from '@/views/CreateAccount.vue';
 import CreateProfile from '@/views/CreateProfile.vue';
 import Member from '@/views/Member.vue';
+import ErrorPage from '@/views/Error.vue';
 
 export default createRouter({
     history: createWebHashHistory(),
@@ -25,22 +26,6 @@ export default createRouter({
             component: Products,
             props: route => ({
                 brand: route.params.brand || 'agnes',
-                page: route.params.page || '1'
-            })
-        },
-        {
-            path: '/wishlist/:page?',
-            name: 'Wishlist',
-            component: Wishlist,
-            props: route => ({
-                page: route.params.page || '1'
-            })
-        },
-        {
-            path: '/cart/:page?',
-            name: 'Cart',
-            component: Cart,
-            props: route => ({
                 page: route.params.page || '1'
             })
         },
@@ -102,8 +87,29 @@ export default createRouter({
             }
         },
         {
+            path: '/wishlist/:page?',
+            name: 'Wishlist',
+            component: Wishlist,
+            props: route => ({
+                page: route.params.page || '1'
+            })
+        },
+        {
+            path: '/cart/:page?',
+            name: 'Cart',
+            component: Cart,
+            props: route => ({
+                page: route.params.page || '1'
+            })
+        },
+        {
+            path: '/error',
+            name: 'Error',
+            component: ErrorPage
+        },
+        {
             path: '/:pathMatch(.*)*',
-            redirect: Home
+            redirect: () => ({ name: 'Error', query: { status: 404 } })
         }
     ],
     scrollBehavior (to, from, savedPosition) {

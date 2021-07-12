@@ -62,6 +62,7 @@
 <script>
 import { onMounted, computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import ProductNav from '@/components/ProductNav.vue';
 import formatPrice from '@/composition/formatPrice.js';
 
@@ -78,6 +79,7 @@ export default {
     },
     setup (props) {
         const store = useStore();
+        const router = useRouter();
 
         const productData = computed(() => store.state.product.products);
         const brand = computed(() => productData.value.find(item => item.id === Number(props.id))?.brand);
@@ -109,7 +111,13 @@ export default {
             if (!productData.value.length) {
                 await store.dispatch('product/getProducts');
             }
-            product.value = await store.dispatch('product/getProduct', props.id - 1);
+            const result = await store.dispatch('product/getProduct', props.id - 1);
+            if (result) {
+                product.value = result;
+            }
+            else {
+                router.replace({ name: 'Error', query: { status: 404 } });
+            }
         });
 
         return {
