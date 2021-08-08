@@ -1,9 +1,9 @@
 <template>
-    <div v-if="$props.pages > 1" class="flex justify-center mt-10 md:mt-15 text-xl leading-6 text-coral-black">
+    <div v-if="pages > 1" class="flex justify-center mt-10 md:mt-15 text-xl leading-6 text-coral-black">
         <router-link
             v-for="n in pages"
             :key="n"
-            :to="{ name: $props.route.name, params: { ...$props.route.params, page: n } }"
+            :to="{ name: route.name, params: { ...route.params, page: n } }"
             :class="pageClass(n)"
         >
             {{ n }}

@@ -3,7 +3,7 @@
         <div v-for="product in products" :key="product.id" class="relative group flex flex-col">
             <router-link :to="{ name: 'Product', params: { id: product.id } }" class="product-link block relative pt-[100%] bg-50% bg-center bg-white bg-no-repeat">
                 <div class="absolute inset-0 bg-cover bg-center" :style="{ 'background-image': `url(${product.url})` }" />
-                <div v-if="$props.amount && product.amount > 1" class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-3xl">
+                <div v-if="amount && product.amount > 1" class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 text-white text-3xl">
                     x {{ product.amount }}
                 </div>
             </router-link>
@@ -19,7 +19,7 @@
                     {{ formatPrice(product.price) }}
                 </li>
             </ul>
-            <div v-if="$props.tool">
+            <div v-if="tool">
                 <button class="material-icons align-middle text-raisin-black focus:outline-none" :class="{ 'opacity-50': !inFavorite(product.id) }" @click="updateLS('favorite', product)">
                     favorite
                 </button>
@@ -27,7 +27,7 @@
                     shopping_cart
                 </button>
             </div>
-            <button v-if="$props.trash" class="material-icons absolute top-2 right-2 md:hidden md:group-hover:block focus:outline-none text-black bg-white opacity-50 rounded-full" @click="$emit('removeProduct', product)">
+            <button v-if="trash" class="material-icons absolute top-2 right-2 md:hidden md:group-hover:block focus:outline-none text-black bg-white opacity-50 rounded-full" @click="$emit('removeProduct', product)">
                 close
             </button>
         </div>

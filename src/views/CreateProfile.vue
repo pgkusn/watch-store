@@ -155,11 +155,8 @@ export default {
 
             const { status: updateStatus } = await store.dispatch('member/updatePreferences');
             if (updateStatus === 200) {
-                const beforeLogin = sessionStorage.getItem('beforeLogin');
-                if (!beforeLogin) {
-                    await store.dispatch('setAlertMsgHandler', '註冊成功');
-                }
-                router.replace({ name: beforeLogin || 'Home' });
+                await store.dispatch('setAlertMsgHandler', '註冊成功');
+                router.replace({ name: 'Home' });
             }
             else if (updateStatus === 401) {
                 const signUpInfo = toRaw(store.state.member.signUpInfo);

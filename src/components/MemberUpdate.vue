@@ -292,8 +292,8 @@ export default {
 
             // check old password
             const loginResult = await store.dispatch('member/userLogin', {
-                email: state.loginInfo.email,
-                password: oldPassword
+                email: store.state.member.loginInfo.email,
+                password: password.oldPassword
             });
             if (loginResult.status !== 200) {
                 await store.dispatch('setAlertMsgHandler', loginResult.message);

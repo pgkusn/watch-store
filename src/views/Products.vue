@@ -1,10 +1,10 @@
 <template>
     <div>
-        <ProductNav :products="productData" :brand="$props.brand" />
+        <ProductNav :products="productData" :brand="brand" />
 
         <div class="container py-10 md:py-15">
             <ProductList :products="showProducts" />
-            <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Products', params: { brand: $props.brand } }" />
+            <Pagination :pages="products.length" :page="page" :route="{ name: 'Products', params: { brand: brand } }" />
         </div>
 
         <Subscribe />
@@ -32,11 +32,11 @@ export default {
     props: {
         brand: {
             type: String,
-            default: 'jo'
+            default: ''
         },
         page: {
             type: String,
-            default: '1'
+            default: ''
         }
     },
     setup (props) {

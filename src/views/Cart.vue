@@ -8,7 +8,7 @@
                 :amount="true"
                 @removeProduct="removeProduct"
             />
-            <Pagination :pages="products.length" :page="$props.page" :route="{ name: 'Cart', params: {} }" />
+            <Pagination :pages="products.length" :page="page" :route="{ name: 'Cart', params: {} }" />
             <button v-if="products.length" class="block mt-10 md:mt-15 mx-auto w-[160px] h-[38px] rounded bg-raisin-black text-white focus:outline-none" @click="postOrder">
                 送出訂單
             </button>
