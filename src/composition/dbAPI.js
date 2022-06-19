@@ -23,7 +23,6 @@ dbAPI.interceptors.response.use(function (response) {
     NProgress.done();
     const currentPage = location.hash.split('/').pop();
     if (error.response.status === 401 && currentPage !== 'createProfile') {
-        console.log(currentPage);
         await store.dispatch('setAlertMsgHandler', '登入逾時，請重新登入！');
         store.dispatch('member/userLogout');
         router.push({ name: 'Login' });

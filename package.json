@@ -5,7 +5,7 @@
     "dev": "vite --mode dev",
     "sit": "vite --mode sit",
     "build": "vite build --mode prod",
-    "serve": "vite preview"
+    "serve": "vite preview --port=8888"
   },
   "dependencies": {
     "aos": "^2.3.4",

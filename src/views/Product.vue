@@ -111,7 +111,7 @@ export default {
             if (!productData.value.length) {
                 await store.dispatch('product/getProducts');
             }
-            const result = await store.dispatch('product/getProduct', props.id - 1);
+            const result = await store.dispatch('product/getProduct', props.id);
             if (result) {
                 product.value = result;
             }
